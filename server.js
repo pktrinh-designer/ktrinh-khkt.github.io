@@ -6,7 +6,7 @@ const callGemini = require("./gemini");
 // Cấu hình máy chủ, giới hạn yêu cầu, giới hạn tốc độ và kiểu MIME.
 const PROJECT_ROOT = __dirname;
 const PORT = Number(process.env.PORT || 3000);
-const HOST = "127.0.0.1";
+const HOST = "0.0.0.0";
 const MAX_REQUEST_BYTES = 16 * 1024;
 const MAX_MESSAGE_LENGTH = 1200;
 const requestsByAddress = new Map();
@@ -283,5 +283,5 @@ if (!Number.isInteger(PORT) || PORT < 1024 || PORT > 65535) {
 
 // Khởi động máy chủ tại địa chỉ và cổng đã cấu hình.
 server.listen(PORT, HOST, () => {
-  console.log(`Website: http://${HOST}:${PORT}`);
+  console.log(`Server is running on port ${PORT}`);
 });
