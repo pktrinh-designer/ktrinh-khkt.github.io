@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trang chủ | Công nghệ 8 Kết nối tri thức</title>
+  <link rel="stylesheet" href="../css/shared-layout.css" />
+</head>
+<!-- Trang này khai báo trạng thái điều hướng và mã chương qua thuộc tính data-* bên dưới. -->
+<body data-nav-active="home">
+  <!-- shared-layout.js sẽ dựng thanh điều hướng dùng chung vào vị trí này. -->
+  <div id="site-header"></div>
+
+  <!-- Nội dung chính của trang, được trình bày bên trong vùng main. -->
+
+  <main class="site-main">
+    <div class="site-shell">
+      <!-- Phần giới thiệu: tiêu đề, mô tả và các liên kết thao tác chính. -->
+      <section class="site-hero">
+        <span class="site-eyebrow">Công nghệ 8 · Kết nối tri thức với cuộc sống</span>
+        <h1 class="site-title">Học tập đủ 5 chương Công nghệ 8</h1>
+        <p class="site-subtitle">
+          Mỗi chương có phần giới thiệu đặc điểm, gợi ý cách học và bài kiểm tra riêng. Chọn chương muốn học, ôn nội dung rồi tự đánh giá mức độ nắm bài.
+        </p>
+        <div class="site-action-row">
+          <a class="site-primary-link" href="lop-8/index.html">Xem 5 chương</a>
+          <a class="site-secondary-link" href="kiem-tra.html">Chọn bài kiểm tra</a>
+          <a class="site-ghost-link" href="gioithieu.html">Website hoạt động thế nào?</a>
+        </div>
+      </section>
+
+      <!-- Lưới nội dung hoặc danh sách tương tác chính của trang. -->
+
+      <section class="topic-link-grid" aria-label="Năm chương Công nghệ 8">
+        <article class="site-card" data-chapter="I">
+          <span class="site-badge">Chương I</span>
+          <h2>Vẽ kĩ thuật</h2>
+          <p>Đọc và trình bày bản vẽ, hình chiếu và các quy ước kĩ thuật cơ bản.</p>
+          <div class="grade-card-actions">
+            <a class="site-primary-link" href="lop-8/chuong-i.html">Trọng tâm &amp; cách học</a>
+            <a class="site-secondary-link" href="kiem-tra.html?chuong=I">Kiểm tra Chương I</a>
+          </div>
+        </article>
+
+        <article class="site-card" data-chapter="II">
+          <span class="site-badge">Chương II</span>
+          <h2>Cơ khí</h2>
+          <p>Tìm hiểu vật liệu, truyền chuyển động, gia công và nghề cơ khí.</p>
+          <div class="grade-card-actions">
+            <a class="site-primary-link" href="lop-8/chuong-ii.html">Trọng tâm &amp; cách học</a>
+            <a class="site-secondary-link" href="kiem-tra.html?chuong=II">Kiểm tra Chương II</a>
+          </div>
+        </article>
+
+        <article class="site-card" data-chapter="III">
+          <span class="site-badge">Chương III</span>
+          <h2>An toàn điện</h2>
+          <p>Nhận diện nguy cơ điện và lựa chọn biện pháp, dụng cụ phòng tránh phù hợp.</p>
+          <div class="grade-card-actions">
+            <a class="site-primary-link" href="lop-8/chuong-iii.html">Trọng tâm &amp; cách học</a>
+            <a class="site-secondary-link" href="kiem-tra.html?chuong=III">Kiểm tra Chương III</a>
+          </div>
+        </article>
+
+        <article class="site-card" data-chapter="IV">
+          <span class="site-badge">Chương IV</span>
+          <h2>Kĩ thuật điện</h2>
+          <p>Học vật liệu điện, cấu tạo mạch và lắp ráp mạch điều khiển đơn giản.</p>
+          <div class="grade-card-actions">
+            <a class="site-primary-link" href="lop-8/chuong-iv.html">Trọng tâm &amp; cách học</a>
+            <a class="site-secondary-link" href="kiem-tra.html?chuong=IV">Kiểm tra Chương IV</a>
+          </div>
+        </article>
+
+        <article class="site-card" data-chapter="V">
+          <span class="site-badge">Chương V</span>
+          <h2>Thiết kế kĩ thuật</h2>
+          <p>Phát hiện vấn đề, đề xuất ý tưởng, tạo và đánh giá giải pháp thiết kế.</p>
+          <div class="grade-card-actions">
+            <a class="site-primary-link" href="lop-8/chuong-v.html">Trọng tâm &amp; cách học</a>
+            <a class="site-secondary-link" href="kiem-tra.html?chuong=V">Kiểm tra Chương V</a>
+          </div>
+        </article>
+
+        <article class="site-card full">
+          <span class="site-badge">Kiểm tra theo chương</span>
+          <h2>Mỗi chương có bài tự đánh giá riêng</h2>
+          <p>Làm câu hỏi, nộp bài để xem điểm và giải thích; nếu cần, quay lại trang chương tương ứng để ôn tiếp.</p>
+          <a class="site-secondary-link" href="kiem-tra.html">Chọn chương cần kiểm tra</a>
+        </article>
+      </section>
+    </div>
+  </main>
+
+  <!-- shared-layout.js sẽ dựng phần chân trang dùng chung vào vị trí này. -->
+
+  <div id="site-footer"></div>
+
+  <!-- Nạp các tệp JavaScript dùng chung và chức năng riêng của trang. -->
+
+  <script src="../js/shared-layout.js"></script>
+  <!-- Nạp các tệp JavaScript dùng chung và chức năng riêng của trang. -->
+  <script src="../js/chatbot.js"></script>
+</body>
+</html>

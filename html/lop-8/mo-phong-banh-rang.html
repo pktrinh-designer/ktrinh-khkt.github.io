@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mô phỏng cặp bánh răng | Công nghệ 8</title>
+  <link rel="stylesheet" href="../../css/shared-layout.css" />
+  <style>
+    .gear-lab { max-width: 850px; margin: 0 auto; }
+    .gear-stage { overflow: hidden; padding: 1rem; border: 1px solid #d9e3f2; border-radius: 1rem; background: linear-gradient(145deg, #f8fbff, #edf4ff); }
+    .gear-stage svg { display: block; width: 100%; height: auto; }
+    .gear-spin { transform-box: fill-box; transform-origin: center; animation: gear-turn 6s linear infinite; }
+    .gear-driven .gear-spin { animation-direction: reverse; animation-duration: 9s; }
+    .gear-lab.is-paused .gear-spin { animation-play-state: paused; }
+    .gear-body { fill: #4779d1; stroke: #234b91; stroke-width: 2; stroke-linejoin: round; }
+    .gear-driven .gear-body { fill: #f2a43a; stroke: #a75e12; }
+    .gear-hub { fill: #fff; stroke: #234b91; stroke-width: 3; }
+    .gear-driven .gear-hub { stroke: #a75e12; }
+    .gear-spoke { stroke: #fff; stroke-width: 5; stroke-linecap: round; opacity: .9; }
+    .gear-label { fill: #24344d; font: 700 15px system-ui, sans-serif; text-anchor: middle; }
+    .gear-note { fill: #53657e; font: 13px system-ui, sans-serif; text-anchor: middle; }
+    @keyframes gear-turn { to { transform: rotate(360deg); } }
+    @media (prefers-reduced-motion: reduce) { .gear-spin { animation-duration: 18s; } }
+  </style>
+</head>
+<body data-root-prefix=".." data-nav-active="curriculum" data-chapter="II">
+  <div id="site-header"></div>
+  <main class="site-main">
+    <div class="site-shell gear-lab">
+      <section class="site-hero">
+        <span class="site-eyebrow">Công nghệ 8 · Chương II · Bài 7</span>
+        <h1 class="site-title">Mô phỏng truyền động bánh răng</h1>
+        <p class="site-subtitle">Quan sát hai bánh răng ăn khớp truyền chuyển động quay.</p>
+        <div class="site-action-row">
+          <a class="site-secondary-link" href="chuong-ii.html">Quay lại Chương II</a>
+          <button class="site-primary-link" id="toggle-gear-motion" type="button" aria-pressed="false">Tạm dừng</button>
+        </div>
+      </section>
+      <section class="site-card full">
+        <div class="gear-stage" role="img" aria-label="Hai bánh răng ăn khớp, bánh dẫn nhỏ quay cùng chiều kim đồng hồ và bánh bị dẫn lớn quay ngược chiều">
+          <svg viewBox="0 0 400 270" aria-hidden="true">
+            <defs>
+              <marker id="gear-arrow" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+                <path d="M0,0 L8,4 L0,8 Z" fill="#324b70" />
+              </marker>
+            </defs>
+            <path d="M120 51 A79 79 0 0 1 194 101" fill="none" stroke="#324b70" stroke-width="2.5" marker-end="url(#gear-arrow)" />
+            <path d="M250 209 A79 79 0 0 1 176 159" fill="none" stroke="#324b70" stroke-width="2.5" marker-end="url(#gear-arrow)" />
+            <g class="gear-driver" transform="translate(120 130)">
+              <g class="gear-spin">
+                <path id="driver-gear-path" class="gear-body" d="" />
+                <line class="gear-spoke" x1="0" y1="-35" x2="0" y2="-11" />
+                <line class="gear-spoke" x1="30" y1="18" x2="10" y2="6" />
+                <line class="gear-spoke" x1="-30" y1="18" x2="-10" y2="6" />
+                <circle class="gear-hub" r="10" />
+              </g>
+            </g>
+            <g class="gear-driven" transform="translate(250 130)">
+              <g class="gear-spin">
+                <path id="driven-gear-path" class="gear-body" d="" />
+                <line class="gear-spoke" x1="0" y1="-51" x2="0" y2="-15" />
+                <line class="gear-spoke" x1="44" y1="25" x2="14" y2="8" />
+                <line class="gear-spoke" x1="-44" y1="25" x2="-14" y2="8" />
+                <circle class="gear-hub" r="14" />
+              </g>
+            </g>
+            <text class="gear-label" x="120" y="238">Bánh dẫn</text>
+            <text class="gear-note" x="120" y="256">20 răng</text>
+            <text class="gear-label" x="250" y="238">Bánh bị dẫn</text>
+            <text class="gear-note" x="250" y="256">30 răng</text>
+          </svg>
+        </div>
+        <p class="site-subtitle">Hai bánh răng ngoài quay ngược chiều nhau. Bánh bị dẫn có nhiều răng hơn nên quay chậm hơn bánh dẫn.</p>
+      </section>
+    </div>
+  </main>
+  <div id="site-footer"></div>
+  <script src="../../js/shared-layout.js"></script>
+  <script src="../../js/chatbot.js"></script>
+  <script>
+    // Nút này tạm dừng hoặc tiếp tục chuyển động của cả hai bánh răng.
+    const gearLab = document.querySelector('.gear-lab');
+    const motionButton = document.getElementById('toggle-gear-motion');
+    // Dựng số răng theo thông số để cặp bánh có đúng 20 và 30 răng.
+    function gearOutline(teeth, tipRadius) {
+      const rootRadius = tipRadius - 5;
+      const points = [];
+      for (let tooth = 0; tooth < teeth; tooth += 1) {
+        [[0, rootRadius], [0.2, rootRadius], [0.25, tipRadius], [0.7, tipRadius], [0.75, rootRadius], [1, rootRadius]]
+          .forEach(([fraction, radius]) => {
+            const angle = (2 * Math.PI * (tooth + fraction) / teeth) - Math.PI / 2;
+            points.push(`${radius * Math.cos(angle)},${radius * Math.sin(angle)}`);
+          });
+      }
+      return `M ${points.join(' L ')} Z`;
+    }
+    document.getElementById('driver-gear-path').setAttribute('d', gearOutline(20, 52));
+    document.getElementById('driven-gear-path').setAttribute('d', gearOutline(30, 78));
+    motionButton.addEventListener('click', () => {
+      const paused = gearLab.classList.toggle('is-paused');
+      motionButton.textContent = paused ? 'Chạy lại' : 'Tạm dừng';
+      motionButton.setAttribute('aria-pressed', String(paused));
+    });
+  </script>
+</body>
+</html>

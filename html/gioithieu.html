@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Giới thiệu website | Học Công nghệ 8</title>
+  <link rel="stylesheet" href="../css/shared-layout.css" />
+</head>
+<!-- Trang này khai báo trạng thái điều hướng và mã chương qua thuộc tính data-* bên dưới. -->
+<body data-nav-active="about">
+  <!-- shared-layout.js sẽ dựng thanh điều hướng dùng chung vào vị trí này. -->
+  <div id="site-header"></div>
+  <!-- Nội dung chính của trang, được trình bày bên trong vùng main. -->
+  <main class="site-main">
+    <div class="site-shell">
+      <!-- Phần giới thiệu: tiêu đề, mô tả và các liên kết thao tác chính. -->
+      <section class="site-hero">
+        <span class="site-eyebrow">Giới thiệu website học tập</span>
+        <h1 class="site-title">Học tập và kiểm tra hiệu quả môn Công nghệ 8</h1>
+        <p class="site-subtitle">
+          Website đồng hành cùng việc học Công nghệ 8 theo bộ sách Kết nối tri thức với cuộc sống. Mỗi chương có phần nêu đặc điểm, gợi ý cách học và bài kiểm tra để em ôn theo mục tiêu của mình.
+        </p>
+        <div class="site-action-row">
+          <a class="site-primary-link" href="lop-8/index.html">Xem mục lục 5 chương</a>
+          <a class="site-secondary-link" href="kiem-tra.html">Chọn bài kiểm tra</a>
+        </div>
+      </section>
+
+      <!-- Lưới nội dung hoặc danh sách tương tác chính của trang. -->
+
+      <section class="site-grid" aria-label="Công dụng của website">
+        <article class="site-card">
+          <span class="site-badge">Tra cứu</span>
+          <h2>Biết mỗi chương học gì</h2>
+          <p>Mục lục giới thiệu Chương I–V; từng trang chương giải thích nội dung trọng tâm và cách học phù hợp.</p>
+        </article>
+        <article class="site-card">
+          <span class="site-badge">Ôn tập</span>
+          <h2>Học lại theo từng chủ đề</h2>
+          <p>Các trang chương có video minh họa cạnh phần đặc điểm và cách học, giúp em quan sát hình chiếu, cơ cấu, an toàn điện, mạch điện và quy trình thiết kế.</p>
+        </article>
+        <article class="site-card">
+          <span class="site-badge">Tự đánh giá</span>
+          <h2>Làm bài kiểm tra theo chương</h2>
+          <p>Mỗi chương có bộ câu hỏi riêng. Sau khi nộp, em xem điểm, đáp án đúng và lời giải cho từng câu.</p>
+        </article>
+      </section>
+
+      <!-- Lưới nội dung hoặc danh sách tương tác chính của trang. -->
+
+      <section class="site-grid" aria-label="Cách chuyển qua lại giữa các trang">
+        <article class="site-card full">
+          <span class="site-badge">Luồng sử dụng</span>
+          <h2>Trang chủ → Mục lục → Trang chương → Bài kiểm tra</h2>
+          <ol class="topic-list">
+            <li><strong>Trang chủ:</strong> chọn nhanh một trong năm chương hoặc mở mục lục đầy đủ.</li>
+            <li><strong>Mục lục:</strong> xem tổng quan Chương I–V; mỗi thẻ có liên kết đến trang học và bài kiểm tra của chương đó.</li>
+            <li><strong>Trang chương:</strong> đọc đặc điểm và cách học, sau đó bấm nút kiểm tra của chính chương đang xem.</li>
+            <li><strong>Trang kiểm tra:</strong> chọn đáp án, nộp bài để xem kết quả; các liên kết tại trang cho phép đổi chương hoặc quay về phần ôn tập.</li>
+            <li><strong>Menu đầu trang và cuối trang:</strong> luôn dùng được để trở về Trang chủ, Mục lục, Kiểm tra chương, Giới thiệu hoặc Hướng dẫn.</li>
+          </ol>
+          <p>Trang kiểm tra dùng cùng một giao diện; chương được chọn từ liên kết sẽ quyết định bộ câu hỏi hiển thị. Vì vậy em có thể mở bài kiểm tra riêng cho Chương I, II, III, IV hoặc V.</p>
+        </article>
+
+        <article class="site-card">
+          <span class="site-badge">Học tuần tự</span>
+          <h2>Bắt đầu từ Chương I</h2>
+          <p>Đi qua các chương theo thứ tự trong sách; cuối mỗi phần làm bài kiểm tra tương ứng.</p>
+        </article>
+        <article class="site-card">
+          <span class="site-badge">Ôn theo nhu cầu</span>
+          <h2>Chọn chương cần củng cố</h2>
+          <p>Mở mục lục hoặc danh sách kiểm tra để đi thẳng đến chương muốn ôn.</p>
+          <div class="grade-card-actions">
+          </div>
+        </article>
+      </section>
+    </div>
+  </main>
+  <!-- shared-layout.js sẽ dựng phần chân trang dùng chung vào vị trí này. -->
+  <div id="site-footer"></div>
+  <!-- Nạp các tệp JavaScript dùng chung và chức năng riêng của trang. -->
+  <script src="../js/shared-layout.js"></script>
+  <!-- Nạp các tệp JavaScript dùng chung và chức năng riêng của trang. -->
+  <script src="../js/chatbot.js"></script>
+</body>
+</html>
