@@ -137,11 +137,18 @@ async function handleChat(request, response) {
   }
 
   const origin = request.headers.origin;
-  const expectedOrigin = `http://${request.headers.host}`;
+  const host = request.headers.host;
 
-  if (origin && origin !== expectedOrigin) {
-    sendJson(response, 403, { error: "Nguồn gửi yêu cầu không được phép." });
-    return;
+  // Cho phép request từ chính tên miền của server (hỗ trợ cả Render và chạy cục bộ)
+  if (origin) {
+    const originUrl = new URL(origin);
+    const expectedHost = host;
+    if (originUrl.host !== expectedHost) {
+      if (!originUrl.hostname.endsWith(".onrender.com") && originUrl.host !== expectedHost) {
+        sendJson(response, 403, { error: "Nguồn gửi yêu cầu không được phép." });
+        return;
+      }
+    }
   }
 
   if (!allowRequest(request.socket.remoteAddress || "local")) {
