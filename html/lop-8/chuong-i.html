@@ -58,6 +58,13 @@
             <button class="site-secondary-link" id="copy-bai2-prompt" type="button">Sao chép câu lệnh</button>
             <span id="copy-bai2-prompt-status" role="status" aria-live="polite"></span>
           </div>
+          <div class="site-card" style="margin-top: 1rem;">
+            <h3>Câu lệnh mẫu cho Bài 4</h3>
+            <p>Tải ảnh cụm chi tiết lên DomiKids AI, chọn “Mechanical parts” và “Detailed labels”, rồi dán câu lệnh này để tạo hình bung chi tiết.</p>
+            <textarea id="bai4-exploded-prompt" rows="4" readonly aria-label="English prompt for the exploded assembly view in DomiKids AI" style="display:block; width:100%; box-sizing:border-box; margin:.75rem 0; padding:.75rem;">Create an exploded assembly view from the uploaded image. Use English labels only; do not use Chinese characters. Label the parts: hexagonal nut, flat washer, workpiece, and threaded stud. Keep the original parts and arrangement.</textarea>
+            <button class="site-secondary-link" id="copy-bai4-prompt" type="button">Sao chép câu lệnh</button>
+            <span id="copy-bai4-prompt-status" role="status" aria-live="polite"></span>
+          </div>
           <ul class="topic-list">
             <li><strong>Bài 2:</strong> GeoDraft AI hỗ trợ dựng vật thể và xem các hình chiếu vuông góc từ mô tả bài toán.</li>
             <li><strong>Bài 3:</strong> Tài liệu mẫu 3DEMAC trình bày bài tập hình chiếu theo dạng trang sách và có liên kết mô hình 3D tương tác; một số nội dung đầy đủ thuộc workbook trả phí.</li>
@@ -95,6 +102,23 @@
         promptField.select();
         document.execCommand("copy");
         copyPromptStatus.textContent = " Đã chọn câu lệnh. Nhấn Ctrl+C nếu chưa tự sao chép.";
+      }
+    });
+
+    // Cho phép học sinh sao chép câu lệnh tạo hình bung chi tiết cho DomiKids AI.
+    const copyBai4PromptButton = document.getElementById("copy-bai4-prompt");
+    const bai4PromptField = document.getElementById("bai4-exploded-prompt");
+    const copyBai4PromptStatus = document.getElementById("copy-bai4-prompt-status");
+
+    copyBai4PromptButton.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(bai4PromptField.value);
+        copyBai4PromptStatus.textContent = " Đã sao chép. Hãy dán câu lệnh vào DomiKids AI.";
+      } catch {
+        bai4PromptField.focus();
+        bai4PromptField.select();
+        document.execCommand("copy");
+        copyBai4PromptStatus.textContent = " Đã chọn câu lệnh. Nhấn Ctrl+C nếu chưa tự sao chép.";
       }
     });
   </script>
