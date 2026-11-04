@@ -1,5 +1,47 @@
+
 (function() {
-  // Tạo giao diện trợ lý AI và gắn các sự kiện tương tác.
+  // Cấu hình API và chế độ offline.
+  const apiUrl = window.CHATBOT_API_URL || "/api/chat";
+  const isGitHubPages = window.location.hostname.endsWith("github.io");
+
+  // Trả lời cơ bản khi không có backend.
+  function offlineReply(question) {
+    const value = question.toLowerCase().normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/đ/g, "d");
+
+    if (/^(xin chao|chao|hello|hi|hey)\b/.test(value)) {
+      return "Chào bạn! Mình là trợ lý Công nghệ 8. Bạn có thể hỏi về 5 chương, an toàn điện, bản vẽ kỹ thuật, cơ khí hoặc thiết kế kỹ thuật.";
+    }
+
+    if (value.includes("quy trinh") || value.includes("8 buoc") || value.includes("tu hoc")) {
+      return "Quy trình tự học gồm 8 bước: xác định mục tiêu; học nội dung tóm tắt; xem học liệu trực quan; tự ghi chép; làm bài kiểm tra; nhận diện lỗ hổng; ôn bù và hỏi AI; kiểm tra lại đến khi đạt chuẩn để mở khóa bài tiếp theo.";
+    }
+
+    if (value.includes("chuong i") || value.includes("ve ky thuat") || value.includes("ban ve")) {
+      return "Chương I là Vẽ kỹ thuật. Bạn nên ôn các loại nét, khổ giấy, tỉ lệ, hình chiếu vuông góc và cách đọc bản vẽ kỹ thuật.";
+    }
+
+    if (value.includes("chuong ii") || value.includes("co khi") || value.includes("banh rang")) {
+      return "Chương II là Cơ khí, gồm vật liệu cơ khí, truyền và biến đổi chuyển động, gia công cơ khí và một số nghề trong lĩnh vực cơ khí.";
+    }
+
+    if (value.includes("chuong iii") || value.includes("an toan dien") || value.includes("dien giat")) {
+      return "Chương III là An toàn điện. Không chạm vào phần đang mang điện, ngắt nguồn trước khi xử lý và báo ngay cho người lớn khi có sự cố. Không tự đấu nối điện lưới.";
+    }
+
+    if (value.includes("chuong iv") || value.includes("ky thuat dien") || value.includes("mach dien")) {
+      return "Chương IV là Kỹ thuật điện, tập trung vào vật liệu điện, cấu tạo mạch và lắp ráp mạch điều khiển đơn giản. Khi thực hành, luôn ngắt nguồn và làm theo hướng dẫn của giáo viên.";
+    }
+
+    if (value.includes("chuong v") || value.includes("thiet ke") || value.includes("y tuong")) {
+      return "Chương V là Thiết kế kỹ thuật: xác định vấn đề, đề xuất ý tưởng, lựa chọn giải pháp, chế tạo thử và đánh giá để cải tiến sản phẩm.";
+    }
+
+    return "Mình đang ở chế độ offline nên chỉ trả lời được các câu hỏi cơ bản về Công nghệ 8. Bạn hãy thử hỏi về Chương I–V, an toàn điện hoặc quy trình tự học.";
+  }
+
+  // Tạo giao diện chatbot.
   function renderChatbot() {
     if (document.getElementById("chatbot-widget")) {
       return;
@@ -8,29 +50,42 @@
     const widget = document.createElement("section");
     widget.id = "chatbot-widget";
     widget.className = "chatbot-widget";
+
     widget.innerHTML = `
-      <section class="chatbot-panel" id="chatbot-panel" role="dialog" aria-modal="false" aria-labelledby="chatbot-title" hidden>
+      <section class="chatbot-panel" id="chatbot-panel"
+        role="dialog" aria-modal="false"
+        aria-labelledby="chatbot-title" hidden>
         <header class="chatbot-header">
           <div>
             <h2 id="chatbot-title">Trợ lý AI Công nghệ 8</h2>
             <p>Hỏi về nội dung và cách học Chương I–V</p>
           </div>
-          <button class="chatbot-close" type="button" aria-label="Đóng trợ lý">×</button>
+          <button class="chatbot-close" type="button"
+            aria-label="Đóng trợ lý">×</button>
         </header>
-        <div class="chatbot-messages" id="chatbot-messages" aria-live="polite" aria-relevant="additions text"></div>
+
+        <div class="chatbot-messages" id="chatbot-messages"
+          aria-live="polite" aria-relevant="additions text"></div>
+
         <form class="chatbot-form">
-          <label class="visually-hidden" for="chatbot-input">Nhập câu hỏi cho trợ lý AI</label>
-          <textarea id="chatbot-input" rows="2" maxlength="1200" placeholder="Nhập câu hỏi của bạn..." required></textarea>
+          <label class="visually-hidden" for="chatbot-input">
+            Nhập câu hỏi cho trợ lý AI
+          </label>
+          <textarea id="chatbot-input" rows="2" maxlength="1200"
+            placeholder="Nhập câu hỏi của bạn..." required></textarea>
           <div class="chatbot-form-footer">
             <span>Không chia sẻ thông tin cá nhân.</span>
             <button class="chatbot-send" type="submit">Gửi</button>
           </div>
         </form>
       </section>
-      <button class="chatbot-toggle" type="button" aria-expanded="false" aria-controls="chatbot-panel">
+
+      <button class="chatbot-toggle" type="button"
+        aria-expanded="false" aria-controls="chatbot-panel">
         <span aria-hidden="true">✦</span> Hỏi AI
       </button>
     `;
+
     document.body.appendChild(widget);
 
     const panel = widget.querySelector("#chatbot-panel");
@@ -40,21 +95,25 @@
     const form = widget.querySelector(".chatbot-form");
     const input = widget.querySelector("#chatbot-input");
     const sendButton = widget.querySelector(".chatbot-send");
+
     const history = [];
 
-    // Thêm một tin nhắn vào khung hội thoại và cuộn tới tin mới.
-    // Hiển thị tin nhắn của người dùng, trợ lý hoặc thông báo lỗi.
+    // Hiển thị tin nhắn.
     function addMessage(role, text, isError) {
       const message = document.createElement("p");
-      message.className = `chatbot-message chatbot-message-${role}${isError ? " chatbot-message-error" : ""}`;
+
+      message.className =
+        `chatbot-message chatbot-message-${role}` +
+        (isError ? " chatbot-message-error" : "");
+
       message.textContent = text;
       messagesHost.appendChild(message);
       messagesHost.scrollTop = messagesHost.scrollHeight;
+
       return message;
     }
 
-    // Cập nhật trạng thái hiển thị của bảng chat và nút mở.
-    // Đồng bộ trạng thái mở, thuộc tính truy cập và tiêu điểm bàn phím.
+    // Đóng/mở chatbot.
     function setOpen(isOpen) {
       panel.hidden = !isOpen;
       toggle.setAttribute("aria-expanded", String(isOpen));
@@ -71,17 +130,15 @@
       "Chào bạn! Mình có thể giúp giải thích kiến thức Công nghệ 8 và gợi ý cách ôn bài. Hãy luôn làm theo hướng dẫn của giáo viên khi thực hành điện."
     );
 
-    // Nút nổi mở hoặc thu gọn bảng hội thoại.
     toggle.addEventListener("click", function() {
       setOpen(panel.hidden);
     });
 
-    // Nút đóng ẩn bảng hội thoại.
     close.addEventListener("click", function() {
       setOpen(false);
     });
 
-    // Enter gửi câu hỏi; Shift+Enter cho phép xuống dòng.
+    // Enter gửi, Shift + Enter xuống dòng.
     input.addEventListener("keydown", function(event) {
       if (event.key === "Enter" && !event.shiftKey) {
         event.preventDefault();
@@ -89,10 +146,10 @@
       }
     });
 
-    // Gửi câu hỏi cùng lịch sử hội thoại tới API máy chủ.
-    // Kiểm tra câu hỏi, cập nhật lịch sử và gọi API chat.
+    // Xử lý gửi câu hỏi.
     form.addEventListener("submit", async function(event) {
       event.preventDefault();
+
       const text = input.value.trim();
 
       if (!text || sendButton.disabled) {
@@ -101,6 +158,7 @@
 
       history.push({ role: "user", text });
       addMessage("user", text);
+
       input.value = "";
       input.disabled = true;
       sendButton.disabled = true;
@@ -114,42 +172,79 @@
       }
 
       try {
-        // Gửi toàn bộ lịch sử để trợ lý có thể theo dõi ngữ cảnh hội thoại.
-        const response = await fetch("/api/chat", {
+        // GitHub Pages không có backend Node.js.
+        if (isGitHubPages) {
+          const reply = offlineReply(text);
+          history.push({ role: "model", text: reply });
+          addMessage("assistant", reply);
+          return;
+        }
+
+        // Gửi lịch sử hội thoại đến backend.
+        const response = await fetch(apiUrl, {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ history: conversation })
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            history: conversation
+          })
         });
+
         const responseText = await response.text();
         let result;
 
         try {
           result = JSON.parse(responseText);
         } catch {
-          const detail = responseText.trim()
-            ? ` Máy chủ trả về: ${responseText.trim().slice(0, 160)}`
-            : " Máy chủ không gửi nội dung phản hồi.";
           throw new Error(
-            `Phản hồi từ máy chủ không phải JSON (HTTP ${response.status}). Hãy kiểm tra bạn đã chạy node server.js và mở website tại http://127.0.0.1:3000 chưa.${detail}`
+            `Máy chủ trả về dữ liệu không hợp lệ (HTTP ${response.status}).`
           );
         }
 
         if (!response.ok) {
-          throw new Error(result.error || `Máy chủ trả về lỗi ${response.status}.`);
+          throw new Error(
+            result.error || `Máy chủ trả về lỗi ${response.status}.`
+          );
         }
 
-        if (typeof result.reply !== "string" || !result.reply.trim()) {
+        if (
+          typeof result.reply !== "string" ||
+          !result.reply.trim()
+        ) {
           throw new Error("Trợ lý chưa gửi được câu trả lời. Bạn hãy thử lại.");
         }
 
-        history.push({ role: "model", text: result.reply });
+        history.push({
+          role: "model",
+          text: result.reply
+        });
+
         addMessage("assistant", result.reply);
+
       } catch (error) {
-        history.pop();
-        const message = error instanceof TypeError
-          ? "Không kết nối được máy chủ. Hãy chạy node server.js rồi mở website tại http://127.0.0.1:3000."
-          : error.message;
-        addMessage("assistant", message, true);
+        // Chỉ dùng câu trả lời offline khi không kết nối được server.
+        if (error instanceof TypeError) {
+          const fallback = offlineReply(text);
+
+          history.push({
+            role: "model",
+            text: fallback
+          });
+
+          addMessage(
+            "assistant",
+            fallback + "\n\n(Mình đang sử dụng chế độ offline.)"
+          );
+        } else {
+          // Không xóa câu hỏi người dùng khỏi lịch sử.
+          addMessage(
+            "assistant",
+            error.message || "Đã xảy ra lỗi. Bạn hãy thử lại.",
+            true
+          );
+        }
+
       } finally {
         input.disabled = false;
         sendButton.disabled = false;
@@ -159,26 +254,26 @@
       }
     });
 
-    // Đóng cửa sổ chat bằng phím Escape.
-    // Đóng bảng chat bằng Escape khi bảng đang mở.
+    // Đóng chatbot bằng Escape.
     document.addEventListener("keydown", function(event) {
       if (event.key === "Escape" && !panel.hidden) {
         setOpen(false);
       }
     });
 
-    // Nhận cảnh báo từ bài kiểm tra, mở chatbot và hiện lời nhắc ôn tập.
+    // Nhận sự kiện khi học sinh trả lời sai.
     document.addEventListener("quiz:wrong-answer", function() {
       setOpen(true);
+
       addMessage(
         "assistant",
-        "Ô có câu bạn đã làm sai, cùng quay lại bài học để ôn tập lại nhé"
+        "Bạn có câu trả lời chưa chính xác. Hãy quay lại bài học để ôn tập nhé!"
       );
     });
   }
 
+  // Khởi tạo chatbot sau khi trang tải xong.
   if (document.readyState === "loading") {
-    // Chỉ khởi tạo chatbot sau khi cấu trúc trang đã sẵn sàng.
     document.addEventListener("DOMContentLoaded", renderChatbot);
   } else {
     renderChatbot();

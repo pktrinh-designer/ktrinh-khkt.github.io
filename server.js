@@ -136,19 +136,34 @@ async function handleChat(request, response) {
     return;
   }
 
-  const origin = request.headers.origin;
-  const host = request.headers.host;
+const origin = request.headers.origin;
 
-  // Cho phép request từ chính tên miền của server (hỗ trợ cả Render và chạy cục bộ)
-  if (origin) {
+if (origin) {
+  try {
     const originUrl = new URL(origin);
-    const expectedHost = host;
-    if (originUrl.host !== expectedHost) {
-      if (!originUrl.hostname.endsWith(".onrender.com") && originUrl.host !== expectedHost) {
-        sendJson(response, 403, { error: "Nguồn gửi yêu cầu không được phép." });
-        return;
-      }
+    const forwardedProto = (
+      request.headers["x-forwarded-proto"] || "http"
+    ).split(",")[0].trim();
+
+    const validProtocol =
+      forwardedProto === "https" || forwardedProto === "http";
+
+    if (
+      !validProtocol ||
+      originUrl.host !== request.headers.host ||
+      originUrl.protocol !== `${forwardedProto}:`
+    ) {
+      sendJson(response, 403, {
+        error: "Nguồn gửi yêu cầu không được phép."
+      });
+      return;
     }
+  } catch (error) {
+    sendJson(response, 403, {
+      error: "Nguồn gửi yêu cầu không hợp lệ."
+    });
+    return;
+  }
   }
 
   if (!allowRequest(request.socket.remoteAddress || "local")) {

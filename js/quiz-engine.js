@@ -1,4 +1,4 @@
-(function() {
+﻿(function() {
   // Ngân hàng câu hỏi theo chương, gồm đáp án, giải thích và trang ôn tập.
   const CHAPTER_TESTS = {
     I: {
@@ -253,7 +253,9 @@
         const lessonGroup = OVERALL_LESSON_BREAKS[chapterKey].findIndex(function(lastTopicIndex) {
           return topicIndex < lastTopicIndex;
         });
-        const lesson = CHAPTER_LESSONS[chapterKey][Math.max(lessonGroup, 0)];
+        const lesson = CHAPTER_LESSONS[chapterKey][
+          Math.min(Math.max(lessonGroup, 0), CHAPTER_LESSONS[chapterKey].length - 1)
+        ];
 
         [knowledgePrompt, applicationPrompt].forEach(function(prompt) {
           const answer = questions.length % sourceChoices.length;
@@ -279,6 +281,51 @@
       studyPage: "lop-8/index.html",
       questions
     };
+  }
+
+  // Mỗi chương có 19 chủ đề, mỗi chủ đề gồm câu ghi nhớ và câu vận dụng.
+  function buildChapterTest(chapterKey) {
+    const chapter = CHAPTER_TESTS[chapterKey];
+    const topics = window.COMPREHENSIVE_QUESTION_BANK?.[chapterKey] || [];
+    const questions = [];
+    const topicIndexes = chapterKey === "V"
+      ? Array.from({ length: 15 }, function(_, index) {
+          return Math.floor(index * topics.length / 15);
+        })
+      : topics.map(function(_, index) { return index; });
+
+    topicIndexes.forEach(function(topicIndex) {
+      const topic = topics[topicIndex];
+      const [knowledgePrompt, applicationPrompt, sourceChoices, sourceAnswer, explanation] = topic;
+      const lessonGroup = OVERALL_LESSON_BREAKS[chapterKey].findIndex(function(lastTopicIndex) {
+        return topicIndex < lastTopicIndex;
+      });
+      const lesson = CHAPTER_LESSONS[chapterKey][
+        Math.min(Math.max(lessonGroup, 0), CHAPTER_LESSONS[chapterKey].length - 1)
+      ];
+
+      [knowledgePrompt, applicationPrompt].forEach(function(prompt) {
+        const answer = questions.length % sourceChoices.length;
+        const choices = sourceChoices.filter(function(_, index) {
+          return index !== sourceAnswer;
+        });
+        choices.splice(answer, 0, sourceChoices[sourceAnswer]);
+        questions.push({ prompt, choices, answer, lesson, explanation: `${chapter.title}: ${explanation}` });
+      });
+    });
+
+    if (chapterKey !== "V") {
+      CHAPTER_TESTS[chapterKey].questions.slice(0, 2).forEach(function(question, index) {
+        const lesson = CHAPTER_LESSONS[chapterKey][QUESTION_LESSON_INDEX[chapterKey][index]];
+        questions.push({
+          ...question,
+          lesson,
+          explanation: `${chapter.title}: ${question.explanation}`
+        });
+      });
+    }
+
+    return { title: chapter.title, studyPage: chapter.studyPage, questions };
   }
 
   // Tạo thẻ câu hỏi, lựa chọn và vùng hiển thị phản hồi.
@@ -331,9 +378,15 @@
   }
 
   // Hiển thị bài kiểm tra được chọn và xử lý nộp/làm lại bài.
-  function renderChapterTest(chapterKey) {
-    const chapter = chapterKey === "TONG" ? buildOverallTest() : CHAPTER_TESTS[chapterKey];
-    const isOverallTest = chapterKey === "TONG";
+  function renderChapterTest(chapterKey, showChapterPicker) {
+    const isChapterPicker = chapterKey === "TONG" && showChapterPicker;
+    const isOverallTest = chapterKey === "TONG" && !showChapterPicker;
+    const chapter = isChapterPicker
+      ? null
+      : isOverallTest
+        ? buildOverallTest()
+        : buildChapterTest(chapterKey);
+    
     const title = document.getElementById("test-title");
     const description = document.getElementById("test-description");
     const selection = document.getElementById("chapter-test-list");
@@ -342,6 +395,27 @@
     const studyLink = document.getElementById("chapter-study-link");
     const form = document.getElementById("chapter-quiz");
     const result = document.getElementById("quiz-result");
+
+    if (isChapterPicker) {
+      title.textContent = "Chọn đề kiểm tra theo chương";
+      description.textContent = "Chọn một trong 5 đề riêng theo chương: Đề 1–4 có 40 câu, Đề 5 có 30 câu.";
+      selection.hidden = false;
+      panel.hidden = true;
+      studyLink.hidden = true;
+      const overallCard = selection.querySelector(".overall-test-card");
+      if (overallCard) overallCard.hidden = true;
+      selection.querySelectorAll("article[data-chapter]").forEach(function(card, index) {
+        const chapterNumber = card.dataset.chapter;
+        const badge = card.querySelector(".site-badge");
+        const heading = card.querySelector("h2");
+        const link = card.querySelector(".site-primary-link");
+        const questionCount = chapterNumber === "V" ? 30 : 40;
+        if (badge) badge.textContent = `Đề ${index + 1} · Chương ${chapterNumber} · ${questionCount} câu`;
+        if (heading) heading.textContent = `Đề ${index + 1}: ${heading.textContent}`;
+        if (link) link.textContent = `Vào đề ${index + 1}`;
+      });
+      return;
+    }
 
     if (!chapter) {
       error.hidden = false;
@@ -421,7 +495,8 @@
 
   // Đọc mã chương trên URL và khởi tạo bài kiểm tra tương ứng.
   document.addEventListener("DOMContentLoaded", function() {
-    const chapterKey = new URLSearchParams(window.location.search).get("chuong");
+    const searchParams = new URLSearchParams(window.location.search);
+    const chapterKey = searchParams.get("chuong");
 
     if (chapterKey) {
       const normalizedKey = chapterKey.toUpperCase();
@@ -430,7 +505,8 @@
         document.body.dataset.chapter = normalizedKey;
       }
 
-      renderChapterTest(normalizedKey);
+      renderChapterTest(normalizedKey, searchParams.get("danh-sach") === "5-de");
     }
   });
 })();
+
