@@ -205,8 +205,22 @@ if (origin) {
 }
 
 // Phục vụ tệp HTML, CSS và JavaScript từ các thư mục cho phép.
+
 function serveStatic(request, response, pathname) {
-  const requestedPath = pathname === "/" ? "/html/trangtieude.html" : pathname;
+  let requestedPath;
+
+  if (pathname === "/") {
+    requestedPath = "/html/trangtieude.html";
+  } else if (
+    pathname.startsWith("/css/") ||
+    pathname.startsWith("/js/") ||
+    pathname.startsWith("/html/")
+  ) {
+    requestedPath = pathname;
+  } else {
+    requestedPath = `/html${pathname}`;
+  }
+
   const filePath = path.resolve(PROJECT_ROOT, `.${requestedPath}`);
   const relativePath = path.relative(PROJECT_ROOT, filePath);
   const topLevelDirectory = relativePath.split(path.sep)[0];
@@ -250,16 +264,21 @@ function serveStatic(request, response, pathname) {
     }
 
     const stream = fs.createReadStream(filePath);
+
     stream.on("error", (error) => {
       console.error("Static file read failed:", error.message);
+
       if (!response.headersSent) {
         response.writeHead(500);
       }
+
       response.end("Unable to read file");
     });
+
     stream.pipe(response);
   });
 }
+
 
 // Bộ định tuyến HTTP: xử lý API chat, chuyển hướng và tệp tĩnh.
 const server = http.createServer((request, response) => {
@@ -284,12 +303,6 @@ const server = http.createServer((request, response) => {
   if (/^\/[^/]+\.html$/i.test(pathname)) {
     response.writeHead(302, { Location: `/html${pathname}` });
     response.end();
-    return;
-  }
-
-  if (request.method !== "GET" && request.method !== "HEAD") {
-    response.writeHead(405, { Allow: "GET, HEAD" });
-    response.end("Method not allowed");
     return;
   }
 
