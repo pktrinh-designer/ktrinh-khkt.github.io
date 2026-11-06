@@ -23,6 +23,32 @@
         <a href="#chuong-i">Chương I · Vẽ kĩ thuật</a><a href="#chuong-ii">Chương II · Cơ khí</a><a href="#chuong-iii">Chương III · An toàn điện</a><a href="#chuong-iv">Chương IV · Kĩ thuật điện</a><a href="#chuong-v">Chương V · Thiết kế</a>
       </nav>
     </section>
+    
+    <!-- Thanh tìm kiếm bài học -->
+    <section class="lesson-search">
+      <div class="search-heading">
+        <h2>Tìm kiếm bài học</h2>
+        <p>Tra cứu nhanh nội dung trong 20 bài học Công nghệ 8.</p>
+      </div>
+
+      <div class="search-box">
+        <span class="search-icon">⌕</span>
+        <input
+          type="search"
+          id="lessonSearch"
+          placeholder="Nhập tên bài, số bài hoặc từ khóa..."
+          autocomplete="off"
+          aria-label="Tìm kiếm bài học"
+        />
+        <button type="button" id="clearSearch" aria-label="Xóa tìm kiếm">
+          ✕
+        </button>
+      </div>
+
+      <p id="searchResult" aria-live="polite">
+        Hiển thị 20 bài học
+      </p>
+    </section>
 
     <section class="chapter-section" id="chuong-i"><div class="chapter-heading"><span>CHƯƠNG I · BÀI 1–5</span><h2>Vẽ kĩ thuật</h2><p>Đọc và trình bày bản vẽ bằng các quy ước thống nhất.</p></div><div class="lesson-grid">
       <article class="lesson-card"><span class="lesson-number">BÀI 1</span><h3>Tiêu chuẩn trình bày bản vẽ kĩ thuật</h3><p>Bản vẽ kĩ thuật dùng ngôn ngữ hình vẽ và quy ước thống nhất để truyền đạt thông tin. Khi trình bày cần tuân theo tiêu chuẩn về khổ giấy, nét vẽ, chữ viết và ghi kích thước.</p><ul class="lesson-points"><li>Khổ giấy thường dùng: A0, A1, A2, A3, A4; khung bản vẽ và khung tên đặt đúng vị trí.</li><li>Nét liền đậm biểu diễn đường bao thấy; nét đứt biểu diễn đường bao khuất; nét gạch chấm mảnh biểu diễn đường tâm.</li><li>Kích thước gồm đường gióng, đường kích thước và con số kích thước; đơn vị chiều dài trên bản vẽ cơ khí thường là mm.</li></ul><a class="video-link" href="https://www.youtube.com/embed/qU6tZCBJV-s?si=s-LC-JmBsnTMcokh" target="_blank" rel="noopener">▶ Video bài 1</a></article>
@@ -63,7 +89,7 @@
   <div id="site-footer"></div>
   <!-- Nạp các tệp JavaScript dùng chung và chức năng riêng của trang. -->
   <script src="../js/shared-layout.js"></script>
-  <!-- Nạp các tệp JavaScript dùng chung và chức năng riêng của trang. -->
+  <script src="../js/lythuyet.js"></script>
   <script src="../js/chatbot.js"></script>
 </body>
 </html>

@@ -29,3 +29,106 @@
     .lesson-points li { padding-left:.15rem; margin:.22rem 0; }
     @media (max-width:600px) { .chapter-heading { padding:1.25rem; border-radius:18px; } .lesson-card { padding:1.15rem; } .chapter-nav a { font-size:.82rem; } }
     @media print { .site-header,.site-footer,.video-link,.chapter-nav { display:none!important; } }
+ 
+/* ===== LEARNING HUB: SEARCH BAR ===== */
+
+.lesson-search {
+  margin: 2rem 0 2.5rem;
+  padding: 1.75rem;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(15, 23, 42, .06);
+}
+
+.search-heading h2 {
+  margin: 0 0 .4rem;
+  color: #10203a;
+  font-size: 1.4rem;
+}
+
+.search-heading p {
+  margin: 0;
+  color: #64748b;
+  line-height: 1.6;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  margin-top: 1.25rem;
+  padding: .3rem .9rem;
+  background: #f8fafc;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 14px;
+  transition: border-color .2s, box-shadow .2s;
+}
+
+.search-box:focus-within {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, .1);
+}
+
+.search-icon {
+  color: #64748b;
+  font-size: 1.5rem;
+}
+
+.search-box input {
+  flex: 1;
+  min-width: 0;
+  padding: .85rem 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #10203a;
+  font-size: 1rem;
+}
+
+.search-box input::placeholder {
+  color: #94a3b8;
+}
+
+.search-box button {
+  display: none;
+  border: none;
+  background: transparent;
+  color: #64748b;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: .4rem;
+  border-radius: 8px;
+}
+
+.search-box button:hover {
+  background: #e2e8f0;
+  color: #dc2626;
+}
+
+#searchResult {
+  margin: .85rem 0 0;
+  color: #64748b;
+  font-size: .9rem;
+}
+
+@media (max-width: 600px) {
+  .lesson-search {
+    padding: 1.2rem;
+    border-radius: 16px;
+  }
+
+  .search-heading h2 {
+    font-size: 1.2rem;
+  }
+
+  .search-box input {
+    font-size: .9rem;
+  }
+}
+
+/* Ẩn bài học và chương không có kết quả tìm kiếm */
+.lesson-card[hidden],
+.chapter-section[hidden] {
+  display: none !important;
+}
