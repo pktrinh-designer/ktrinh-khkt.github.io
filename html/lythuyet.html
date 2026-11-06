@@ -4,39 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Lý thuyết 20 bài | Công nghệ 8</title>
+
   <link rel="stylesheet" href="../css/shared-layout.css" />
-  <style>
-    .chapter-section { margin: 2.75rem 0; scroll-margin-top: 100px; }
-    .chapter-heading { position:relative; overflow:hidden; padding:1.6rem 1.75rem; margin-bottom:1.25rem; border-radius:22px; color:#fff; background:linear-gradient(120deg,var(--chapter-accent),var(--chapter-accent-2)); box-shadow:0 16px 35px rgba(16,32,58,.18); }
-    #chuong-i { --chapter-accent:#1d4ed8; --chapter-accent-2:#0f766e; --chapter-soft:#eff6ff; }
-    #chuong-ii { --chapter-accent:#c2410c; --chapter-accent-2:#b45309; --chapter-soft:#fff7ed; }
-    #chuong-iii { --chapter-accent:#047857; --chapter-accent-2:#0369a1; --chapter-soft:#ecfdf5; }
-    #chuong-iv { --chapter-accent:#4338ca; --chapter-accent-2:#92400e; --chapter-soft:#eef2ff; }
-    #chuong-v { --chapter-accent:#7c3aed; --chapter-accent-2:#be185d; --chapter-soft:#f5f3ff; }
-    .chapter-heading::after { content:""; position:absolute; width:190px; height:190px; right:-45px; top:-95px; border:26px solid rgba(255,255,255,.1); border-radius:50%; }
-    .chapter-heading span { display:inline-block; font-size:.78rem; font-weight:800; letter-spacing:.1em; color:#bae6fd; }
-    .chapter-heading h2 { margin:.45rem 0; font-size:clamp(1.45rem,3vw,2rem); }
-    .chapter-heading p { margin:.4rem 0 0; color:rgba(255,255,255,.86); }
-    .lesson-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,330px),1fr)); gap:1.2rem; align-items:stretch; }
-    .lesson-card { position:relative; display:flex; flex-direction:column; background:linear-gradient(160deg,#fff 0%,#fff 75%,#f7faff 100%); border:1px solid rgba(148,163,184,.25); border-radius:20px; padding:1.4rem; box-shadow:0 12px 28px rgba(15,23,42,.075); transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease; }
-    .chapter-section .lesson-card { border-top:4px solid var(--chapter-accent); }
-    .lesson-card:hover { transform:translateY(-4px); border-color:rgba(37,99,235,.3); box-shadow:0 18px 36px rgba(15,23,42,.13); }
-    .lesson-card h3 { margin:.45rem 0 .75rem; color:#10203a; font-size:1.2rem; line-height:1.4; }
-    .lesson-card p { line-height:1.7; margin:.35rem 0; color:#475569; }
-    .lesson-number { align-self:flex-start; color:var(--chapter-accent); font-weight:800; font-size:.78rem; letter-spacing:.08em; padding:.38rem .68rem; border-radius:999px; background:var(--chapter-soft); }
-    .chapter-nav { display:flex; flex-wrap:wrap; gap:.65rem; margin-top:1.2rem; }
-    .chapter-nav a { padding:.62rem .9rem; border:1px solid transparent; border-radius:999px; color:#fff; text-decoration:none; font-size:.9rem; font-weight:700; box-shadow:0 5px 14px rgba(15,23,42,.12); transition:filter .18s ease,transform .18s ease,box-shadow .18s ease; }
-    .chapter-nav a:nth-child(1) { background:linear-gradient(135deg,#1d4ed8,#0f766e); }
-    .chapter-nav a:nth-child(2) { background:linear-gradient(135deg,#c2410c,#b45309); }
-    .chapter-nav a:nth-child(3) { background:linear-gradient(135deg,#047857,#0369a1); }
-    .chapter-nav a:nth-child(4) { background:linear-gradient(135deg,#4338ca,#92400e); }
-    .chapter-nav a:nth-child(5) { background:linear-gradient(135deg,#7c3aed,#be185d); }
-    .chapter-nav a:hover { filter:brightness(.88); color:#fff; transform:translateY(-2px); box-shadow:0 9px 18px rgba(15,23,42,.2); }
-    .lesson-points { padding-left:1.2rem; margin:.55rem 0 1.1rem; color:#334155; line-height:1.7; }
-    .lesson-points li { padding-left:.15rem; margin:.22rem 0; }
-    @media (max-width:600px) { .chapter-heading { padding:1.25rem; border-radius:18px; } .lesson-card { padding:1.15rem; } .chapter-nav a { font-size:.82rem; } }
-    @media print { .site-header,.site-footer,.video-link,.chapter-nav { display:none!important; } }
-  </style>
+  <link rel="stylesheet" href="../css/lythuyet.css" />
 </head>
 <!-- Trang này khai báo trạng thái điều hướng và mã chương qua thuộc tính data-* bên dưới. -->
 <body data-nav-active="theory">
