@@ -22,8 +22,9 @@ window.COMPREHENSIVE_QUESTION_BANK = {
     ["Bảng kê trong bản vẽ lắp cho biết gì?", "Muốn biết tên gọi và số lượng các chi tiết trong một cụm lắp, em xem phần nào?", ["Bảng kê", "Khung bản vẽ", "Đường tâm"], 0, "Bảng kê liệt kê các chi tiết, số lượng và thông tin liên quan."],
     ["Mặt bằng của bản vẽ nhà cho biết điều gì?", "Muốn xem cách bố trí phòng và cửa nhìn từ trên xuống, em xem hình biểu diễn nào?", ["Mặt đứng", "Mặt bằng", "Mặt cắt"], 1, "Mặt bằng thể hiện cách bố trí các phòng và bộ phận trên mặt phẳng cắt ngang."],
     ["Mặt đứng của bản vẽ nhà thể hiện điều gì?", "Để quan sát hình dáng bên ngoài của mặt trước ngôi nhà, nên xem hình nào?", ["Mặt đứng", "Mặt bằng", "Mặt cắt"], 0, "Mặt đứng cho thấy hình dáng bên ngoài của công trình theo hướng nhìn."],
-    ["Tỉ lệ bản vẽ cho biết quan hệ nào?", "Một chi tiết được vẽ nhỏ hơn kích thước thật; thông tin nào giúp xác định mức thu nhỏ?", ["Quan hệ giữa kích thước hình vẽ và kích thước thật", "Khối lượng của chi tiết", "Độ nhám bề mặt"], 0, "Tỉ lệ là quan hệ giữa kích thước đo trên hình biểu diễn và kích thước thực." ]
+    ["Tỉ lệ bản vẽ cho biết quan hệ nào?", "Một chi tiết được vẽ nhỏ hơn kích thước thật; thông tin nào giúp xác định mức thu nhỏ?", ["Quan hệ giữa kích thước hình vẽ và kích thước thật", "Khối lượng của chi tiết", "Độ nhám bề mặt"], 0, "Tỉ lệ là quan hệ giữa kích thước đo trên hình biểu diễn và kích thước thực."]
   ],
+
   // Chương II: vật liệu và cơ khí.
   II: [
     ["Gang và thép thuộc nhóm vật liệu nào?", "Nếu cần chọn một kim loại đen để chế tạo chi tiết chịu lực, vật liệu nào phù hợp nhóm này?", ["Cao su", "Thép", "Đồng"], 1, "Gang và thép là các vật liệu thuộc nhóm kim loại đen."],
@@ -44,8 +45,9 @@ window.COMPREHENSIVE_QUESTION_BANK = {
     ["Vì sao cần dùng kính bảo hộ khi gia công?", "Khi đục hoặc mài có thể bắn mạt vật liệu; cách bảo vệ mắt nào phù hợp?", ["Đeo kính bảo hộ", "Nhìn sát vào phôi", "Thổi mạt bằng miệng"], 0, "Kính bảo hộ giúp hạn chế mạt hoặc phoi bắn vào mắt."],
     ["Một yêu cầu an toàn khi sử dụng dụng cụ cầm tay là gì?", "Trước khi cưa, em phát hiện cán cưa bị lỏng; nên làm gì?", ["Tiếp tục dùng thật nhanh", "Kiểm tra và thay/sửa dụng cụ trước khi làm", "Nhờ bạn giữ lưỡi cưa"], 1, "Dụng cụ hỏng cần được sửa hoặc thay; không tiếp tục làm việc trong tình trạng mất an toàn."],
     ["Nghề cơ khí thường thực hiện công việc nào?", "Người chuyên lắp ráp, bảo dưỡng máy móc thuộc lĩnh vực nghề nào?", ["Cơ khí", "Trồng trọt", "May mặc"], 0, "Nghề cơ khí tham gia thiết kế, chế tạo, lắp ráp, vận hành và bảo dưỡng máy móc."],
-    ["Khi thiết kế giá để đồ dùng học tập, bước đầu nên làm gì?", "Nhóm em chuẩn bị làm giá đựng sách; việc nào cần làm trước khi chọn vật liệu?", ["Xác định nhu cầu và yêu cầu sản phẩm", "Trang trí sản phẩm", "Mua thật nhiều vật liệu"], 0, "Dự án cần bắt đầu bằng việc xác định nhu cầu, công dụng và tiêu chí sản phẩm." ]
+    ["Khi thiết kế giá để đồ dùng học tập, bước đầu nên làm gì?", "Nhóm em chuẩn bị làm giá đựng sách; việc nào cần làm trước khi chọn vật liệu?", ["Xác định nhu cầu và yêu cầu sản phẩm", "Trang trí sản phẩm", "Mua thật nhiều vật liệu"], 0, "Dự án cần bắt đầu bằng việc xác định nhu cầu, công dụng và tiêu chí sản phẩm."]
   ],
+
   // Chương III: an toàn điện.
   III: [
     ["Điện giật xảy ra khi nào?", "Một bạn chạm vào dây dẫn đang mang điện và dòng điện đi qua cơ thể; đây là tai nạn gì?", ["Điện giật", "Bỏng nhiệt thông thường", "Va đập cơ học"], 0, "Điện giật xảy ra khi dòng điện đi qua cơ thể người."],
@@ -66,8 +68,9 @@ window.COMPREHENSIVE_QUESTION_BANK = {
     ["Sau khi đã bảo đảm nạn nhân không còn tiếp xúc với điện, cần làm gì?", "Nguồn đã được ngắt và khu vực an toàn; bước tiếp theo phù hợp là gì?", ["Gọi cấp cứu, kiểm tra tình trạng và sơ cứu phù hợp", "Cho nạn nhân tự về", "Đưa nạn nhân chạm lại thiết bị"], 0, "Gọi cấp cứu và sơ cứu theo kiến thức được huấn luyện; không trì hoãn hỗ trợ y tế."],
     ["Khoảng cách an toàn với đường dây điện có ý nghĩa gì?", "Khi làm việc gần lưới điện, vì sao không được tự ý đến gần dây dẫn?", ["Tránh nguy cơ phóng điện và tiếp xúc nguy hiểm", "Giúp tiết kiệm dây", "Làm thiết bị chạy nhanh hơn"], 0, "Điện có thể phóng qua khoảng cách; phải giữ khoảng cách an toàn theo quy định và cảnh báo."],
     ["Vì sao cần giữ thiết bị điện ở nơi khô ráo?", "Một ổ cắm đặt gần vòi nước; cách bố trí nào giúp giảm nguy cơ?", ["Di chuyển/che chắn phù hợp, tránh nước và dùng bảo vệ đúng cách", "Để nước chảy lên ổ cắm", "Bỏ vỏ ổ cắm"], 0, "Nước làm tăng nguy cơ rò điện và điện giật; thiết bị cần được lắp đặt phù hợp môi trường."],
-    ["Ai nên xử lí sự cố điện trong trường học?", "Một ổ điện phát tia lửa; học sinh cần làm gì thay vì tự tháo ổ?", ["Báo giáo viên/người có chuyên môn", "Tự tháo bằng tay", "Chọc vật vào ổ để kiểm tra"], 0, "Sự cố điện cần được người có chuyên môn xử lí; học sinh tránh xa và báo người phụ trách." ]
+    ["Ai nên xử lí sự cố điện trong trường học?", "Một ổ điện phát tia lửa; học sinh cần làm gì thay vì tự tháo ổ?", ["Báo giáo viên/người có chuyên môn", "Tự tháo bằng tay", "Chọc vật vào ổ để kiểm tra"], 0, "Sự cố điện cần được người có chuyên môn xử lí; học sinh tránh xa và báo người phụ trách."]
   ],
+
   // Chương IV: mạch điện và thiết bị điện.
   IV: [
     ["Vật liệu dẫn điện được dùng làm gì?", "Lõi của dây dẫn cần cho dòng điện đi qua tốt; nên chọn nhóm vật liệu nào?", ["Vật liệu dẫn điện", "Vật liệu cách điện", "Vật liệu dẫn từ"], 0, "Vật liệu dẫn điện như đồng, nhôm được dùng làm dây dẫn và tiếp điểm."],
@@ -78,21 +81,21 @@ window.COMPREHENSIVE_QUESTION_BANK = {
     ["Phụ tải điện là gì?", "Trong mạch chiếu sáng, bộ phận tiêu thụ điện để phát sáng được gọi là gì?", ["Phụ tải", "Dây gióng", "Khung tên"], 0, "Phụ tải là thiết bị sử dụng điện năng, như đèn hoặc động cơ."],
     ["Công tắc có chức năng chính nào?", "Muốn bật/tắt đèn trong mạch, phần tử nào được dùng để đóng ngắt?", ["Nguồn điện", "Công tắc", "Vật cách điện"], 1, "Công tắc điều khiển đóng hoặc ngắt mạch điện."],
     ["Cầu chì bảo vệ mạch khi nào?", "Khi dòng điện vượt quá giới hạn cho phép, cầu chì sẽ làm gì để bảo vệ?", ["Nóng chảy và ngắt mạch", "Tăng điện áp", "Làm đèn sáng hơn"], 0, "Dây chảy trong cầu chì nóng chảy khi quá dòng và ngắt mạch."],
-    ["Aptomat có thể đảm nhiệm chức năng nào?", "Một thiết bị bảo vệ có thể ngắt mạch khi quá tải; thiết bị đó thường là gì?", ["Aptomat", "Cầu dao trang trí", "Bảng kê"], 0, "Aptomat tự động ngắt khi có sự cố quá dòng theo đặc tính thiết kế."],
-    ["Mạch kín có đặc điểm gì?", "Công tắc đóng, các mối nối tốt và nguồn phù hợp; mạch lúc này ở trạng thái nào?", ["Mạch kín", "Mạch hở", "Mạch không có nguồn"], 0, "Mạch kín tạo đường dẫn liên tục để dòng điện chạy qua tải."],
-    ["Sơ đồ nguyên lí cho biết điều gì?", "Khi cần hiểu các phần tử nối với nhau và mạch hoạt động ra sao, nên xem sơ đồ nào?", ["Sơ đồ nguyên lí", "Bản vẽ nhà", "Bản vẽ lắp cơ khí"], 0, "Sơ đồ nguyên lí thể hiện mối liên hệ điện và nguyên lí hoạt động của mạch."],
-    ["Sơ đồ lắp đặt thể hiện thông tin nào?", "Thợ cần biết vị trí thiết bị và cách đi dây trên bảng điện; cần dùng sơ đồ nào?", ["Sơ đồ nguyên lí", "Sơ đồ lắp đặt", "Biểu đồ cột"], 1, "Sơ đồ lắp đặt cho biết vị trí lắp và cách bố trí dây dẫn, thiết bị."],
-    ["Mô đun cảm biến có vai trò gì?", "Một mạch cần nhận biết ánh sáng để tự bật đèn; bộ phận nào cảm nhận điều kiện đó?", ["Mô đun cảm biến", "Cầu chì", "Khung tên"], 0, "Cảm biến nhận biết đại lượng môi trường và tạo tín hiệu điều khiển."],
-    ["Cảm biến ánh sáng thường phản ứng với đại lượng nào?", "Đèn tự bật khi trời tối cần nhận biết sự thay đổi nào?", ["Độ sáng môi trường", "Khối lượng dây", "Màu vỏ công tắc"], 0, "Cảm biến ánh sáng nhận biết mức độ chiếu sáng."],
-    ["Cảm biến nhiệt độ dùng để nhận biết gì?", "Muốn mạch bật quạt khi nhiệt độ vượt ngưỡng, cảm biến nào phù hợp?", ["Cảm biến nhiệt độ", "Cảm biến màu", "Cầu chì"], 0, "Cảm biến nhiệt độ nhận biết nhiệt độ môi trường để cung cấp tín hiệu."],
-    ["Khi lắp mạch thực hành, cần làm gì trước khi đấu nối?", "Nhóm em chuẩn bị lắp mạch điều khiển; thao tác nào cần ưu tiên để an toàn?", ["Ngắt nguồn và đọc sơ đồ/hướng dẫn", "Cắm trực tiếp điện lưới", "Chạm thử đầu dây"], 0, "Lắp theo sơ đồ khi đã ngắt nguồn; chỉ dùng bộ nguồn phù hợp và theo hướng dẫn."],
-    ["Vì sao cần kiểm tra cực tính và vị trí linh kiện?", "Mô đun có hai cực nguồn phân biệt; lắp nhầm cực có thể gây hậu quả nào?", ["Mạch hoạt động sai hoặc linh kiện hỏng", "Mạch tự có thêm nguồn", "Không ảnh hưởng trong mọi trường hợp"], 0, "Lắp đúng cực và vị trí giúp mạch hoạt động đúng, tránh hỏng hóc."],
-    ["Ngành kĩ thuật điện gồm công việc nào?", "Người lắp đặt, vận hành và bảo dưỡng hệ thống điện làm trong lĩnh vực nào?", ["Kĩ thuật điện", "Thiết kế thời trang", "Chế biến thực phẩm"], 0, "Ngành kĩ thuật điện liên quan thiết kế, lắp đặt, vận hành và sửa chữa hệ thống điện."],
-    ["Nguồn nào phù hợp cho mạch học tập đơn giản?", "Trong lớp thực hành, giáo viên yêu cầu lắp mạch đèn nhỏ; nên chọn nguồn nào?", ["Nguồn điện áp thấp theo hướng dẫn", "Ổ điện lưới đấu dây trần", "Nguồn không rõ thông số"], 0, "Mạch học tập chỉ dùng nguồn điện áp thấp phù hợp; không tự đấu nối điện lưới." ]
+    ["Aptomat có ưu điểm nào so với cầu chì?", "Trong gia đình, thiết bị bảo vệ có thể đóng lại sau khi xử lí sự cố là gì?", ["Aptomat", "Dây nối", "Bóng đèn"], 0, "Aptomat có thể tự ngắt khi sự cố và được đóng lại sau khi kiểm tra, khắc phục nguyên nhân."],
+    ["Sơ đồ nguyên lí dùng để làm gì?", "Muốn hiểu mối liên hệ điện giữa các phần tử trong mạch, em xem loại sơ đồ nào?", ["Sơ đồ nguyên lí", "Bản vẽ nhà", "Bảng kê vật liệu"], 0, "Sơ đồ nguyên lí thể hiện nguyên lí làm việc và mối liên hệ điện giữa các phần tử."],
+    ["Sơ đồ lắp đặt thể hiện điều gì?", "Khi cần biết vị trí lắp thiết bị và đường đi dây trong thực tế, nên xem sơ đồ nào?", ["Sơ đồ lắp đặt", "Sơ đồ nguyên lí", "Hình chiếu bằng"], 0, "Sơ đồ lắp đặt thể hiện vị trí các thiết bị và cách đi dây trong thực tế."],
+    ["Công tơ điện dùng để làm gì?", "Muốn theo dõi lượng điện năng gia đình đã sử dụng, cần đọc thiết bị nào?", ["Công tơ điện", "Cầu chì", "Công tắc"], 0, "Công tơ điện đo điện năng tiêu thụ."],
+    ["Thiết bị nào biến điện năng thành quang năng?", "Trong mạch chiếu sáng, thiết bị nào phát sáng khi có điện?", ["Bóng đèn", "Cầu chì", "Ổ cắm"], 0, "Bóng đèn chuyển đổi điện năng thành quang năng và một phần nhiệt năng."],
+    ["Quạt điện chuyển đổi điện năng thành dạng năng lượng nào?", "Khi quạt hoạt động, điện năng chủ yếu được chuyển thành dạng năng lượng nào?", ["Cơ năng", "Hóa năng", "Thế năng"], 0, "Động cơ quạt chuyển điện năng thành cơ năng làm cánh quạt quay."],
+    ["Vì sao cần chọn dây dẫn có tiết diện phù hợp?", "Dây dẫn quá nhỏ so với dòng điện sử dụng có thể gây ra vấn đề gì?", ["Nóng lên quá mức", "Tăng độ sáng vô hạn", "Không có dòng điện trong mọi trường hợp"], 0, "Dây dẫn cần có tiết diện phù hợp để tránh quá nhiệt và bảo đảm an toàn."],
+    ["Khi lắp mạch điện cần tuân thủ điều gì?", "Trước khi kiểm tra mạch điện vừa lắp, cần thực hiện bước nào?", ["Kiểm tra mối nối và bảo đảm an toàn", "Chạm tay vào lõi dây", "Cấp điện ngay khi chưa kiểm tra"], 0, "Cần kiểm tra sơ đồ, mối nối, cách điện và an toàn trước khi cấp điện."],
+    ["Một nguyên nhân gây chập mạch là gì?", "Hai dây dẫn có điện thế khác nhau chạm trực tiếp do lớp cách điện hỏng; hiện tượng này có thể gây gì?", ["Ngắn mạch", "Tăng điện trở vô hạn", "Giảm nhiệt độ dây"], 0, "Ngắn mạch có thể làm dòng điện tăng rất lớn và gây nguy hiểm."]
   ],
-  // Chương V: quy trình thiết kế kĩ thuật.
+
+  // Chương V: thiết kế kĩ thuật.
   V: [
-    ["Thiết kế kĩ thuật thường bắt đầu bằng việc nào?", "Nhóm muốn làm dụng cụ giúp bàn học gọn hơn; việc đầu tiên cần làm là gì?", ["Xác định vấn đề và nhu cầu", "Trang trí sản phẩm", "Chọn màu sơn"], 0, "Cần xác định nhu cầu hoặc vấn đề trước khi tìm giải pháp."],
+    ["Thiết kế kĩ thuật nhằm mục đích gì?", "Khi cần tạo ra một sản phẩm giải quyết vấn đề trong đời sống, hoạt động nào được thực hiện?", ["Thiết kế kĩ thuật", "Trang trí ngẫu nhiên", "Ghi chép thời tiết"], 0, "Thiết kế kĩ thuật tìm giải pháp và tạo sản phẩm đáp ứng nhu cầu thực tế."],
+    ["Bước đầu của quá trình thiết kế là gì?", "Nhóm muốn làm một dụng cụ giúp bàn học gọn hơn; việc đầu tiên cần làm là gì?", ["Xác định vấn đề và nhu cầu", "Trang trí sản phẩm", "Chọn màu sơn"], 0, "Cần xác định nhu cầu hoặc vấn đề trước khi tìm giải pháp."],
     ["Tiêu chí thiết kế dùng để làm gì?", "Có ba phương án làm giá sách; căn cứ nào giúp nhóm so sánh và lựa chọn?", ["Tiêu chí thiết kế", "Tên người vẽ", "Màu giấy"], 0, "Tiêu chí làm rõ yêu cầu sản phẩm và giúp đánh giá các phương án."],
     ["Vì sao cần tìm hiểu thông tin trước khi thiết kế?", "Trước khi chế tạo hệ thống tưới, nhóm nên khảo sát điều gì để chọn giải pháp phù hợp?", ["Nhu cầu sử dụng và điều kiện thực tế", "Chỉ màu yêu thích", "Số trang vở"], 0, "Thông tin về người dùng, điều kiện và giải pháp có sẵn giúp thiết kế phù hợp hơn."],
     ["Khi có nhiều ý tưởng, nên làm gì?", "Nhóm đưa ra ba cách làm sản phẩm; bước hợp lí tiếp theo là gì?", ["So sánh theo tiêu chí rồi chọn phương án", "Chọn ngẫu nhiên", "Bỏ qua yêu cầu ban đầu"], 0, "Các phương án cần được so sánh theo tiêu chí để lựa chọn có căn cứ."],
@@ -110,6 +113,134 @@ window.COMPREHENSIVE_QUESTION_BANK = {
     ["Cảm biến độ ẩm đất có thể giúp hệ thống làm gì?", "Muốn hệ thống chỉ tưới khi đất khô, cảm biến nào có thể cung cấp tín hiệu?", ["Cảm biến độ ẩm đất", "Cảm biến âm thanh", "Bút thử điện"], 0, "Cảm biến độ ẩm nhận biết tình trạng đất để hỗ trợ quyết định tưới."],
     ["Máy bơm mini trong mô hình tưới dùng để làm gì?", "Bình nước đặt thấp hơn chậu và cần đẩy nước qua ống; bộ phận nào có thể tạo dòng?", ["Máy bơm phù hợp", "Thước đo", "Bánh răng trang trí"], 0, "Máy bơm mini có thể tạo dòng nước; cần chọn loại phù hợp nguồn và mô hình."],
     ["Vì sao hệ thống tưới cần thử nghiệm?", "Sau khi lắp xong, nhóm muốn biết nước có đến đúng chậu và lượng tưới có phù hợp không; cần làm gì?", ["Chạy thử và quan sát", "Chỉ nhìn bản vẽ", "Bỏ qua kiểm tra"], 0, "Thử nghiệm kiểm tra đường nước, khả năng điều khiển và mức đáp ứng yêu cầu."],
-    ["Một cách cải tiến hệ thống tưới là gì?", "Thử nghiệm cho thấy nước chảy quá nhiều; nhóm nên xử lí thế nào?", ["Điều chỉnh lưu lượng/thời gian tưới rồi thử lại", "Tăng lưu lượng hơn nữa", "Tháo bỏ tiêu chí"], 0, "Điều chỉnh lưu lượng hoặc thời gian tưới giúp phù hợp yêu cầu; cần thử lại để đánh giá." ]
+    ["Một cách cải tiến hệ thống tưới là gì?", "Thử nghiệm cho thấy nước chảy quá nhiều; nhóm nên xử lí thế nào?", ["Điều chỉnh lưu lượng/thời gian tưới rồi thử lại", "Tăng lưu lượng hơn nữa", "Tháo bỏ tiêu chí"], 0, "Điều chỉnh lưu lượng hoặc thời gian tưới giúp phù hợp yêu cầu; cần thử lại để đánh giá."]
   ]
 };
+
+// ===== NGÂN HÀNG CÂU HỎI RIÊNG CHO TỪNG BÀI HỌC =====
+// Mỗi chủ đề được tách thành 2 câu: ghi nhớ và vận dụng.
+// Dữ liệu này độc lập với COMPREHENSIVE_QUESTION_BANK để không làm thay đổi
+// ngân hàng 190 câu đang được Assessment Center sử dụng.
+(function () {
+  const bank = window.COMPREHENSIVE_QUESTION_BANK;
+
+  function expandTopics(chapterKey, start, end, extraTopics = []) {
+    const topics = [
+      ...(bank?.[chapterKey] || []).slice(start, end),
+      ...extraTopics,
+    ];
+
+    return topics.flatMap(([knowledge, application, choices, answer, explanation]) => [
+      { question: knowledge, choices, answer, explanation },
+      { question: application, choices, answer, explanation },
+    ]);
+  }
+
+  const extra = {
+    3: [
+      [
+        "Yêu cầu kĩ thuật trên bản vẽ chi tiết có tác dụng gì?",
+        "Khi chế tạo một chi tiết, người thợ cần căn cứ vào phần nào để biết yêu cầu xử lí bề mặt?",
+        ["Yêu cầu kĩ thuật", "Bảng kê", "Mặt bằng"], 0,
+        "Yêu cầu kĩ thuật nêu những chỉ dẫn cần thiết để chế tạo và kiểm tra chi tiết."
+      ],
+    ],
+    4: [
+      [
+        "Kích thước lắp trên bản vẽ lắp cho biết điều gì?",
+        "Khi lắp các chi tiết thành một sản phẩm, thông tin kích thước nào giúp xác định vị trí hoặc quan hệ lắp ghép?",
+        ["Kích thước lắp", "Khổ giấy", "Tỉ lệ màu"], 0,
+        "Kích thước lắp thể hiện các kích thước cần thiết cho việc lắp ráp và sử dụng sản phẩm."
+      ],
+    ],
+    9: [
+      [
+        "Người thợ gia công cơ khí thường sử dụng tài liệu nào để xác định hình dạng chi tiết?",
+        "Khi gia công một chi tiết theo yêu cầu, người thợ cần đọc tài liệu kĩ thuật nào?",
+        ["Bản vẽ kĩ thuật", "Thời khóa biểu", "Bản đồ địa lí"], 0,
+        "Bản vẽ kĩ thuật cung cấp hình dạng, kích thước và yêu cầu cần thiết cho chế tạo."
+      ],
+      [
+        "Một phẩm chất quan trọng của người làm nghề cơ khí là gì?",
+        "Khi sử dụng máy móc và dụng cụ gia công, người làm nghề cơ khí cần có thái độ nào?",
+        ["Cẩn thận và tuân thủ an toàn", "Làm nhanh bất kể quy trình", "Bỏ qua hướng dẫn"], 0,
+        "Công việc cơ khí đòi hỏi sự cẩn thận, chính xác và ý thức an toàn."
+      ],
+    ],
+    10: [
+      [
+        "Sau khi xác định nhu cầu làm giá để đồ dùng học tập, nhóm nên thực hiện việc gì?",
+        "Để chọn cách làm giá để đồ phù hợp, nhóm cần làm gì sau khi xác định yêu cầu sản phẩm?",
+        ["Đề xuất và so sánh các phương án", "Chế tạo ngay không cần thiết kế", "Bỏ qua kích thước"], 0,
+        "Sau khi xác định nhu cầu và yêu cầu, cần đề xuất, so sánh rồi lựa chọn phương án thiết kế."
+      ],
+      [
+        "Khi hoàn thành giá để đồ dùng học tập, cần kiểm tra điều gì?",
+        "Muốn biết giá để đồ có đáp ứng mục tiêu sử dụng hay không, nhóm cần làm gì?",
+        ["Thử độ chắc chắn và công năng", "Chỉ kiểm tra màu sắc", "Không cần thử nghiệm"], 0,
+        "Sản phẩm cần được thử nghiệm theo tiêu chí như độ chắc chắn, công năng và an toàn."
+      ],
+    ],
+    17: [
+  [
+    "Một công việc của kĩ thuật viên điện là gì?",
+    "Người kiểm tra, vận hành và bảo dưỡng hệ thống điện thường làm công việc thuộc lĩnh vực nào?",
+    ["Kĩ thuật điện", "Nông nghiệp", "Thiết kế thời trang"], 0,
+    "Kĩ thuật viên điện có thể tham gia lắp đặt, kiểm tra, vận hành và bảo dưỡng hệ thống điện."
+  ],
+  [
+    "Người làm nghề điện cần có phẩm chất nào?",
+    "Khi lắp đặt và bảo dưỡng thiết bị điện, người thợ cần làm việc như thế nào?",
+    ["Cẩn thận, chính xác và tuân thủ an toàn", "Tùy tiện bỏ qua quy trình", "Chỉ quan tâm tốc độ"], 0,
+    "Công việc điện đòi hỏi sự cẩn thận, chính xác và tuân thủ quy định an toàn."
+  ],
+  [
+    "Kiến thức nào cần thiết đối với người làm nghề điện?",
+    "Muốn kiểm tra và bảo dưỡng hệ thống điện đúng cách, người làm nghề cần hiểu điều gì?",
+    ["Nguyên lí và quy trình an toàn điện", "Chỉ cách phối màu", "Kĩ thuật trồng cây"], 0,
+    "Người làm nghề điện cần hiểu nguyên lí hoạt động của thiết bị và quy trình an toàn điện."
+  ],
+],
+    19: [
+      [
+        "Vì sao cần xác định yêu cầu trước khi lựa chọn giải pháp thiết kế?",
+        "Khi bắt đầu một nhiệm vụ thiết kế, việc xác định tiêu chí giúp nhóm làm gì?",
+        ["Có căn cứ để so sánh và đánh giá giải pháp", "Không cần thử nghiệm", "Chỉ để trang trí bản vẽ"], 0,
+        "Yêu cầu và tiêu chí là căn cứ để lựa chọn, thử nghiệm và đánh giá giải pháp thiết kế."
+      ],
+    ],
+  };
+
+  window.LESSON_QUESTION_BANK = {
+    // Chương I: Bài 1–5.
+    1: expandTopics("I", 0, 7),
+    2: expandTopics("I", 7, 12),
+    3: expandTopics("I", 12, 14, extra[3]),
+    4: expandTopics("I", 14, 16, extra[4]),
+    5: expandTopics("I", 16, 19),
+
+    // Chương II: Bài 6–10.
+    6: expandTopics("II", 0, 4),
+    7: expandTopics("II", 4, 11),
+    8: expandTopics("II", 11, 17),
+    9: expandTopics("II", 17, 18, extra[9]),
+    10: expandTopics("II", 18, 19, extra[10]),
+
+    // Chương III: Bài 11–13.
+    11: expandTopics("III", 0, 4),
+    12: expandTopics("III", 4, 10).concat(expandTopics("III", 13, 19)),
+    13: expandTopics("III", 10, 13),
+
+    // Chương IV: Bài 14–17.
+    14: expandTopics("IV", 0, 3),
+    15: expandTopics("IV", 3, 12),
+    16: expandTopics("IV", 12, 17),
+    17: expandTopics("IV", 17, 19, extra[17]),
+
+    // Chương V: Bài 18–20.
+    18: expandTopics("V", 0, 10),
+    19: expandTopics("V", 10, 12, extra[19]),
+    20: expandTopics("V", 12, 19),
+  };
+})();
+    
