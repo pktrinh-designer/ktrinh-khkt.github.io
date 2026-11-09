@@ -10,7 +10,19 @@ const loginForm = document.getElementById("loginForm");
 const registerForm = document.getElementById("registerForm");
 const authMessage = document.getElementById("authMessage");
 
-// Hiển thị thông báo
+// Nếu người dùng đã có phiên đăng nhập từ trước,
+// không cần mở lại trang đăng nhập.
+let loginSubmissionInProgress = false;
+
+if (loginForm && authService) {
+    authService.onAuthStateChanged((user) => {
+        if (user && !loginSubmissionInProgress) {
+            window.location.replace("trangtieude.html");
+        }
+    });
+}
+
+// Hiển thị thông báo.
 function showAuthMessage(message, isError = false) {
     if (!authMessage) return;
 
@@ -18,7 +30,7 @@ function showAuthMessage(message, isError = false) {
     authMessage.style.color = isError ? "#fecaca" : "#bbf7d0";
 }
 
-// Kiểm tra Firebase
+// Kiểm tra Firebase.
 if (!authService || !dbService) {
     showAuthMessage(
         "Không thể kết nối Firebase. Vui lòng tải lại trang.",
@@ -52,7 +64,7 @@ if (registerForm && authService && dbService) {
         submitButton.textContent = "Đang tạo tài khoản...";
 
         try {
-            // Tạo tài khoản Firebase Authentication
+            // Tạo tài khoản Firebase Authentication.
             const userCredential =
                 await authService.createUserWithEmailAndPassword(
                     email,
@@ -61,7 +73,7 @@ if (registerForm && authService && dbService) {
 
             const user = userCredential.user;
 
-            // Lưu hồ sơ vào Firestore
+            // Lưu hồ sơ vào Firestore.
             await dbService.collection("users").doc(user.uid).set({
                 uid: user.uid,
                 email: user.email,
@@ -69,14 +81,14 @@ if (registerForm && authService && dbService) {
                 createdAt: firebase.firestore.FieldValue.serverTimestamp()
             });
 
-            // Đăng xuất sau khi đăng ký thành công
+            // Đăng xuất sau khi đăng ký thành công.
             await authService.signOut();
 
             showAuthMessage(
                 "Đăng ký thành công! Đang chuyển đến trang đăng nhập..."
             );
 
-            // Chuyển sang trang đăng nhập
+            // Chuyển sang trang đăng nhập.
             setTimeout(() => {
                 window.location.href = "dangnhap.html";
             }, 1500);
@@ -125,19 +137,24 @@ if (loginForm && authService) {
 
         submitButton.disabled = true;
         submitButton.textContent = "Đang đăng nhập...";
+        loginSubmissionInProgress = true;
+
+        let loginSucceeded = false;
 
         try {
-            // Đăng nhập Firebase Authentication
+            // Đăng nhập Firebase Authentication.
             await authService.signInWithEmailAndPassword(
                 email,
                 password
             );
 
+            loginSucceeded = true;
+
             showAuthMessage(
                 "Đăng nhập thành công! Đang chuyển đến trang chủ..."
             );
 
-            // Chuyển đến trang chủ, giữ trạng thái đăng nhập
+            // Chuyển đến trang chủ, giữ trạng thái đăng nhập.
             setTimeout(() => {
                 window.location.href = "trangtieude.html";
             }, 1200);
@@ -164,6 +181,10 @@ if (loginForm && authService) {
         } finally {
             submitButton.disabled = false;
             submitButton.textContent = "Đăng nhập";
+
+            if (!loginSucceeded) {
+                loginSubmissionInProgress = false;
+            }
         }
     });
 }

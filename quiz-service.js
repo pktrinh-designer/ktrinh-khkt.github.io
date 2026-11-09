@@ -361,15 +361,12 @@ async function startQuiz({ uid, type, id }) {
     expiresAt: now + SESSION_DURATION,
     processing: false,
     processingAt: null,
-    submitted: false
+    submitted: false,
   };
 
   const db = getFirestore();
 
-  await db
-    .collection(QUIZ_SESSION_COLLECTION)
-    .doc(quizId)
-    .set(session);
+  await db.collection(QUIZ_SESSION_COLLECTION).doc(quizId).set(session);
 
   // Không gửi đáp án và lời giải xuống Frontend.
   return {
@@ -383,8 +380,8 @@ async function startQuiz({ uid, type, id }) {
       questionId: String(index),
       prompt: question.prompt,
       choices: question.choices,
-      lesson: question.lesson || null
-    }))
+      lesson: question.lesson || null,
+    })),
   };
 }
 
@@ -393,17 +390,12 @@ async function startQuiz({ uid, type, id }) {
 // ========================================
 
 async function gradeQuiz({ uid, quizId, answers }) {
-  if (
-    typeof uid !== "string" ||
-    typeof quizId !== "string"
-  ) {
+  if (typeof uid !== "string" || typeof quizId !== "string") {
     throw new Error("Thông tin phiên kiểm tra không hợp lệ.");
   }
 
   const db = getFirestore();
-  const sessionRef = db
-    .collection(QUIZ_SESSION_COLLECTION)
-    .doc(quizId);
+  const sessionRef = db.collection(QUIZ_SESSION_COLLECTION).doc(quizId);
 
   return await db.runTransaction(async (transaction) => {
     const snapshot = await transaction.get(sessionRef);
@@ -477,14 +469,14 @@ async function gradeQuiz({ uid, quizId, answers }) {
         correctLabel: question.choices[question.answer],
         isCorrect,
         explanation: question.explanation,
-        lesson: question.lesson || null
+        lesson: question.lesson || null,
       };
     });
 
     // Khóa phiên ngay trong transaction.
     transaction.update(sessionRef, {
       processing: true,
-      processingAt: now
+      processingAt: now,
     });
 
     return {
@@ -494,7 +486,7 @@ async function gradeQuiz({ uid, quizId, answers }) {
       chapterId: session.chapterId,
       score,
       totalQuestions: session.questions.length,
-      results
+      results,
     };
   });
 }
@@ -506,9 +498,7 @@ async function gradeQuiz({ uid, quizId, answers }) {
 async function markQuizSubmitted({ uid, quizId }) {
   const db = getFirestore();
 
-  const sessionRef = db
-    .collection(QUIZ_SESSION_COLLECTION)
-    .doc(quizId);
+  const sessionRef = db.collection(QUIZ_SESSION_COLLECTION).doc(quizId);
 
   return await db.runTransaction(async (transaction) => {
     const snapshot = await transaction.get(sessionRef);
@@ -535,7 +525,7 @@ async function markQuizSubmitted({ uid, quizId }) {
     transaction.update(sessionRef, {
       submitted: true,
       processing: false,
-      submittedAt: now
+      submittedAt: now,
     });
 
     return true;
@@ -549,9 +539,7 @@ async function markQuizSubmitted({ uid, quizId }) {
 async function releaseQuizSubmission({ uid, quizId }) {
   const db = getFirestore();
 
-  const sessionRef = db
-    .collection(QUIZ_SESSION_COLLECTION)
-    .doc(quizId);
+  const sessionRef = db.collection(QUIZ_SESSION_COLLECTION).doc(quizId);
 
   return await db.runTransaction(async (transaction) => {
     const snapshot = await transaction.get(sessionRef);
@@ -568,7 +556,7 @@ async function releaseQuizSubmission({ uid, quizId }) {
 
     transaction.update(sessionRef, {
       processing: false,
-      processingAt: null
+      processingAt: null,
     });
 
     return true;
@@ -579,5 +567,5 @@ module.exports = {
   startQuiz,
   gradeQuiz,
   markQuizSubmitted,
-  releaseQuizSubmission
+  releaseQuizSubmission,
 };

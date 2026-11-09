@@ -7,6 +7,17 @@
     ? sharedLayoutScript.src
     : new URL("../js/shared-layout.js", window.location.href).href;
 
+  // Chỉ cho phép truy cập công khai vào trang đăng nhập và đăng ký.
+  const currentFile = window.location.pathname.split("/").pop().toLowerCase();
+  const isLoginPage = currentFile === "dangnhap.html";
+  const isRegisterPage = currentFile === "dangky.html";
+  const isPublicAuthPage = isLoginPage || isRegisterPage;
+
+  // Ẩn nội dung trang riêng tư trong lúc Firebase khôi phục phiên đăng nhập.
+  if (!isPublicAuthPage) {
+    document.documentElement.style.visibility = "hidden";
+  }
+
   // Đường dẫn các trang chính.
   const SITE_ROUTES = Object.freeze({
     home: "trangtieude.html",
@@ -262,13 +273,33 @@
     accountItem.appendChild(logoutButton);
   }
 
-  // Theo dõi trạng thái đăng nhập.
+  // Theo dõi trạng thái đăng nhập và bảo vệ các trang riêng tư.
   async function wireAuthState() {
     try {
       const auth = await ensureFirebaseReady();
 
       auth.onAuthStateChanged(user => {
         renderAccountState(user);
+
+        // Trang đăng nhập/đăng ký được phép truy cập khi chưa đăng nhập.
+        if (isPublicAuthPage) {
+          // Nếu đã đăng nhập mà vẫn mở trang đăng nhập, chuyển về trang chủ.
+          if (user && isLoginPage) {
+            window.location.replace(resolveRoute(SITE_ROUTES.home));
+            return;
+          }
+
+          document.documentElement.style.visibility = "";
+          return;
+        }
+
+        // Mọi trang còn lại đều yêu cầu người dùng đã xác thực.
+        if (!user) {
+          window.location.replace(resolveRoute("dangnhap.html"));
+          return;
+        }
+
+        document.documentElement.style.visibility = "";
       });
 
     } catch (error) {
@@ -278,6 +309,13 @@
       );
 
       renderAccountState(null);
+
+      // Không cho hiển thị trang riêng tư nếu không xác minh được phiên.
+      if (!isPublicAuthPage) {
+        window.location.replace(resolveRoute("dangnhap.html"));
+      } else {
+        document.documentElement.style.visibility = "";
+      }
     }
   }
 
