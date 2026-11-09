@@ -404,7 +404,7 @@ function serveStatic(request, response, pathname) {
   let requestedPath;
 
   if (pathname === "/") {
-    requestedPath = "/html/trangtieude.html";
+    requestedPath = "/html/dangnhap.html";
   } else if (
     pathname.startsWith("/css/") ||
     pathname.startsWith("/js/") ||
