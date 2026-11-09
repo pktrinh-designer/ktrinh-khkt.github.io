@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng nhập | CONGNGHE8</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../css/auth.css">
+</head>
+
+<body class="auth-body">
+
+    <main class="auth-container">
+
+        <div class="auth-logo">
+            <h1>CONGNGHE8</h1>
+            <p>Nền tảng học tập Công nghệ 8</p>
+        </div>
+
+        <h2 class="auth-title">Đăng nhập</h2>
+
+        <form id="loginForm" class="auth-form">
+
+            <div class="auth-field">
+                <label for="email">Email</label>
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="Nhập địa chỉ email"
+                    required
+                >
+            </div>
+
+            <div class="auth-field">
+                <label for="password">Mật khẩu</label>
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="
+                    required
+                >
+            </div>
+
+            <button type="submit" class="auth-button">
+                Đăng nhập
+            </button>
+
+        </form>
+
+        <p id="authMessage" class="auth-message"></p>
+
+        <div class="auth-link">
+            Chưa có tài khoản?
+            <a href="dangky.html">Đăng ký ngay</a>
+        </div>
+
+        <a href="trangtieude.html" class="auth-back">
+            ← Quay lại trang chủ
+        </a>
+
+    </main>
+
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+
+    <script src="../js/firebase-config.js"></script>
+    <script src="../js/auth.js"></script>
+
+</body>
+</html>

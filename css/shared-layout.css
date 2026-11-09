@@ -819,7 +819,9 @@ body[data-chapter] .site-badge,
 
 /* Trang giới thiệu (About) */
 body[data-nav-active="about"] .site-hero {
-  background: linear-gradient(125deg, #0f172a 0%, #312e81 52%, #4f46e5 100%);
+  background:
+  radial-gradient(circle at 90% 15%, rgba(56, 189, 248, 0.35), transparent 45%),
+  linear-gradient(130deg, #0f172a 0%, #1e3a8a 55%, #3b82f6 100%);
 }
 
 body[data-nav-active="about"] .site-hero .site-primary-link {
@@ -1245,5 +1247,199 @@ body[data-chapter] .chapter-video-card {
   .chatbot-widget {
     right: 12px;
     bottom: 12px;
+  }
+}
+
+/* ===== LEARNING PROGRESS ===== */
+
+.learning-progress {
+  margin: 2rem 0;
+  padding: 1.6rem;
+  background: linear-gradient(135deg, #eff6ff, #f0fdf4);
+  border: 1px solid #dbeafe;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(15, 23, 42, .05);
+}
+
+.progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.progress-label {
+  color: #2563eb;
+  font-size: .72rem;
+  font-weight: 800;
+  letter-spacing: .12em;
+}
+
+.progress-header h2 {
+  margin: .4rem 0;
+  color: #10203a;
+  font-size: 1.4rem;
+}
+
+.progress-header p {
+  margin: 0;
+  color: #64748b;
+  line-height: 1.6;
+}
+
+.progress-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: .3rem;
+  white-space: nowrap;
+}
+
+.progress-stat strong {
+  color: #15803d;
+  font-size: 1.8rem;
+}
+
+.progress-stat span {
+  color: #64748b;
+  font-size: .85rem;
+}
+
+.progress-track {
+  width: 100%;
+  height: 12px;
+  margin-top: 1.4rem;
+  overflow: hidden;
+  background: #dbeafe;
+  border-radius: 999px;
+}
+
+.progress-fill {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, #2563eb, #16a34a);
+  border-radius: inherit;
+  transition: width .35s ease;
+}
+
+@media (max-width: 600px) {
+  .learning-progress {
+    padding: 1.2rem;
+  }
+
+  .progress-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .progress-stat {
+    align-items: flex-start;
+  }
+}
+
+/* ===== NÚT ĐÁNH DẤU ĐÃ HỌC ===== */
+
+.lesson-complete-btn {
+  margin-top: 1rem;
+  padding: .75rem 1rem;
+  border: 1px solid #93c5fd;
+  border-radius: 12px;
+  background: #eff6ff;
+  color: #1d4ed8;
+  font-size: .9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background .2s, transform .2s;
+}
+
+.lesson-complete-btn:hover {
+  background: #dbeafe;
+  transform: translateY(-2px);
+}
+
+.lesson-complete-btn.is-completed {
+  background: #dcfce7;
+  border-color: #86efac;
+  color: #15803d;
+}
+
+.lesson-complete-btn.is-completed:hover {
+  background: #bbf7d0;
+}
+
+/* ===== TÀI KHOẢN TRÊN THANH ĐIỀU HƯỚNG ===== */
+
+.site-account-item {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-left: 8px;
+}
+
+.site-account-loading {
+  color: #cbd5e1;
+  font-size: 0.82rem;
+}
+
+.site-account-login,
+.site-account-logout {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 38px;
+  padding: 0.5rem 0.95rem;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 999px;
+  background: linear-gradient(135deg, #2563eb, #4f46e5);
+  color: #ffffff;
+  font: inherit;
+  font-size: 0.86rem;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.site-account-login:hover,
+.site-account-logout:hover:not(:disabled) {
+  color: #ffffff;
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+}
+
+.site-account-email {
+  display: inline-block;
+  max-width: 180px;
+  overflow: hidden;
+  color: #e2e8f0;
+  font-size: 0.82rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.site-account-logout:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
+/* Responsive cho điện thoại */
+@media (max-width: 768px) {
+  .site-account-item {
+    align-items: stretch;
+    flex-direction: column;
+    margin: 4px 0 0;
+    padding: 10px 8px 4px;
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
+  }
+
+  .site-account-email {
+    max-width: 100%;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
+  .site-account-login,
+  .site-account-logout {
+    width: 100%;
   }
 }

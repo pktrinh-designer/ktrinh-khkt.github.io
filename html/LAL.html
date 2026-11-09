@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lý thuyết 20 bài | Công nghệ 8</title>
+
+  <link rel="stylesheet" href="../css/shared-layout.css" />
+  <link rel="stylesheet" href="../css/LAL.css" />
+</head>
+<!-- Trang này khai báo trạng thái điều hướng và mã chương qua thuộc tính data-* bên dưới. -->
+<body data-nav-active="theory">
+  <!-- shared-layout.js sẽ dựng thanh điều hướng dùng chung vào vị trí này. -->
+  <div id="site-header"></div>
+  <!-- Nội dung chính của trang, được trình bày bên trong vùng main. -->
+<main class="site-main">
+  <div class="site-shell">
+
+    <div class="lal-layout">
+
+      <!-- SIDEBAR -->
+      <aside class="lal-sidebar">
+        <div class="lal-sidebar-header">
+          <span class="lal-logo">LAL</span>
+          <h2>Learning System</h2>
+          <p>CONGNGHE8</p>
+        </div>
+
+        <nav class="lal-navigation">
+
+          <button class="lal-nav-item active" data-tab="learning">
+            <span>📚</span>
+            <span>Learning Hub</span>
+          </button>
+
+          <button class="lal-nav-item" data-tab="assessment">
+            <span>📝</span>
+            <span>Assessment Center</span>
+          </button>
+
+          <button class="lal-nav-item" data-tab="analytics">
+            <span>📊</span>
+            <span>Learning Analytics</span>
+          </button>
+
+        </nav>
+      </aside>
+
+      <!-- MAIN CONTENT -->
+      <div class="lal-content">
+
+        <section class="lal-panel active" data-panel="learning">
+    <!-- Phần giới thiệu: tiêu đề, mô tả và các liên kết thao tác chính. -->
+    <section class="site-hero">
+      <span class="site-eyebrow">Ôn tập · Công nghệ 8</span>
+      <h1 class="site-title">Lý thuyết đầy đủ 20 bài học</h1>
+      <p class="site-subtitle">Nội dung được sắp xếp theo 5 chương. Mỗi bài có phần ghi nhớ và đường dẫn video bài giảng tương ứng.</p>
+      <nav class="chapter-nav" aria-label="Đi đến chương">
+        <a href="#chuong-i">Chương I · Vẽ kĩ thuật</a><a href="#chuong-ii">Chương II · Cơ khí</a><a href="#chuong-iii">Chương III · An toàn điện</a><a href="#chuong-iv">Chương IV · Kĩ thuật điện</a><a href="#chuong-v">Chương V · Thiết kế</a>
+      </nav>
+    </section>
+    
+    <!-- Thanh tìm kiếm bài học -->
+    <section class="lesson-search">
+      <div class="search-heading">
+        <h2>Tìm kiếm bài học</h2>
+        <p>Tra cứu nhanh nội dung trong 20 bài học Công nghệ 8.</p>
+      </div>
+
+      <div class="search-box">
+        <span class="search-icon">⌕</span>
+        <input
+          type="search"
+          id="lessonSearch"
+          placeholder="Nhập tên bài, số bài hoặc từ khóa..."
+          autocomplete="off"
+          aria-label="Tìm kiếm bài học"
+        />
+        <button type="button" id="clearSearch" aria-label="Xóa tìm kiếm">
+          ✕
+        </button>
+      </div>
+
+      <p id="searchResult" aria-live="polite">
+        Hiển thị 20 bài học
+      </p>
+    </section>
+
+<!-- Tiến độ học tập -->
+<section class="learning-progress">
+  <div class="progress-header">
+    <div>
+      <span class="progress-label">LEARNING PROGRESS</span>
+      <h2>Tiến độ học tập</h2>
+      <p>Theo dõi quá trình hoàn thành 20 bài học Công nghệ 8.</p>
+    </div>
+
+    <div class="progress-stat">
+      <strong id="completedCount">0/20</strong>
+      <span id="progressPercent">0% hoàn thành</span>
+    </div>
+  </div>
+
+  <div
+    class="progress-track"
+    role="progressbar"
+    aria-label="Tiến độ học tập"
+    aria-valuemin="0"
+    aria-valuemax="20"
+    aria-valuenow="0"
+    id="progressTrack"
+  >
+    <div class="progress-fill" id="progressFill"></div>
+  </div>
+</section>
+
+    <section class="chapter-section" id="chuong-i"><div class="chapter-heading"><span>CHƯƠNG I · BÀI 1–5</span><h2>Vẽ kĩ thuật</h2><p>Đọc và trình bày bản vẽ bằng các quy ước thống nhất.</p></div><div class="lesson-grid">
+      <article class="lesson-card"><span class="lesson-number">BÀI 1</span><h3>Tiêu chuẩn trình bày bản vẽ kĩ thuật</h3><p>Bản vẽ kĩ thuật dùng ngôn ngữ hình vẽ và quy ước thống nhất để truyền đạt thông tin. Khi trình bày cần tuân theo tiêu chuẩn về khổ giấy, nét vẽ, chữ viết và ghi kích thước.</p><ul class="lesson-points"><li>Khổ giấy thường dùng: A0, A1, A2, A3, A4; khung bản vẽ và khung tên đặt đúng vị trí.</li><li>Nét liền đậm biểu diễn đường bao thấy; nét đứt biểu diễn đường bao khuất; nét gạch chấm mảnh biểu diễn đường tâm.</li><li>Kích thước gồm đường gióng, đường kích thước và con số kích thước; đơn vị chiều dài trên bản vẽ cơ khí thường là mm.</li></ul><a class="video-link" href="https://www.youtube.com/embed/qU6tZCBJV-s?si=s-LC-JmBsnTMcokh" target="_blank" rel="noopener">▶ Video bài 1</a></article>
+      <article class="lesson-card"><span class="lesson-number">BÀI 2</span><h3>Hình chiếu vuông góc</h3><p>Hình chiếu vuông góc thu được khi các tia chiếu song song và vuông góc với mặt phẳng chiếu. Ba hình chiếu cơ bản là hình chiếu đứng, bằng và cạnh.</p><ul class="lesson-points"><li>Hình chiếu đứng thể hiện chiều dài và chiều cao; hình chiếu bằng thể hiện chiều dài và chiều rộng; hình chiếu cạnh thể hiện chiều rộng và chiều cao.</li><li>Các hình chiếu được bố trí theo quy ước: hình chiếu bằng ở dưới hình chiếu đứng, hình chiếu cạnh ở bên phải.</li><li>Đọc phối hợp các hình chiếu để hình dung hình dạng và kích thước vật thể.</li></ul><a class="video-link" href="https://www.youtube.com/embed/PmYqS5I08wg?si=8TgZYp3carWObuU-" target="_blank" rel="noopener">▶ Video bài 2</a></article>
+      <article class="lesson-card"><span class="lesson-number">BÀI 3</span><h3>Bản vẽ chi tiết</h3><p>Bản vẽ chi tiết dùng để chế tạo và kiểm tra một chi tiết. Bản vẽ gồm hình biểu diễn, kích thước, yêu cầu kĩ thuật và khung tên.</p><ul class="lesson-points"><li>Hình biểu diễn cho biết hình dạng; kích thước cho biết độ lớn; yêu cầu kĩ thuật nêu chỉ dẫn gia công, xử lí; khung tên ghi tên gọi, vật liệu, tỉ lệ.</li><li>Trình tự đọc: khung tên → hình biểu diễn → kích thước → yêu cầu kĩ thuật.</li></ul><a class="video-link" href="https://www.youtube.com/embed/jobTJ-3okKs?si=bWMebti4ZCZhg2I3" target="_blank" rel="noopener">▶ Video bài 3</a></article>
+      <article class="lesson-card"><span class="lesson-number">BÀI 4</span><h3>Bản vẽ lắp</h3><p>Bản vẽ lắp diễn tả hình dạng, kết cấu chung và vị trí tương quan giữa các chi tiết của sản phẩm; phục vụ lắp ráp và sử dụng.</p><ul class="lesson-points"><li>Nội dung gồm hình biểu diễn, kích thước lắp, bảng kê và khung tên.</li><li>Đọc theo thứ tự: khung tên → bảng kê → hình biểu diễn → kích thước → phân tích chi tiết và tổng hợp.</li></ul><a class="video-link" href="https://www.youtube.com/embed/8NREvrWaXsc?si=HQxaWXb0467ICE5y" target="_blank" rel="noopener">▶ Video bài 4</a></article>
+      <article class="lesson-card"><span class="lesson-number">BÀI 5</span><h3>Bản vẽ nhà</h3><p>Bản vẽ nhà dùng trong thiết kế, thi công và sử dụng công trình. Các hình biểu diễn cơ bản là mặt bằng, mặt đứng và mặt cắt.</p><ul class="lesson-points"><li>Mặt bằng là hình cắt bằng qua cửa sổ, thể hiện bố trí các phòng và kích thước.</li><li>Mặt đứng thể hiện hình dáng bên ngoài; mặt cắt thể hiện cấu tạo và kích thước theo chiều cao.</li><li>Kí hiệu quy ước biểu diễn cửa đi, cửa sổ, cầu thang và các bộ phận của nhà.</li></ul><a class="video-link" href="https://www.youtube.com/embed/EoQHqUOvuhQ?si=VKD9IzbvHE0n11oc" target="_blank" rel="noopener">▶ Video bài 5</a></article>
+    </div></section>
+
+    <section class="chapter-section" id="chuong-ii"><div class="chapter-heading"><span>CHƯƠNG II · BÀI 6–10</span><h2>Cơ khí</h2><p>Vật liệu, truyền động, gia công và nghề nghiệp cơ khí.</p></div><div class="lesson-grid">
+      <article class="lesson-card"><span class="lesson-number">BÀI 6</span><h3>Vật liệu cơ khí</h3><p>Vật liệu cơ khí được chọn dựa trên tính chất và yêu cầu làm việc của sản phẩm. Hai nhóm chính là kim loại và phi kim.</p><ul class="lesson-points"><li>Kim loại đen gồm gang, thép; kim loại màu gồm đồng, nhôm và hợp kim của chúng.</li><li>Phi kim phổ biến gồm chất dẻo, cao su, gốm; mỗi loại có ưu điểm riêng về khối lượng, cách điện, chống ăn mòn hoặc đàn hồi.</li><li>Tính chất cơ học, vật lí, hóa học và công nghệ quyết định khả năng sử dụng, gia công vật liệu.</li></ul><a class="video-link" href="https://www.youtube.com/embed/CeD_vo9UUZ8?si=dzYh8kwTKOfQYMNz" target="_blank" rel="noopener">▶ Video bài 6</a></article>
+      <article class="lesson-card"><span class="lesson-number">BÀI 7</span><h3>Truyền và biến đổi chuyển động</h3><p>Cơ cấu truyền chuyển động đưa chuyển động từ bộ phận dẫn đến bộ phận bị dẫn. Các cơ cấu thường gặp: truyền động ma sát, đai, bánh răng và xích.</p><ul class="lesson-points"><li>Tỉ số truyền cho biết quan hệ tốc độ giữa các bánh/cơ cấu; với bánh răng ăn khớp, bánh bị dẫn quay ngược chiều bánh dẫn.</li><li>Truyền đai có thể truyền giữa các trục xa; truyền bánh răng và xích có tỉ số truyền ổn định.</li><li>Cơ cấu biến đổi chuyển động biến chuyển động quay thành tịnh tiến hoặc lắc, như tay quay–con trượt, tay quay–thanh lắc.</li></ul><a class="video-link" href="https://www.youtube.com/embed/2WWCflXI4jo?si=ne4YXIQI8Nv5vrtx" target="_blank" rel="noopener">▶ Video bài 7</a></article>
+      <article class="lesson-card"><span class="lesson-number">BÀI 8</span><h3>Gia công cơ khí bằng tay</h3><p>Gia công cơ khí bằng tay tạo hình, kích thước và bề mặt chi tiết bằng dụng cụ cầm tay. Công việc cần đúng quy trình và bảo đảm an toàn.</p><ul class="lesson-points"><li>Thao tác cơ bản: vạch dấu, cưa, đục, dũa; chọn dụng cụ phù hợp với vật liệu và yêu cầu.</li><li>Kẹp chặt phôi, dùng đồ bảo hộ khi cần và kiểm tra dụng cụ trước khi làm.</li><li>Đo, kiểm tra thường xuyên để đạt kích thước và độ nhẵn yêu cầu.</li></ul><a class="video-link" href="https://www.youtube.com/embed/iXa-lqAgVrg?si=Z8rXEJIooZ5PAQbd" target="_blank" rel="noopener">▶ Video bài 8</a></article>
+      <article class="lesson-card"><span class="lesson-number">BÀI 9</span><h3>Một số ngành nghề cơ khí phổ biến</h3><p>Lĩnh vực cơ khí có nhiều nghề tham gia thiết kế, chế tạo, lắp ráp, vận hành và bảo dưỡng máy móc, thiết bị.</p><ul class="lesson-points"><li>Một số nghề: kĩ sư cơ khí, thợ gia công cắt gọt kim loại, thợ hàn, thợ lắp ráp và bảo trì máy.</li><li>Nghề cơ khí đòi hỏi kiến thức kĩ thuật, khả năng đọc bản vẽ, sử dụng thiết bị, tính cẩn thận và ý thức an toàn.</li><li>Tìm hiểu nhiệm vụ, môi trường và yêu cầu năng lực để lựa chọn nghề phù hợp.</li></ul><a class="video-link" href="https://www.youtube.com/embed/oz-KrcBZ7mM?si=PofAlp85BO8ko6NQ" target="_blank" rel="noopener">▶ Video bài 9</a></article>
+      <article class="lesson-card"><span class="lesson-number">BÀI 10</span><h3>Dự án: Thiết kế giá để đồ dùng học tập</h3><p>Dự án vận dụng kiến thức vẽ kĩ thuật, vật liệu và gia công để thiết kế, chế tạo sản phẩm đơn giản đáp ứng nhu cầu thực tế.</p><ul class="lesson-points"><li>Xác định nhu cầu, yêu cầu sản phẩm và tiêu chí đánh giá; tham khảo các phương án.</li><li>Phác thảo, lựa chọn phương án, lập bản vẽ và chuẩn bị vật liệu, dụng cụ.</li><li>Gia công, lắp ráp an toàn; thử nghiệm độ chắc chắn, công năng và hoàn thiện sản phẩm.</li></ul><a class="video-link" href="https://www.youtube.com/embed/1z4yKyNt0P4?si=twSY0xl4sMDwOttl" target="_blank" rel="noopener">▶ Video bài 10</a></article>
+    </div></section>
+
+    <section class="chapter-section" id="chuong-iii"><div class="chapter-heading"><span>CHƯƠNG III · BÀI 11–13</span><h2>An toàn điện</h2><p>Nhận biết nguy cơ và bảo vệ con người khi làm việc với điện.</p></div><div class="lesson-grid">
+      <article class="lesson-card"><span class="lesson-number">BÀI 11</span><h3>Tai nạn điện</h3><p>Tai nạn điện xảy ra khi dòng điện đi qua cơ thể hoặc do hồ quang điện, cháy nổ gây ra. Mức độ nguy hiểm phụ thuộc cường độ dòng điện, thời gian tiếp xúc, đường đi qua cơ thể và tình trạng môi trường.</p><ul class="lesson-points"><li>Nguy cơ: chạm trực tiếp phần mang điện; chạm vỏ thiết bị bị rò điện; đến gần khu vực dây điện đứt hoặc phóng điện.</li><li>Điện giật có thể gây co cơ, bỏng, ngừng hô hấp và tim; cần phòng ngừa và xử lí đúng cách.</li></ul><a class="video-link" href="https://www.youtube.com/embed/cNf3NAq1Adk?si=i_juVq2RPGdk1SfB" target="_blank" rel="noopener">▶ Video bài 11</a></article>
+      <article class="lesson-card"><span class="lesson-number">BÀI 12</span><h3>Biện pháp an toàn điện</h3><p>Phòng tránh tai nạn bằng cách cách li nguồn điện, sử dụng thiết bị đúng quy định và giữ khoảng cách an toàn với lưới điện.</p><ul class="lesson-points"><li>Không chạm vào dây trần, thiết bị hở điện; ngắt nguồn trước khi sửa chữa; không dùng điện khi tay ướt hoặc nơi ẩm ướt.</li><li>Dùng cầu chì/aptomat đúng định mức, nối đất vỏ kim loại và kiểm tra cách điện định kì.</li><li>Khi có người bị điện giật: nhanh chóng cắt nguồn hoặc dùng vật cách điện tách nạn nhân; gọi cấp cứu và sơ cứu khi đã bảo đảm an toàn.</li></ul><a class="video-link" href="https://www.youtube.com/embed/2Ev8NNEMw6Y?si=s9kuZ1yNXOYHf9C7" target="_blank" rel="noopener">▶ Video bài 12</a></article>
+      <article class="lesson-card"><span class="lesson-number">BÀI 13</span><h3>Dụng cụ bảo vệ an toàn điện</h3><p>Dụng cụ bảo vệ giúp cách điện, ngăn tiếp xúc trực tiếp hoặc hỗ trợ phát hiện nguy cơ điện. Cần chọn đúng loại, đúng cấp điện áp và kiểm tra trước khi dùng.</p><ul class="lesson-points"><li>Dụng cụ cách điện: găng tay, ủng, thảm, kìm và tua vít có cán cách điện.</li><li>Dụng cụ kiểm tra: bút thử điện, đồng hồ đo; chỉ người được hướng dẫn mới sử dụng đúng cách.</li><li>Không dùng dụng cụ nứt, ẩm, hỏng lớp cách điện; bảo quản nơi khô ráo.</li></ul><a class="video-link" href="https://www.youtube.com/embed/Bgm70MDqYI8?si=EuqsAOMp2l6PdLK7" target="_blank" rel="noopener">▶ Video bài 13</a></article>
+    </div></section>
+
+    <section class="chapter-section" id="chuong-iv"><div class="chapter-heading"><span>CHƯƠNG IV · BÀI 14–17</span><h2>Kĩ thuật điện</h2><p>Vật liệu, mạch điện, lắp ráp và nghề nghiệp điện.</p></div><div class="lesson-grid">
+      <article class="lesson-card"><span class="lesson-number">BÀI 14</span><h3>Vật liệu kĩ thuật điện</h3><p>Vật liệu điện được phân loại theo khả năng dẫn điện, cách điện và từ tính, phù hợp với chức năng của từng bộ phận thiết bị.</p><ul class="lesson-points"><li>Vật liệu dẫn điện như đồng, nhôm dùng làm dây dẫn và tiếp điểm.</li><li>Vật liệu cách điện như nhựa, sứ, cao su ngăn dòng điện đi vào vị trí không mong muốn.</li><li>Vật liệu dẫn từ như thép kĩ thuật điện dùng làm lõi máy biến áp, động cơ và nam châm điện.</li></ul><a class="video-link" href="https://www.youtube.com/embed/ARXXvPKwaK8?si=badgR0YSy0OgpKzy" target="_blank" rel="noopener">▶ Video bài 14</a></article>
+      <article class="lesson-card"><span class="lesson-number">BÀI 15</span><h3>Mạch điện</h3><p>Mạch điện gồm nguồn điện, phụ tải, thiết bị đóng cắt và bảo vệ, dây dẫn. Sơ đồ mạch dùng kí hiệu quy ước để biểu diễn mối nối và nguyên lí hoạt động.</p><ul class="lesson-points"><li>Mạch kín cho dòng điện chạy qua phụ tải; mạch hở làm thiết bị ngừng hoạt động.</li><li>Công tắc điều khiển đóng/ngắt; cầu chì hoặc aptomat bảo vệ khi quá tải, ngắn mạch.</li><li>Phân biệt sơ đồ nguyên lí (thể hiện quan hệ điện) với sơ đồ lắp đặt (thể hiện vị trí, cách đi dây).</li></ul><a class="video-link" href="https://www.youtube.com/embed/2WhVUM_izQA?si=plYM-mGN6f_AlwiE" target="_blank" rel="noopener">▶ Video bài 15</a></article>
+      <article class="lesson-card"><span class="lesson-number">BÀI 16</span><h3>Lắp ráp mạch điện điều khiển đơn giản</h3><p>Mạch điều khiển dùng mô đun cảm biến và phần tử chấp hành để tự động điều khiển thiết bị theo điều kiện môi trường.</p><ul class="lesson-points"><li>Mô đun cảm biến có thể nhận biết ánh sáng, nhiệt độ hoặc độ ẩm; tín hiệu điều khiển bật/tắt tải.</li><li>Đọc sơ đồ, chuẩn bị linh kiện, lắp đúng cực và đúng vị trí khi đã ngắt nguồn.</li><li>Kiểm tra mối nối, thử hoạt động an toàn, điều chỉnh ngưỡng cảm biến và đánh giá kết quả.</li></ul><a class="video-link" href="https://www.youtube.com/embed/8akNWvuQN80?si=8xVA2HFz3XJhDDQy" target="_blank" rel="noopener">▶ Video bài 16.1</a> <a class="video-link" href="https://www.youtube.com/embed/-CXyxjQ3-Uk?si=CShWgGZB-LYRhc61" target="_blank" rel="noopener">▶ Video bài 16.2</a> </article>
+      <article class="lesson-card"><span class="lesson-number">BÀI 17</span><h3>Ngành nghề trong lĩnh vực kĩ thuật điện</h3><p>Ngành điện tham gia sản xuất, truyền tải, phân phối và sử dụng điện năng; gồm thiết kế, lắp đặt, vận hành và sửa chữa thiết bị, hệ thống điện.</p><ul class="lesson-points"><li>Nghề tiêu biểu: kĩ sư điện, kĩ thuật viên điện, thợ lắp đặt và sửa chữa điện.</li><li>Công việc đòi hỏi kiến thức điện, khả năng đọc sơ đồ, thao tác chính xác, sức khỏe và kỉ luật an toàn cao.</li><li>Định hướng nghề nghiệp nên dựa trên sở thích, năng lực và yêu cầu thực tế của nghề.</li></ul><a class="video-link" href="https://www.youtube.com/embed/yD9ky1akRFg?si=mjTf1Q8Pj4q4eMS6" target="_blank" rel="noopener">▶ Video bài 17</a></article>
+    </div></section>
+
+    <section class="chapter-section" id="chuong-v"><div class="chapter-heading"><span>CHƯƠNG V · BÀI 18–20</span><h2>Thiết kế kĩ thuật</h2><p>Dùng quy trình thiết kế để giải quyết vấn đề thực tiễn.</p></div><div class="lesson-grid">
+      <article class="lesson-card"><span class="lesson-number">BÀI 18</span><h3>Vai trò của thiết kế kĩ thuật</h3><p>Thiết kế kĩ thuật là hoạt động sáng tạo nhằm xác định giải pháp và tạo sản phẩm, hệ thống đáp ứng nhu cầu con người. Thiết kế góp phần cải thiện đời sống và thúc đẩy sản xuất.</p><ul class="lesson-points"><li>Sản phẩm thiết kế cần đáp ứng công năng, an toàn, thẩm mĩ, độ bền và chi phí phù hợp.</li><li>Thiết kế thường cần phối hợp kiến thức khoa học, công nghệ, toán học và hiểu biết về người sử dụng.</li><li>Giải pháp có thể được mô hình hóa, thử nghiệm và cải tiến nhiều lần.</li></ul><a class="video-link" href="https://www.youtube.com/embed/2ZVTbfEwRsg?si=spSwbUvulu3_Ak-d" target="_blank" rel="noopener">▶ Video bài 18</a></article>
+      <article class="lesson-card"><span class="lesson-number">BÀI 19</span><h3>Quy trình thiết kế kĩ thuật</h3><p>Quy trình thiết kế giúp biến nhu cầu thành giải pháp và sản phẩm có thể kiểm chứng. Quy trình có tính lặp: kết quả thử nghiệm có thể khiến ta quay lại điều chỉnh ý tưởng.</p><ul class="lesson-points"><li>Xác định vấn đề và yêu cầu; tìm hiểu thông tin liên quan.</li><li>Đề xuất, lựa chọn giải pháp; lập bản vẽ hoặc mô hình thiết kế.</li><li>Chế tạo mẫu, thử nghiệm và đánh giá; điều chỉnh, hoàn thiện và chia sẻ kết quả.</li></ul><a class="video-link" href="https://www.youtube.com/embed/X7X-FWxDwh8?si=5p0vu0D86587643ut" target="_blank" rel="noopener">▶ Video bài 19</a></article>
+      <article class="lesson-card"><span class="lesson-number">BÀI 20</span><h3>Dự án: Thiết kế hệ thống tưới cây</h3><p>Vận dụng quy trình thiết kế kĩ thuật để tạo mô hình tưới cây phù hợp với nhu cầu của cây trồng và điều kiện thực tế.</p><ul class="lesson-points"><li>Xác định yêu cầu: tưới đủ nước, hoạt động thuận tiện, tiết kiệm nước và bảo đảm an toàn.</li><li>Tìm hiểu, đề xuất phương án; lựa chọn vật liệu, bộ phận chứa và dẫn nước, cách điều khiển phù hợp.</li><li>Lập bản vẽ hoặc sơ đồ, chế tạo mô hình, thử nghiệm khả năng tưới và điều chỉnh để hệ thống hoạt động hiệu quả.</li></ul><a class="video-link" href="https://www.youtube.com/embed/ZN9v8OpUJRw?si=GOKAI-xLpfGkZLCh" target="_blank" rel="noopener">▶ Video bài 20</a></article>
+    </div></section>
+
+    <!-- ĐÓNG TAB LEARNING HUB -->
+    </section>
+
+    <!-- ASSESSMENT CENTER -->
+    <section class="lal-panel" data-panel="assessment" hidden>
+      <div class="lal-module-header">
+        <span>ASSESSMENT CENTER</span>
+        <h1>Kiểm tra kiến thức</h1>
+        <p>Hệ thống đánh giá kiến thức Công nghệ 8.</p>
+      </div>
+      <div class="lal-placeholder">
+        <h2>Assessment Center</h2>
+        <p>Chức năng kiểm tra sẽ được tích hợp tại đây.</p>
+      </div>
+    </section>
+
+    <!-- LEARNING ANALYTICS -->
+    <section class="lal-panel" data-panel="analytics" hidden>
+      <div class="lal-module-header">
+        <span>LEARNING ANALYTICS</span>
+        <h1>Phân tích học tập</h1>
+        <p>Theo dõi kết quả và quá trình học tập.</p>
+      </div>
+      <div class="lal-placeholder">
+        <h2>Learning Analytics</h2>
+        <p>Bảng thống kê học tập sẽ được xây dựng tại đây.</p>
+      </div>
+    </section>
+
+  </div>
+  </div></main>
+  <!-- shared-layout.js sẽ dựng phần chân trang dùng chung vào vị trí này. -->
+  <div id="site-footer"></div>
+  <!-- Nạp các tệp JavaScript dùng chung và chức năng riêng của trang. -->
+  <!-- Firebase SDK -->
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+
+<!-- Firebase Configuration -->
+<script src="../js/firebase-config.js"></script>
+
+<!-- Các chức năng website -->
+<script src="../js/shared-layout.js"></script>
+<script src="../js/comprehensive-questions.js"></script>
+<script src="../js/LAL.js"></script>
+<script src="../js/chatbot.js"></script>
+</body>
+</html>
