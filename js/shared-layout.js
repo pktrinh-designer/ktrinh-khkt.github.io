@@ -1,7 +1,8 @@
-
-(function() {
+(function () {
   // Lấy tiền tố đường dẫn của trang.
-  const rawPrefix = (document.body.dataset.rootPrefix || "").trim().replace(/\/+$/, "");
+  const rawPrefix = (document.body.dataset.rootPrefix || "")
+    .trim()
+    .replace(/\/+$/, "");
   const sharedLayoutScript = document.currentScript;
   const sharedLayoutUrl = sharedLayoutScript
     ? sharedLayoutScript.src
@@ -23,9 +24,9 @@
     home: "trangtieude.html",
     curriculum: "lop-8/index.html",
     theory: "LAL.html",
-    tests: "kiem-tra.html",
+    tests: "LAL.html",
     about: "gioithieu.html",
-    guide: "huong-dan.html"
+    guide: "huong-dan.html",
   });
 
   // Menu điều hướng.
@@ -33,9 +34,8 @@
     { key: "home", label: "Trang chủ" },
     { key: "curriculum", label: "Mục lục" },
     { key: "theory", label: "Lý thuyết" },
-    { key: "tests", label: "Kiểm tra chương" },
     { key: "about", label: "Giới thiệu" },
-    { key: "guide", label: "Cách học & an toàn" }
+    { key: "guide", label: "Cách học & an toàn" },
   ];
 
   // Video theo từng chương.
@@ -44,29 +44,38 @@
       { title: "Bài 2: Hình chiếu vuông góc", id: "PmYqS5I08wg" },
       { title: "Bài 3: Bản vẽ chi tiết", id: "jobTJ-3okKs" },
       { title: "Bài 4: Bản vẽ lắp", id: "8NREvrWaXsc" },
-      { title: "Bài 5: Bản vẽ nhà", id: "EoQHqUOvuhQ" }
+      { title: "Bài 5: Bản vẽ nhà", id: "EoQHqUOvuhQ" },
     ],
     II: [
       { title: "Bài 6: Vật liệu cơ khí", id: "CeD_vo9UUZ8" },
       { title: "Bài 7: Truyền và biến đổi chuyển động", id: "2WWCflXI4jo" },
       { title: "Bài 8: Gia công cơ khí bằng tay", id: "iXa-lqAgVrg" },
-      { title: "Bài 9: Ngành nghề trong lĩnh vực cơ khí", id: "oz-KrcBZ7mM" }
+      { title: "Bài 9: Ngành nghề trong lĩnh vực cơ khí", id: "oz-KrcBZ7mM" },
     ],
     III: [
       { title: "Bài 11: Tai nạn điện", id: "cNf3NAq1Adk" },
-      { title: "Bài 12: Biện pháp an toàn điện", id: "2Ev8NNEMw6Y" }
+      { title: "Bài 12: Biện pháp an toàn điện", id: "2Ev8NNEMw6Y" },
     ],
     IV: [
       { title: "Bài 14: Giới thiệu về mạch điện", id: "2WhVUM_izQA" },
       { title: "Bài 15: Cảm biến và mô đun cảm biến", id: "8akNWvuQN80" },
-      { title: "Bài 16: Mạch điện điều khiển sử dụng mô đun cảm biến", id: "-CXyxjQ3-Uk" },
-      { title: "Bài 17: Ngành nghề trong lĩnh vực kĩ thuật điện", id: "yD9ky1akRFg" }
+      {
+        title: "Bài 16: Mạch điện điều khiển sử dụng mô đun cảm biến",
+        id: "-CXyxjQ3-Uk",
+      },
+      {
+        title: "Bài 17: Ngành nghề trong lĩnh vực kĩ thuật điện",
+        id: "yD9ky1akRFg",
+      },
     ],
     V: [
       { title: "Bài 18: Giới thiệu về thiết kế kĩ thuật", id: "2ZVTbfEwRsg" },
       { title: "Bài 19: Các bước thiết kế kĩ thuật", id: "X7X-FWxDwh8" },
-      { title: "Bài 20: Dự án thiết kế hệ thống tưới cây tự động", id: "ZN9v8OpUJRw" }
-    ]
+      {
+        title: "Bài 20: Dự án thiết kế hệ thống tưới cây tự động",
+        id: "ZN9v8OpUJRw",
+      },
+    ],
   });
 
   // Xử lý đường dẫn giữa các thư mục.
@@ -80,9 +89,7 @@
   function renderHeader(activeKey) {
     const links = PRIMARY_NAV.map(({ key, label }) => {
       const activeClass = key === activeKey ? " is-active" : "";
-      const currentPage = key === activeKey
-        ? ' aria-current="page"'
-        : "";
+      const currentPage = key === activeKey ? ' aria-current="page"' : "";
 
       return `
         <li>
@@ -96,6 +103,21 @@
     }).join("");
 
     return `
+      <div id="school-admin-toolbar" class="school-admin-toolbar" hidden>
+        <div class="site-shell school-admin-toolbar-inner">
+          <div class="school-admin-info">
+            <span class="school-admin-label">SCHOOL ADMIN</span>
+            <span class="school-admin-description">
+              Quản trị hệ thống Công nghệ 8
+            </span>
+          </div>
+
+          <a class="school-admin-dashboard" href="${resolveRoute("quantri.html")}">
+            Truy cập trang quản trị →
+          </a>
+        </div>
+      </div>
+
       <header class="site-header">
         <div class="site-shell site-header-inner">
 
@@ -140,7 +162,7 @@
       const absoluteSrc = new URL(src, window.location.href).href;
 
       const existing = Array.from(document.scripts).find(
-        script => script.src === absoluteSrc
+        (script) => script.src === absoluteSrc,
       );
 
       if (existing && existing.dataset.loaded === "true") {
@@ -164,15 +186,23 @@
 
       script.dataset.loading = "true";
 
-      script.addEventListener("load", () => {
-        script.dataset.loading = "false";
-        script.dataset.loaded = "true";
-        resolve();
-      }, { once: true });
+      script.addEventListener(
+        "load",
+        () => {
+          script.dataset.loading = "false";
+          script.dataset.loaded = "true";
+          resolve();
+        },
+        { once: true },
+      );
 
-      script.addEventListener("error", () => {
-        reject(new Error(`Không thể tải script: ${absoluteSrc}`));
-      }, { once: true });
+      script.addEventListener(
+        "error",
+        () => {
+          reject(new Error(`Không thể tải script: ${absoluteSrc}`));
+        },
+        { once: true },
+      );
     });
   }
 
@@ -184,33 +214,28 @@
 
     if (!window.firebase || !window.firebase.apps) {
       await loadScript(
-        "https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"
+        "https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js",
       );
     }
 
     if (!window.firebase || typeof window.firebase.auth !== "function") {
       await loadScript(
-        "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"
+        "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js",
       );
     }
 
     if (!window.firebase || typeof window.firebase.firestore !== "function") {
       await loadScript(
-        "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"
+        "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js",
       );
     }
 
-    const configUrl = new URL(
-      "firebase-config.js",
-      sharedLayoutUrl
-    ).href;
+    const configUrl = new URL("firebase-config.js", sharedLayoutUrl).href;
 
     await loadScript(configUrl);
 
     if (!window.firebaseAuth) {
-      throw new Error(
-        "Firebase Config chưa tạo window.firebaseAuth."
-      );
+      throw new Error("Firebase Config chưa tạo window.firebaseAuth.");
     }
 
     return window.firebaseAuth;
@@ -218,9 +243,7 @@
 
   // Hiển thị trạng thái tài khoản.
   function renderAccountState(user) {
-    const accountItem = document.getElementById(
-      "site-account-item"
-    );
+    const accountItem = document.getElementById("site-account-item");
 
     if (!accountItem) return;
 
@@ -238,12 +261,18 @@
       return;
     }
 
-    // Đã đăng nhập: hiển thị email.
+    // Hiển thị tên tài khoản theo loại đăng nhập.
     const email = document.createElement("span");
 
     email.className = "site-account-email";
-    email.textContent = user.email || "Tài khoản đã đăng nhập";
-    email.title = user.email || "";
+
+    if (user.isAnonymous) {
+      email.textContent = "Khách";
+      email.title = "Tài khoản khách";
+    } else {
+      email.textContent = user.email || "Tài khoản đã đăng nhập";
+      email.title = user.email || "";
+    }
 
     accountItem.appendChild(email);
 
@@ -272,14 +301,39 @@
 
     accountItem.appendChild(logoutButton);
   }
+  // Chỉ hiển thị thanh quản trị khi server xác nhận School Admin.
+  async function updateSchoolAdminToolbar(user) {
+    const toolbar = document.getElementById("school-admin-toolbar");
 
+    if (!toolbar) return;
+
+    toolbar.hidden = true;
+
+    if (!user) return;
+
+    try {
+      const token = await user.getIdToken();
+
+      const response = await fetch("/api/admin/session", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      toolbar.hidden = response.status !== 200;
+    } catch (error) {
+      console.error("Không thể xác minh quyền School Admin:", error);
+      toolbar.hidden = true;
+    }
+  }
   // Theo dõi trạng thái đăng nhập và bảo vệ các trang riêng tư.
   async function wireAuthState() {
     try {
       const auth = await ensureFirebaseReady();
 
-      auth.onAuthStateChanged(user => {
+      auth.onAuthStateChanged(async (user) => {
         renderAccountState(user);
+        await updateSchoolAdminToolbar(user);
 
         // Trang đăng nhập/đăng ký được phép truy cập khi chưa đăng nhập.
         if (isPublicAuthPage) {
@@ -301,12 +355,8 @@
 
         document.documentElement.style.visibility = "";
       });
-
     } catch (error) {
-      console.error(
-        "Không thể khởi tạo trạng thái tài khoản:",
-        error
-      );
+      console.error("Không thể khởi tạo trạng thái tài khoản:", error);
 
       renderAccountState(null);
 
@@ -370,31 +420,21 @@
 
   // Xử lý menu điện thoại.
   function wireMenuToggle() {
-    const menuButton = document.querySelector(
-      ".site-menu-toggle"
-    );
+    const menuButton = document.querySelector(".site-menu-toggle");
 
-    const menuList = document.querySelector(
-      ".site-nav-links"
-    );
+    const menuList = document.querySelector(".site-nav-links");
 
     if (!menuButton || !menuList) return;
 
-    menuButton.addEventListener("click", function() {
+    menuButton.addEventListener("click", function () {
       const isOpen = menuList.classList.toggle("is-open");
 
-      menuButton.setAttribute(
-        "aria-expanded",
-        String(isOpen)
-      );
+      menuButton.setAttribute("aria-expanded", String(isOpen));
 
-      menuButton.setAttribute(
-        "aria-label",
-        isOpen ? "Đóng menu" : "Mở menu"
-      );
+      menuButton.setAttribute("aria-label", isOpen ? "Đóng menu" : "Mở menu");
     });
 
-    menuList.addEventListener("click", function(event) {
+    menuList.addEventListener("click", function (event) {
       if (!event.target.closest("a, button")) return;
 
       menuList.classList.remove("is-open");
@@ -403,7 +443,7 @@
       menuButton.setAttribute("aria-label", "Mở menu");
     });
 
-    document.addEventListener("keydown", function(event) {
+    document.addEventListener("keydown", function (event) {
       if (event.key === "Escape") {
         menuList.classList.remove("is-open");
 
@@ -415,16 +455,14 @@
 
   // Hiển thị video theo chương.
   function renderChapterVideos() {
-    const videos = CHAPTER_VIDEOS[
-      document.body.dataset.chapter
-    ];
+    const videos = CHAPTER_VIDEOS[document.body.dataset.chapter];
 
     const grid = document.querySelector(".site-grid");
 
     if (!videos || !grid) return;
 
     const chapterCards = Array.from(
-      grid.querySelectorAll(":scope > .site-card")
+      grid.querySelectorAll(":scope > .site-card"),
     ).slice(0, 2);
 
     if (chapterCards.length !== 2) return;
@@ -432,69 +470,64 @@
     chapterCards[0].classList.add("chapter-feature-card");
     chapterCards[1].classList.add("chapter-study-card");
 
-    videos.slice().reverse().forEach(function(video) {
-      const card = document.createElement("article");
+    videos
+      .slice()
+      .reverse()
+      .forEach(function (video) {
+        const card = document.createElement("article");
 
-      card.className = "site-card chapter-video-card";
+        card.className = "site-card chapter-video-card";
 
-      const badge = document.createElement("span");
+        const badge = document.createElement("span");
 
-      badge.className = "site-badge";
-      badge.textContent = "Video bài học";
+        badge.className = "site-badge";
+        badge.textContent = "Video bài học";
 
-      card.appendChild(badge);
+        card.appendChild(badge);
 
-      const heading = document.createElement("h2");
+        const heading = document.createElement("h2");
 
-      heading.textContent = video.title;
+        heading.textContent = video.title;
 
-      card.appendChild(heading);
+        card.appendChild(heading);
 
-      const frame = document.createElement("iframe");
+        const frame = document.createElement("iframe");
 
-      frame.src =
-        `https://www.youtube-nocookie.com/embed/${video.id}?rel=0`;
+        frame.src = `https://www.youtube-nocookie.com/embed/${video.id}?rel=0`;
 
-      frame.title = video.title;
-      frame.loading = "lazy";
-      frame.referrerPolicy = "strict-origin-when-cross-origin";
+        frame.title = video.title;
+        frame.loading = "lazy";
+        frame.referrerPolicy = "strict-origin-when-cross-origin";
 
-      frame.allow =
-        "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+        frame.allow =
+          "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
 
-      frame.allowFullscreen = true;
+        frame.allowFullscreen = true;
 
-      card.appendChild(frame);
+        card.appendChild(frame);
 
-      const source = document.createElement("a");
+        const source = document.createElement("a");
 
-      source.className = "chapter-video-source";
-      source.href =
-        `https://www.youtube.com/watch?v=${video.id}`;
+        source.className = "chapter-video-source";
+        source.href = `https://www.youtube.com/watch?v=${video.id}`;
 
-      source.target = "_blank";
-      source.rel = "noopener noreferrer";
-      source.textContent = "Mở video trên YouTube";
+        source.target = "_blank";
+        source.rel = "noopener noreferrer";
+        source.textContent = "Mở video trên YouTube";
 
-      card.appendChild(source);
+        card.appendChild(source);
 
-      grid.insertBefore(
-        card,
-        chapterCards[1].nextSibling
-      );
-    });
+        grid.insertBefore(card, chapterCards[1].nextSibling);
+      });
   }
 
   // Khởi chạy các thành phần dùng chung.
-  document.addEventListener("DOMContentLoaded", function() {
-    const activeKey =
-      document.body.dataset.navActive || "home";
+  document.addEventListener("DOMContentLoaded", function () {
+    const activeKey = document.body.dataset.navActive || "home";
 
-    const headerHost =
-      document.getElementById("site-header");
+    const headerHost = document.getElementById("site-header");
 
-    const footerHost =
-      document.getElementById("site-footer");
+    const footerHost = document.getElementById("site-footer");
 
     if (headerHost) {
       headerHost.innerHTML = renderHeader(activeKey);
@@ -508,5 +541,4 @@
     wireAuthState();
     renderChapterVideos();
   });
-
 })();

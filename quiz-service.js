@@ -7,6 +7,7 @@ const {
   CHAPTER_EXTRA_QUESTIONS,
 } = require("./quiz-bank");
 const { getFirestore } = require("./firebase-admin");
+
 // ========================================
 // CẤU HÌNH BÀI KIỂM TRA
 // ========================================
@@ -114,12 +115,23 @@ const QUESTION_LESSON_INDEX = {
 
 function getLessonForTopic(chapterKey, topicIndex) {
   const breaks = OVERALL_LESSON_BREAKS[chapterKey];
+  const lessons = CHAPTER_LESSONS[chapterKey];
+
+  if (
+    !Array.isArray(breaks) ||
+    !Array.isArray(lessons) ||
+    lessons.length === 0
+  ) {
+    throw new Error(`Không tìm thấy dữ liệu bài học của chương ${chapterKey}.`);
+  }
 
   const lessonGroup = breaks.findIndex(
     (lastTopicIndex) => topicIndex < lastTopicIndex,
   );
 
-  return CHAPTER_LESSONS[chapterKey][Math.max(lessonGroup, 0)];
+  const lessonIndex = Math.min(Math.max(lessonGroup, 0), lessons.length - 1);
+
+  return lessons[lessonIndex];
 }
 
 // Đưa đáp án đúng vào vị trí xác định,
@@ -161,6 +173,43 @@ function createQuestionFromTopic(
     explanation: `${prefix}${explanation}`,
     lesson,
   };
+}
+
+// ========================================
+// XÁO TRỘN CÂU HỎI VÀ ĐÁP ÁN
+// ========================================
+
+// Xáo trộn ở Backend để đáp án chấm điểm luôn khớp.
+function shuffleQuestionsAndChoices(questions) {
+  const shuffledQuestions = [...questions];
+
+  for (let i = shuffledQuestions.length - 1; i > 0; i--) {
+    const j = crypto.randomInt(i + 1);
+
+    [shuffledQuestions[i], shuffledQuestions[j]] = [
+      shuffledQuestions[j],
+      shuffledQuestions[i],
+    ];
+  }
+
+  return shuffledQuestions.map((question) => {
+    const choices = question.choices.map((text, index) => ({
+      text,
+      isCorrect: index === question.answer,
+    }));
+
+    for (let i = choices.length - 1; i > 0; i--) {
+      const j = crypto.randomInt(i + 1);
+
+      [choices[i], choices[j]] = [choices[j], choices[i]];
+    }
+
+    return {
+      ...question,
+      choices: choices.map((choice) => choice.text),
+      answer: choices.findIndex((choice) => choice.isCorrect),
+    };
+  });
 }
 
 // ========================================
@@ -221,7 +270,7 @@ function buildLessonQuiz(lessonId) {
 
 function buildChapterQuiz(chapterKey) {
   const chapter = CHAPTER_INFO[chapterKey];
-  const topics = COMPREHENSIVE_QUESTION_BANK[chapterKey];
+  const topics = COMPREHENSIVE_QUESTION_BANK[chapterKey].slice(0, 19);
 
   if (!chapter || !Array.isArray(topics)) {
     throw new Error("Chương kiểm tra không hợp lệ.");
@@ -278,7 +327,7 @@ function buildChapterQuiz(chapterKey) {
     type: "chapter",
     chapterId: chapterKey,
     studyPage: chapter.studyPage,
-    questions,
+    questions: shuffleQuestionsAndChoices(questions),
   };
 }
 
@@ -290,7 +339,7 @@ function buildOverallQuiz() {
   const questions = [];
 
   CHAPTER_KEYS.forEach((chapterKey) => {
-    const topics = COMPREHENSIVE_QUESTION_BANK[chapterKey];
+    const topics = COMPREHENSIVE_QUESTION_BANK[chapterKey].slice(0, 19);
     const chapter = CHAPTER_INFO[chapterKey];
 
     topics.forEach((topic, topicIndex) => {
@@ -316,12 +365,11 @@ function buildOverallQuiz() {
     title: "Kiểm tra tổng hợp · 5 chương",
     type: "overall",
     studyPage: "lop-8/index.html",
-    questions,
+    questions: shuffleQuestionsAndChoices(questions),
   };
 }
 
 // ========================================
-// QUẢN LÝ PHIÊN KIỂM TRA// ========================================
 // QUẢN LÝ PHIÊN KIỂM TRA BẰNG FIRESTORE
 // ========================================
 

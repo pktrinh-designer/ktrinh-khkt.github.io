@@ -1,0 +1,741 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0f172a" />
+
+    <title>School Admin | Công nghệ 8</title>
+
+    <link rel="stylesheet" href="/css/admin-dashboard.css" />
+  </head>
+
+  <body>
+    <div class="admin-layout">
+      <!-- SIDEBAR -->
+      <aside class="sidebar">
+        <div class="sidebar-brand">
+          <div class="brand-logo">CN8</div>
+          <div class="brand-info">
+            <h2>Công nghệ 8</h2>
+            <span>Administration</span>
+          </div>
+        </div>
+
+        <div class="sidebar-label">QUẢN LÝ</div>
+
+        <nav class="sidebar-nav">
+          <button class="nav-item active" data-section="overview">
+            <span class="nav-icon">▦</span>
+            <span>Tổng quan</span>
+          </button>
+
+          <button class="nav-item" data-section="students">
+            <span class="nav-icon">♙</span>
+            <span>Học sinh</span>
+          </button>
+
+          <button class="nav-item" data-section="teachers">
+            <span class="nav-icon">♧</span>
+            <span>Giáo viên</span>
+          </button>
+
+          <button class="nav-item" data-section="classes">
+            <span class="nav-icon">▤</span>
+            <span>Lớp học</span>
+          </button>
+
+          <button class="nav-item" data-section="assessments">
+            <span class="nav-icon">✓</span>
+            <span>Kiểm tra - Đánh giá</span>
+          </button>
+
+          <button class="nav-item" data-section="analytics">
+            <span class="nav-icon">▥</span>
+            <span>Phân tích dữ liệu</span>
+          </button>
+        </nav>
+
+        <div class="sidebar-bottom">
+          <div class="admin-profile">
+            <div class="avatar">SA</div>
+            <div>
+              <strong>School Admin</strong>
+              <span>Quản trị viên</span>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- MAIN CONTENT -->
+      <main class="main-content">
+        <header class="topbar">
+          <div class="topbar-left">
+            <button class="menu-toggle" id="menuToggle" aria-label="Mở menu">
+              ☰
+            </button>
+
+            <div>
+              <h1 id="pageTitle">Tổng quan</h1>
+              <p>Hệ thống quản trị Công nghệ 8</p>
+            </div>
+          </div>
+
+          <div class="topbar-right">
+            <span class="admin-badge">School Admin</span>
+          </div>
+        </header>
+
+        <div class="dashboard-content">
+          <section class="dashboard-section active" id="overview">
+            <!-- WELCOME -->
+            <div class="welcome-section">
+              <div class="welcome-content">
+                <span class="welcome-label">SCHOOL ADMINISTRATION</span>
+                <h2>Xin chào, Quản trị viên!</h2>
+                <p>
+                  Chào mừng bạn đến với hệ thống quản trị Công nghệ 8. Theo dõi
+                  và quản lý hoạt động học tập tại một nơi.
+                </p>
+              </div>
+              <div class="welcome-decoration">CN8</div>
+            </div>
+
+            <!-- KPI -->
+            <div class="section-heading overview-heading">
+              <div>
+                <h3>Tổng quan hệ thống</h3>
+                <p>Các chỉ số quản lý toàn trường</p>
+              </div>
+              <span class="data-label">Dữ liệu từ Firestore</span>
+            </div>
+
+            <div class="stats-grid overview-stats">
+              <article class="stat-card">
+                <div class="stat-icon blue">♙</div>
+                <div class="stat-info">
+                  <span>Tổng học sinh</span>
+                  <h2 id="studentCount">--</h2>
+                  <small>Toàn hệ thống</small>
+                </div>
+              </article>
+
+              <article class="stat-card">
+                <div class="stat-icon purple">♧</div>
+                <div class="stat-info">
+                  <span>Tổng giáo viên</span>
+                  <h2 id="teacherCount">--</h2>
+                  <small>Toàn hệ thống</small>
+                </div>
+              </article>
+
+              <article class="stat-card">
+                <div class="stat-icon cyan">▤</div>
+                <div class="stat-info">
+                  <span>Tổng lớp học</span>
+                  <h2 id="classCount">--</h2>
+                  <small>Đang quản lý</small>
+                </div>
+              </article>
+
+              <article class="stat-card">
+                <div class="stat-icon orange">✓</div>
+                <div class="stat-info">
+                  <span>Bài kiểm tra</span>
+                  <h2 id="quizCompletedCount">--</h2>
+                  <small id="quizAttempts">Tổng lượt làm: --</small>
+                </div>
+              </article>
+            </div>
+
+            <!-- LEARNING OVERVIEW -->
+            <div class="section-heading overview-heading">
+              <div>
+                <h3>Hoạt động học tập</h3>
+                <p>Theo dõi tình hình học tập của học sinh</p>
+              </div>
+            </div>
+
+            <div class="overview-learning-grid">
+              <article class="content-card learning-card">
+                <div class="card-heading">
+                  <div>
+                    <h3>Tiến độ học tập</h3>
+                    <p>Tổng quan tiến độ hoàn thành bài học</p>
+                  </div>
+                  <span class="card-icon">▥</span>
+                </div>
+
+                <div class="chart-empty">
+                  <div class="chart-empty-icon">▥</div>
+                  <h4>Chưa có dữ liệu phân tích</h4>
+                  <p>
+                    Biểu đồ sẽ xuất hiện khi hệ thống có dữ liệu tiến độ học tập
+                    từ Learning Analytics.
+                  </p>
+                </div>
+              </article>
+
+              <article class="content-card learning-card">
+                <div class="card-heading">
+                  <div>
+                    <h3>Trạng thái hệ thống</h3>
+                    <p>Các thành phần quản trị</p>
+                  </div>
+                  <span class="card-icon">⚙</span>
+                </div>
+
+                <div class="system-list">
+                  <div class="system-item">
+                    <div class="system-item-icon">A</div>
+                    <div class="system-item-info">
+                      <strong>Authentication</strong>
+                      <span>Xác thực người dùng</span>
+                    </div>
+                    <span class="system-pending">Chưa kiểm tra</span>
+                  </div>
+
+                  <div class="system-item">
+                    <div class="system-item-icon">D</div>
+                    <div class="system-item-info">
+                      <strong>Cloud Firestore</strong>
+                      <span>Cơ sở dữ liệu</span>
+                    </div>
+                    <span class="system-pending">Chưa kiểm tra</span>
+                  </div>
+
+                  <div class="system-item">
+                    <div class="system-item-icon">API</div>
+                    <div class="system-item-info">
+                      <strong>Backend API</strong>
+                      <span>Dịch vụ máy chủ</span>
+                    </div>
+                    <span class="system-pending">Chưa kiểm tra</span>
+                  </div>
+                </div>
+              </article>
+            </div>
+
+            <!-- ACTIVITY AND QUICK ACTIONS -->
+            <div class="overview-bottom-grid">
+              <article class="content-card">
+                <div class="card-heading">
+                  <div>
+                    <h3>Hoạt động gần đây</h3>
+                    <p>Các hoạt động quản trị mới nhất</p>
+                  </div>
+                </div>
+
+                <div class="activity-empty">
+                  <div class="empty-icon">▤</div>
+                  <h4>Chưa có hoạt động</h4>
+                  <p>
+                    Hoạt động của người dùng và quản trị viên sẽ được hiển thị
+                    tại đây.
+                  </p>
+                </div>
+              </article>
+
+              <article class="content-card">
+                <div class="card-heading">
+                  <div>
+                    <h3>Truy cập nhanh</h3>
+                    <p>Các chức năng thường sử dụng</p>
+                  </div>
+                </div>
+
+                <div class="quick-actions">
+                  <button data-section="students">
+                    <span>♙</span>
+                    <span>Quản lý học sinh</span>
+                    <b>→</b>
+                  </button>
+
+                  <button data-section="teachers">
+                    <span>♧</span>
+                    <span>Quản lý giáo viên</span>
+                    <b>→</b>
+                  </button>
+
+                  <button data-section="classes">
+                    <span>▤</span>
+                    <span>Quản lý lớp học</span>
+                    <b>→</b>
+                  </button>
+
+                  <button data-section="analytics">
+                    <span>▥</span>
+                    <span>Learning Analytics</span>
+                    <b>→</b>
+                  </button>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <!-- STUDENTS -->
+          <section class="dashboard-section" id="students">
+            <div class="section-heading">
+              <h3>Quản lý học sinh</h3>
+              <p>Quản lý tài khoản và thông tin học sinh.</p>
+            </div>
+
+            <div class="content-card">
+              <div class="card-heading">
+                <h3>Danh sách học sinh</h3>
+                <span id="studentListStatus">Đang tải dữ liệu...</span>
+              </div>
+
+              <div class="student-table-wrapper">
+                <table class="student-table">
+                  <thead>
+                    <tr>
+                      <th>STT</th>
+                      <th>Email</th>
+                      <th>Mã lớp</th>
+                      <th>Ngày tạo</th>
+                    </tr>
+                  </thead>
+                  <tbody id="studentsTableBody">
+                    <tr>
+                      <td colspan="4">Đang tải danh sách...</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+
+          <!-- TEACHERS -->
+          <section class="dashboard-section" id="teachers">
+            <div class="section-heading">
+              <h3>Quản lý giáo viên</h3>
+              <p>Quản lý giáo viên và phân quyền quản trị.</p>
+            </div>
+            <div class="content-card" id="teacherInvitationPanel" hidden>
+              <div class="card-heading">
+                <div>
+                  <h3>Tạo lời mời giáo viên</h3>
+                  <p>Thông tin giáo viên được mời tham gia hệ thống</p>
+                </div>
+              </div>
+
+              <form id="teacherInvitationForm">
+                <div style="display: grid; gap: 14px; max-width: 520px">
+                  <div>
+                    <label for="invitationName">Họ và tên giáo viên</label>
+                    <input
+                      type="text"
+                      id="invitationName"
+                      maxlength="100"
+                      placeholder="Nhập họ và tên"
+                      required
+                      style="width: 100%; padding: 12px; margin-top: 6px"
+                    />
+                  </div>
+
+                  <div>
+                    <label for="invitationEmail">Email giáo viên</label>
+                    <input
+                      type="email"
+                      id="invitationEmail"
+                      maxlength="254"
+                      placeholder="example@gmail.com"
+                      required
+                      style="width: 100%; padding: 12px; margin-top: 6px"
+                    />
+                  </div>
+
+                  <div>
+                    <label for="invitationSubject">Môn giảng dạy</label>
+                    <input
+                      type="text"
+                      id="invitationSubject"
+                      maxlength="100"
+                      placeholder="Ví dụ: Công nghệ"
+                      required
+                      style="width: 100%; padding: 12px; margin-top: 6px"
+                    />
+                  </div>
+
+                  <button
+                    type="submit"
+                    class="primary-button"
+                    id="createInvitationBtn"
+                  >
+                    Tạo mã mời
+                  </button>
+                </div>
+              </form>
+
+              <p id="invitationMessage" role="status" aria-live="polite"></p>
+
+              <div id="invitationResult" hidden>
+                <p><strong>Mã mời giáo viên:</strong></p>
+                <input
+                  type="text"
+                  id="invitationCodeOutput"
+                  readonly
+                  style="width: 100%; padding: 12px"
+                />
+                <p id="invitationExpiry"></p>
+                <button
+                  type="button"
+                  class="primary-button"
+                  id="copyInvitationBtn"
+                >
+                  Sao chép mã mời
+                </button>
+                <p>Hãy gửi mã này cho đúng giáo viên có email được mời.</p>
+              </div>
+            </div>
+
+            <div class="content-card">
+              <div class="card-heading">
+                <h3>Danh sách giáo viên</h3>
+                <button class="primary-button" id="addTeacherBtn">
+                  + Thêm giáo viên
+                </button>
+              </div>
+
+              <div class="empty-state">
+                <div class="empty-icon">♧</div>
+                <h4>Chưa có dữ liệu giáo viên</h4>
+                <p>Danh sách giáo viên sẽ hiển thị tại đây.</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- CLASSES -->
+          <section class="dashboard-section" id="classes">
+            <div class="section-heading">
+              <h3>Quản lý lớp học</h3>
+              <p>Quản lý lớp và phân công giáo viên phụ trách.</p>
+            </div>
+
+            <div class="content-card">
+              <div class="empty-state">
+                <div class="empty-icon">▤</div>
+                <h4>Chưa có dữ liệu lớp học</h4>
+                <p>Thông tin lớp học sẽ hiển thị tại đây.</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- ASSESSMENTS -->
+          <section class="dashboard-section" id="assessments">
+            <div class="section-heading">
+              <h3>Kiểm tra - Đánh giá</h3>
+              <p>Quản lý bài kiểm tra và kết quả học tập.</p>
+            </div>
+
+            <div class="content-card">
+              <div class="empty-state">
+                <div class="empty-icon">✓</div>
+                <h4>Khu vực kiểm tra - đánh giá</h4>
+                <p>Dữ liệu bài kiểm tra sẽ được tích hợp tại đây.</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- ANALYTICS -->
+          <section class="dashboard-section" id="analytics">
+            <div class="section-heading">
+              <h3>Phân tích dữ liệu</h3>
+              <p>Theo dõi tiến độ và kết quả học tập của học sinh.</p>
+            </div>
+
+            <div class="content-card">
+              <div class="empty-state">
+                <div class="empty-icon">▥</div>
+                <h4>Khu vực phân tích dữ liệu</h4>
+                <p>Thông tin Learning Analytics sẽ hiển thị tại đây.</p>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <footer class="dashboard-footer">
+          <span>© 2026 Công nghệ 8</span>
+          <span>School Administration System</span>
+        </footer>
+      </main>
+    </div>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+    <script src="../js/firebase-config.js"></script>
+    <script>
+      // Chuyển đổi các khu vực Dashboard
+      const navItems = document.querySelectorAll("[data-section]");
+      const sections = document.querySelectorAll(".dashboard-section");
+      const pageTitle = document.getElementById("pageTitle");
+
+      const sectionTitles = {
+        overview: "Tổng quan",
+        students: "Quản lý học sinh",
+        teachers: "Quản lý giáo viên",
+        classes: "Quản lý lớp học",
+        assessments: "Kiểm tra - Đánh giá",
+        analytics: "Phân tích dữ liệu",
+      };
+
+      function showSection(sectionId) {
+        if (!sectionTitles[sectionId]) return;
+
+        sections.forEach((section) => {
+          section.classList.toggle("active", section.id === sectionId);
+        });
+
+        document.querySelectorAll(".sidebar .nav-item").forEach((item) => {
+          item.classList.toggle("active", item.dataset.section === sectionId);
+        });
+
+        pageTitle.textContent = sectionTitles[sectionId];
+
+        document.querySelector(".sidebar").classList.remove("mobile-open");
+      }
+
+      navItems.forEach((item) => {
+        item.addEventListener("click", () => {
+          showSection(item.dataset.section);
+        });
+      });
+
+      // Menu trên thiết bị nhỏ
+      document.getElementById("menuToggle").addEventListener("click", () => {
+        document.querySelector(".sidebar").classList.toggle("mobile-open");
+      });
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const auth = window.firebaseAuth;
+
+        const showStatsError = (message) => {
+          document.getElementById("quizAttempts").textContent = message;
+        };
+
+        if (!auth) {
+          showStatsError("Không thể kết nối Firebase Auth.");
+          return;
+        }
+
+        auth.onAuthStateChanged(async (user) => {
+          if (!user) {
+            window.location.href = "dangnhap.html";
+            return;
+          }
+
+          try {
+            const idToken = await user.getIdToken(true);
+
+            const response = await fetch("/api/admin/stats", {
+              method: "GET",
+              headers: {
+                Authorization: `Bearer ${idToken}`,
+              },
+            });
+
+            const result = await response.json();
+
+            if (!response.ok || !result.success) {
+              throw new Error(result.error || "Không thể tải thống kê.");
+            }
+
+            const stats = result.stats;
+
+            document.getElementById("studentCount").textContent =
+              stats.students;
+            document.getElementById("teacherCount").textContent =
+              stats.teachers;
+            document.getElementById("classCount").textContent = stats.classes;
+            document.getElementById("quizCompletedCount").textContent =
+              stats.completedQuizzes;
+
+            document.getElementById("quizAttempts").textContent =
+              `Tổng lượt làm: ${stats.quizAttempts}`;
+          } catch (error) {
+            console.error("Lỗi tải thống kê:", error);
+            showStatsError(error.message || "Không thể tải thống kê.");
+          }
+        });
+      });
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const auth = window.firebaseAuth;
+        const tableBody = document.getElementById("studentsTableBody");
+        const status = document.getElementById("studentListStatus");
+
+        if (!auth) {
+          status.textContent = "Không thể kết nối Firebase Auth.";
+          return;
+        }
+
+        auth.onAuthStateChanged(async (user) => {
+          if (!user) {
+            window.location.href = "dangnhap.html";
+            return;
+          }
+
+          try {
+            const token = await user.getIdToken(true);
+
+            const response = await fetch("/api/admin/students", {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            });
+
+            const result = await response.json();
+
+            if (!response.ok || !result.success) {
+              throw new Error(result.error || "Không thể tải học sinh.");
+            }
+
+            tableBody.replaceChildren();
+
+            if (result.students.length === 0) {
+              tableBody.innerHTML =
+                '<tr><td colspan="4">Chưa có học sinh.</td></tr>';
+            } else {
+              const sortedStudents = [...result.students].sort((a, b) => {
+                if (!a.createdAt) return 1;
+                if (!b.createdAt) return -1;
+                return new Date(a.createdAt) - new Date(b.createdAt);
+              });
+
+              sortedStudents.forEach((student, index) => {
+                const row = document.createElement("tr");
+
+                const values = [
+                  index + 1,
+                  student.email || "Chưa có email",
+                  student.classId || "Chưa phân lớp",
+                  student.createdAt
+                    ? new Date(student.createdAt).toLocaleDateString("vi-VN")
+                    : "Chưa có dữ liệu",
+                ];
+
+                values.forEach((value) => {
+                  const cell = document.createElement("td");
+                  cell.textContent = value;
+                  row.appendChild(cell);
+                });
+
+                tableBody.appendChild(row);
+              });
+            }
+
+            status.textContent = `Tổng cộng: ${result.total} học sinh`;
+          } catch (error) {
+            console.error("Lỗi tải danh sách học sinh:", error);
+            status.textContent = error.message;
+
+            tableBody.innerHTML =
+              '<tr><td colspan="4">Không thể tải danh sách học sinh.</td></tr>';
+          }
+        });
+      });
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const auth = window.firebaseAuth;
+
+        const addTeacherBtn = document.getElementById("addTeacherBtn");
+        const panel = document.getElementById("teacherInvitationPanel");
+        const form = document.getElementById("teacherInvitationForm");
+        const message = document.getElementById("invitationMessage");
+        const resultPanel = document.getElementById("invitationResult");
+        const codeOutput = document.getElementById("invitationCodeOutput");
+        const expiryOutput = document.getElementById("invitationExpiry");
+        const submitBtn = document.getElementById("createInvitationBtn");
+        const copyBtn = document.getElementById("copyInvitationBtn");
+
+        let currentInvitationCode = "";
+
+        addTeacherBtn.addEventListener("click", () => {
+          panel.hidden = !panel.hidden;
+
+          if (!panel.hidden) {
+            panel.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        });
+
+        form.addEventListener("submit", async (event) => {
+          event.preventDefault();
+
+          if (!auth || !auth.currentUser) {
+            message.textContent = "Vui lòng đăng nhập lại.";
+            return;
+          }
+
+          submitBtn.disabled = true;
+          submitBtn.textContent = "Đang tạo mã...";
+          message.textContent = "";
+          resultPanel.hidden = true;
+          currentInvitationCode = "";
+
+          try {
+            const user = auth.currentUser;
+            const token = await user.getIdToken(true);
+
+            const response = await fetch("/api/admin/teacher-invitations", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+              body: JSON.stringify({
+                name: document.getElementById("invitationName").value.trim(),
+                email: document.getElementById("invitationEmail").value.trim(),
+                subject: document
+                  .getElementById("invitationSubject")
+                  .value.trim(),
+              }),
+            });
+
+            const data = await response.json();
+
+            if (!response.ok || !data.success) {
+              throw new Error(data.error || "Không thể tạo lời mời.");
+            }
+
+            currentInvitationCode = data.invitation.code;
+            codeOutput.value = currentInvitationCode;
+
+            expiryOutput.textContent =
+              "Mã hết hạn: " +
+              new Date(data.invitation.expiresAt).toLocaleString("vi-VN");
+
+            resultPanel.hidden = false;
+            message.textContent = "Tạo lời mời thành công!";
+            message.style.color = "green";
+          } catch (error) {
+            console.error("Create invitation error:", error);
+            message.textContent = error.message;
+            message.style.color = "red";
+          } finally {
+            submitBtn.disabled = false;
+            submitBtn.textContent = "Tạo mã mời";
+          }
+        });
+
+        copyBtn.addEventListener("click", async () => {
+          if (!currentInvitationCode) return;
+
+          try {
+            await navigator.clipboard.writeText(currentInvitationCode);
+            message.textContent = "Đã sao chép mã mời!";
+            message.style.color = "green";
+          } catch (error) {
+            codeOutput.select();
+            message.textContent =
+              "Không thể tự sao chép. Hãy sao chép mã trong ô bên trên.";
+            message.style.color = "red";
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

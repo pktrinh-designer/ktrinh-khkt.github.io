@@ -1,0 +1,489 @@
+<!doctype html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0f172a">
+
+    <title>Teacher Portal | Công nghệ 8</title>
+
+    <link rel="stylesheet" href="/css/admin-dashboard.css">
+    <link rel="stylesheet" href="/css/teacher-dashboard.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body class="teacher-page">
+    <div class="admin-layout">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar" id="teacherSidebar">
+            <div class="sidebar-brand">
+                <div class="brand-logo">CN8</div>
+
+                <div class="brand-info">
+                    <h2>Công nghệ 8</h2>
+                    <span>TEACHER PORTAL</span>
+                </div>
+            </div>
+
+            <div class="sidebar-label">KHÔNG GIAN GIÁO VIÊN</div>
+
+            <nav class="sidebar-nav">
+                <button class="nav-item active" data-section="overview">
+                    <span class="nav-icon">▦</span>
+                    <span>Tổng quan</span>
+                </button>
+
+                <button class="nav-item" data-section="classes">
+                    <span class="nav-icon">▤</span>
+                    <span>Lớp học của tôi</span>
+                </button>
+
+                <button class="nav-item" data-section="students">
+                    <span class="nav-icon">♙</span>
+                    <span>Học sinh</span>
+                </button>
+
+                <div class="sidebar-divider"></div>
+
+                <button class="nav-item" data-section="learning">
+                    <span class="nav-icon">▣</span>
+                    <span>Learning Hub</span>
+                </button>
+
+                <button class="nav-item" data-section="assessment">
+                    <span class="nav-icon">✓</span>
+                    <span>Assessment Center</span>
+                </button>
+
+                <button class="nav-item" data-section="analytics">
+                    <span class="nav-icon">▥</span>
+                    <span>Learning Analytics</span>
+                </button>
+            </nav>
+
+            <div class="sidebar-bottom">
+                <div class="admin-profile">
+                    <div class="avatar teacher-avatar">GV</div>
+
+                    <div class="profile-info">
+                        <strong>Giáo viên</strong>
+                        <span>Teacher Admin</span>
+                    </div>
+                </div>
+
+                <div class="teacher-role-note">
+                    <span class="role-dot"></span>
+                    <span>Không gian quản lý giáo viên</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- MAIN -->
+        <main class="main-content">
+
+            <!-- TOPBAR -->
+            <header class="topbar">
+                <div class="topbar-left">
+                    <button
+                        class="menu-toggle"
+                        id="menuToggle"
+                        type="button"
+                        aria-label="Mở menu"
+                        aria-controls="teacherSidebar"
+                        aria-expanded="false"
+                    >
+                        ☰
+                    </button>
+
+                    <div>
+                        <p class="header-eyebrow">TEACHER WORKSPACE</p>
+                        <h1 id="pageTitle">Tổng quan</h1>
+                        <p>Không gian quản lý và hỗ trợ giảng dạy</p>
+                    </div>
+                </div>
+
+                <div class="header-account">
+                    <div class="account-status">
+                        <span class="status-dot"></span>
+                        Teacher Portal
+                    </div>
+
+                    <div class="account-info">
+                        <strong>Giáo viên</strong>
+                        <span>Teacher Admin</span>
+                    </div>
+
+                    <div class="profile-avatar teacher-header-avatar">GV</div>
+                </div>
+            </header>
+
+            <div class="dashboard-content">
+
+                <!-- OVERVIEW -->
+                <section class="dashboard-section active" id="overview">
+
+                    <div class="welcome-section teacher-welcome">
+                        <div class="welcome-content">
+                            <span class="welcome-label">TEACHER ADMINISTRATION</span>
+
+                            <h2>Xin chào, Giáo viên! 👋</h2>
+
+                            <p>
+                                Chào mừng bạn đến với không gian quản lý giảng dạy
+                                của Công nghệ 8. Theo dõi lớp học, hỗ trợ học sinh
+                                và quản lý hoạt động học tập tại một nơi.
+                            </p>
+                        </div>
+
+                        <div class="welcome-decoration">CN8</div>
+                    </div>
+
+                    <div class="section-heading overview-heading">
+                        <div>
+                            <h3>Tổng quan hoạt động</h3>
+                            <p>Các thông tin thuộc phạm vi lớp học được phân công</p>
+                        </div>
+
+                        <span class="data-label">TEACHER OVERVIEW</span>
+                    </div>
+
+                    <!-- KPI -->
+                    <div class="stats-grid overview-stats teacher-stats">
+                        <article class="stat-card">
+                            <div class="stat-icon cyan">▤</div>
+
+                            <div class="stat-info">
+                                <span>Lớp học phụ trách</span>
+                                <h2>--</h2>
+                                <small>Lớp được phân công</small>
+                            </div>
+                        </article>
+
+                        <article class="stat-card">
+                            <div class="stat-icon blue">♙</div>
+
+                            <div class="stat-info">
+                                <span>Tổng học sinh</span>
+                                <h2>--</h2>
+                                <small>Trong các lớp phụ trách</small>
+                            </div>
+                        </article>
+
+                        <article class="stat-card">
+                            <div class="stat-icon purple">✓</div>
+
+                            <div class="stat-info">
+                                <span>Lượt làm bài</span>
+                                <h2>--</h2>
+                                <small>Hoạt động kiểm tra</small>
+                            </div>
+                        </article>
+
+                        <article class="stat-card">
+                            <div class="stat-icon orange">▥</div>
+
+                            <div class="stat-info">
+                                <span>Tiến độ học tập</span>
+                                <h2>--</h2>
+                                <small>Dữ liệu Learning Analytics</small>
+                            </div>
+                        </article>
+                    </div>
+
+                    <!-- LEARNING OVERVIEW -->
+                    <div class="overview-grid teacher-overview-grid">
+
+                        <article class="content-card">
+                            <div class="card-heading">
+                                <div>
+                                    <h3>Tình hình học tập</h3>
+                                    <p>Theo dõi tiến độ học tập của học sinh</p>
+                                </div>
+
+                                <span class="card-icon">▥</span>
+                            </div>
+
+                            <div class="chart-empty">
+                                <div class="chart-empty-icon">▥</div>
+
+                                <h4>Chưa có dữ liệu phân tích</h4>
+
+                                <p>
+                                    Thông tin tiến độ sẽ được hiển thị sau khi
+                                    kết nối dữ liệu Learning Analytics.
+                                </p>
+                            </div>
+                        </article>
+
+                        <article class="content-card">
+                            <div class="card-heading">
+                                <div>
+                                    <h3>Không gian làm việc</h3>
+                                    <p>Các module hỗ trợ giảng dạy</p>
+                                </div>
+
+                                <span class="card-icon">✦</span>
+                            </div>
+
+                            <div class="teacher-module-list">
+                                <div class="teacher-module-item">
+                                    <div class="module-mini-icon blue">L</div>
+
+                                    <div class="teacher-module-info">
+                                        <strong>Learning Hub</strong>
+                                        <span>Nội dung và học liệu</span>
+                                    </div>
+
+                                    <span class="module-indicator"></span>
+                                </div>
+
+                                <div class="teacher-module-item">
+                                    <div class="module-mini-icon purple">A</div>
+
+                                    <div class="teacher-module-info">
+                                        <strong>Assessment Center</strong>
+                                        <span>Kiểm tra và đánh giá</span>
+                                    </div>
+
+                                    <span class="module-indicator"></span>
+                                </div>
+
+                                <div class="teacher-module-item">
+                                    <div class="module-mini-icon green">L</div>
+
+                                    <div class="teacher-module-info">
+                                        <strong>Learning Analytics</strong>
+                                        <span>Phân tích tiến độ học tập</span>
+                                    </div>
+
+                                    <span class="module-indicator"></span>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+
+                    <!-- QUICK ACTIONS -->
+                    <div class="overview-grid teacher-bottom-grid">
+
+                        <article class="content-card">
+                            <div class="card-heading">
+                                <div>
+                                    <h3>Hoạt động gần đây</h3>
+                                    <p>Các hoạt động trong phạm vi lớp học</p>
+                                </div>
+                            </div>
+
+                            <div class="activity-empty">
+                                <div class="empty-icon">◷</div>
+                                <h4>Chưa có hoạt động</h4>
+                                <p>
+                                    Hoạt động học tập sẽ xuất hiện tại đây
+                                    khi dữ liệu được tích hợp.
+                                </p>
+                            </div>
+                        </article>
+
+                        <article class="content-card">
+                            <div class="card-heading">
+                                <div>
+                                    <h3>Truy cập nhanh</h3>
+                                    <p>Các chức năng thường sử dụng</p>
+                                </div>
+                            </div>
+
+                            <div class="quick-actions">
+                                <button type="button" data-section="classes">
+                                    <span>▤</span>
+                                    <span>Danh sách lớp học</span>
+                                    <b>→</b>
+                                </button>
+
+                                <button type="button" data-section="students">
+                                    <span>♙</span>
+                                    <span>Quản lý học sinh</span>
+                                    <b>→</b>
+                                </button>
+
+                                <button type="button" data-section="assessment">
+                                    <span>✓</span>
+                                    <span>Kiểm tra - Đánh giá</span>
+                                    <b>→</b>
+                                </button>
+
+                                <button type="button" data-section="analytics">
+                                    <span>▥</span>
+                                    <span>Learning Analytics</span>
+                                    <b>→</b>
+                                </button>
+                            </div>
+                        </article>
+                    </div>
+                </section>
+
+                <!-- CLASSES -->
+                <section class="dashboard-section" id="classes">
+                    <div class="section-heading">
+                        <div>
+                            <h3>Lớp học của tôi</h3>
+                            <p>Danh sách các lớp được nhà trường phân công.</p>
+                        </div>
+                    </div>
+
+                    <div class="module-panel">
+                        <div class="module-symbol cyan">▤</div>
+                        <h2>Quản lý lớp học</h2>
+                        <p>
+                            Danh sách lớp học và thông tin phân công sẽ được
+                            tải từ hệ thống sau khi tích hợp API giáo viên.
+                        </p>
+                        <span class="module-status">Chờ kết nối dữ liệu</span>
+                    </div>
+                </section>
+
+                <!-- STUDENTS -->
+                <section class="dashboard-section" id="students">
+                    <div class="section-heading">
+                        <div>
+                            <h3>Quản lý học sinh</h3>
+                            <p>Thông tin học sinh thuộc các lớp được phân công.</p>
+                        </div>
+                    </div>
+
+                    <div class="module-panel">
+                        <div class="module-symbol blue">♙</div>
+                        <h2>Danh sách học sinh</h2>
+                        <p>
+                            Giáo viên có thể theo dõi thông tin học sinh
+                            trong phạm vi lớp học được cấp quyền.
+                        </p>
+                        <span class="module-status">Chờ kết nối dữ liệu</span>
+                    </div>
+                </section>
+
+                <!-- LEARNING HUB -->
+                <section class="dashboard-section" id="learning">
+                    <div class="section-heading">
+                        <div>
+                            <h3>Learning Hub</h3>
+                            <p>Không gian nội dung và tài nguyên học tập.</p>
+                        </div>
+                    </div>
+
+                    <div class="module-panel">
+                        <div class="module-symbol blue">▣</div>
+                        <h2>Learning Hub</h2>
+                        <p>
+                            Truy cập nội dung bài học, học liệu và tài nguyên
+                            hỗ trợ quá trình giảng dạy Công nghệ 8.
+                        </p>
+                        <a href="trangtieude.html" class="module-action">
+                            Truy cập website học tập <span>→</span>
+                        </a>
+                    </div>
+                </section>
+
+                <!-- ASSESSMENT -->
+                <section class="dashboard-section" id="assessment">
+                    <div class="section-heading">
+                        <div>
+                            <h3>Assessment Center</h3>
+                            <p>Kiểm tra và đánh giá kết quả học tập.</p>
+                        </div>
+                    </div>
+
+                    <div class="module-panel">
+                        <div class="module-symbol purple">✓</div>
+                        <h2>Assessment Center</h2>
+                        <p>
+                            Theo dõi hoạt động làm bài và kết quả kiểm tra
+                            của học sinh thuộc các lớp phụ trách.
+                        </p>
+                        <span class="module-status">Chờ tích hợp chức năng giáo viên</span>
+                    </div>
+                </section>
+
+                <!-- ANALYTICS -->
+                <section class="dashboard-section" id="analytics">
+                    <div class="section-heading">
+                        <div>
+                            <h3>Learning Analytics</h3>
+                            <p>Phân tích tiến độ và kết quả học tập.</p>
+                        </div>
+                    </div>
+
+                    <div class="module-panel">
+                        <div class="module-symbol green">▥</div>
+                        <h2>Learning Analytics</h2>
+                        <p>
+                            Theo dõi mức độ hoàn thành bài học và phân tích
+                            tiến trình học tập của học sinh.
+                        </p>
+                        <span class="module-status">Chờ kết nối dữ liệu</span>
+                    </div>
+                </section>
+
+            </div>
+
+            <footer class="dashboard-footer">
+                <span>© 2026 Công nghệ 8</span>
+                <span>Teacher Administration System</span>
+            </footer>
+        </main>
+    </div>
+
+    <!-- Điều hướng các khu vực -->
+    <script>
+        const navItems = document.querySelectorAll("[data-section]");
+        const sections = document.querySelectorAll(".dashboard-section");
+        const pageTitle = document.getElementById("pageTitle");
+        const sidebar = document.getElementById("teacherSidebar");
+        const menuToggle = document.getElementById("menuToggle");
+
+        const sectionTitles = {
+            overview: "Tổng quan",
+            classes: "Lớp học của tôi",
+            students: "Quản lý học sinh",
+            learning: "Learning Hub",
+            assessment: "Assessment Center",
+            analytics: "Learning Analytics"
+        };
+
+        function showSection(sectionId) {
+            if (!sectionTitles[sectionId]) return;
+
+            sections.forEach((section) => {
+                section.classList.toggle("active", section.id === sectionId);
+            });
+
+            sidebar.querySelectorAll(".nav-item").forEach((item) => {
+                item.classList.toggle(
+                    "active",
+                    item.dataset.section === sectionId
+                );
+            });
+
+            pageTitle.textContent = sectionTitles[sectionId];
+
+            sidebar.classList.remove("mobile-open");
+            menuToggle.setAttribute("aria-expanded", "false");
+
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+
+        navItems.forEach((item) => {
+            item.addEventListener("click", () => {
+                showSection(item.dataset.section);
+            });
+        });
+
+        menuToggle.addEventListener("click", () => {
+            const isOpen = sidebar.classList.toggle("mobile-open");
+            menuToggle.setAttribute("aria-expanded", String(isOpen));
+        });
+    </script>
+</body>
+</html>

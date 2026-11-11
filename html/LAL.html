@@ -152,17 +152,138 @@
     <!-- ĐÓNG TAB LEARNING HUB -->
     </section>
 
-    <!-- ASSESSMENT CENTER -->
-    <section class="lal-panel" data-panel="assessment" hidden>
-      <div class="lal-module-header">
-        <span>ASSESSMENT CENTER</span>
-        <h1>Kiểm tra kiến thức</h1>
-        <p>Hệ thống đánh giá kiến thức Công nghệ 8.</p>
+
+
+<!-- ASSESSMENT CENTER: TÍCH HỢP LÀM BÀI TRỰC TIẾP -->
+<section class="lal-panel" data-panel="assessment" hidden>
+  <div class="lal-module-header">
+    <span>ASSESSMENT CENTER</span>
+    <h1>Kiểm tra kiến thức</h1>
+    <p>Chọn bài kiểm tra và thực hiện trực tiếp trên hệ thống LAL.</p>
+  </div>
+
+  <div id="lal-assessment-picker">
+    <section class="assessment-feature" aria-labelledby="assessment-overall-title">
+      <div class="assessment-feature-copy">
+        <span class="assessment-eyebrow">BÀI KIỂM TRA TOÀN DIỆN</span>
+        <h2 id="assessment-overall-title">Kiểm tra tổng hợp</h2>
+        <p>Đánh giá kiến thức từ cả 5 chương trong chương trình Công nghệ 8.</p>
+        <div class="assessment-meta">
+          <span>📚 5 chương</span>
+          <span>📝 190 câu hỏi</span>
+          <span>🎯 Trắc nghiệm</span>
+        </div>
+        <button class="assessment-button assessment-button-primary"
+                type="button" data-assessment-start="TONG">
+          Bắt đầu kiểm tra <span aria-hidden="true">→</span>
+        </button>
       </div>
-      <div class="lal-placeholder">
-        <h2>Assessment Center</h2>
-        <p>Chức năng kiểm tra sẽ được tích hợp tại đây.</p>
+      <div class="assessment-feature-art" aria-hidden="true">
+        <div class="assessment-art-circle assessment-art-circle-one"></div>
+        <div class="assessment-art-circle assessment-art-circle-two"></div>
+        <div class="assessment-paper">
+          <span>CONGNGHE8</span>
+          <strong>190</strong>
+          <small>CÂU HỎI</small>
+          <div class="assessment-paper-lines"><i></i><i></i><i></i></div>
+          <b>✓</b>
+        </div>
       </div>
+    </section>
+
+    <div class="assessment-section-heading">
+      <div>
+        <span class="assessment-eyebrow">LUYỆN TẬP THEO NỘI DUNG</span>
+        <h2>Kiểm tra theo chương</h2>
+        <p>Chọn một chương để bắt đầu làm bài.</p>
+      </div>
+    </div>
+
+    <div class="assessment-chapter-grid">
+      <article class="assessment-chapter-card assessment-chapter-one">
+        <div class="assessment-card-top"><span>CHƯƠNG I</span><span class="assessment-card-icon">📐</span></div>
+        <h3>Vẽ kĩ thuật</h3>
+        <p>Hình chiếu, bản vẽ kĩ thuật và các kiến thức nền tảng.</p>
+        <div class="assessment-card-bottom"><span>40 câu hỏi</span>
+          <button type="button" data-assessment-start="I">Làm bài →</button>
+        </div>
+      </article>
+
+      <article class="assessment-chapter-card assessment-chapter-two">
+        <div class="assessment-card-top"><span>CHƯƠNG II</span><span class="assessment-card-icon">⚙️</span></div>
+        <h3>Cơ khí</h3>
+        <p>Vật liệu cơ khí, truyền và biến đổi chuyển động.</p>
+        <div class="assessment-card-bottom"><span>40 câu hỏi</span>
+          <button type="button" data-assessment-start="II">Làm bài →</button>
+        </div>
+      </article>
+
+      <article class="assessment-chapter-card assessment-chapter-three">
+        <div class="assessment-card-top"><span>CHƯƠNG III</span><span class="assessment-card-icon">🔌</span></div>
+        <h3>An toàn điện</h3>
+        <p>Nguyên nhân tai nạn điện và các biện pháp phòng tránh.</p>
+        <div class="assessment-card-bottom"><span>40 câu hỏi</span>
+          <button type="button" data-assessment-start="III">Làm bài →</button>
+        </div>
+      </article>
+
+      <article class="assessment-chapter-card assessment-chapter-four">
+        <div class="assessment-card-top"><span>CHƯƠNG IV</span><span class="assessment-card-icon">🏠</span></div>
+        <h3>Kĩ thuật điện</h3>
+        <p>Thiết bị điện, mạch điện và các kiến thức liên quan.</p>
+        <div class="assessment-card-bottom"><span>40 câu hỏi</span>
+          <button type="button" data-assessment-start="IV">Làm bài →</button>
+        </div>
+      </article>
+
+      <article class="assessment-chapter-card assessment-chapter-five">
+        <div class="assessment-card-top"><span>CHƯƠNG V</span><span class="assessment-card-icon">💡</span></div>
+        <h3>Thiết kế kĩ thuật</h3>
+        <p>Quy trình thiết kế và vận dụng kiến thức vào thực tiễn.</p>
+        <div class="assessment-card-bottom"><span>30 câu hỏi</span>
+          <button type="button" data-assessment-start="V">Làm bài →</button>
+        </div>
+      </article>
+    </div>
+
+    <div class="assessment-note">
+      <span aria-hidden="true">💡</span>
+      <p><strong>Mẹo học tập:</strong> Bạn có thể làm bài theo từng chương trước, sau đó thử sức với bài kiểm tra tổng hợp.</p>
+    </div>
+  </div>
+
+  <!-- MÀN HÌNH LÀM BÀI NGAY TRONG LAL.HTML -->
+  <section id="lal-assessment-test-view" hidden>
+  <div class="lal-assessment-test-header">
+    <div>
+      <span class="assessment-eyebrow">ASSESSMENT CENTER</span>
+      <h2 id="lal-assessment-test-title">Bài kiểm tra</h2>
+      <p id="lal-assessment-test-description"></p>
+    </div>
+    <button type="button" id="lal-assessment-back">
+      ← Chọn bài khác
+    </button>
+  </div>
+
+  <form id="lal-assessment-form" novalidate></form>
+
+  <p id="lal-assessment-result" role="status" aria-live="polite"></p>
+
+  <div class="lal-assessment-actions">
+    <button type="submit" form="lal-assessment-form"
+            id="lal-assessment-submit">
+      Nộp bài
+    </button>
+    <button type="button" id="lal-assessment-reset">
+      Làm lại
+    </button>
+  </div>
+</section>
+
+
+
+
+    <!-- ĐÓNG TAB ASSESSMENT CENTER -->
     </section>
 
     <!-- LEARNING ANALYTICS -->
@@ -170,13 +291,108 @@
       <div class="lal-module-header">
         <span>LEARNING ANALYTICS</span>
         <h1>Phân tích học tập</h1>
-        <p>Theo dõi kết quả và quá trình học tập.</p>
+        <p>Theo dõi tiến độ, kết quả và quá trình học tập của bạn.</p>
       </div>
-      <div class="lal-placeholder">
-        <h2>Learning Analytics</h2>
-        <p>Bảng thống kê học tập sẽ được xây dựng tại đây.</p>
-      </div>
+
+      <!-- TỔNG QUAN -->
+      <section class="analytics-overview">
+        <article class="analytics-stat-card">
+          <span>TỔNG SỐ BÀI HOÀN THÀNH</span>
+          <strong id="analyticsCompleted">0/20</strong>
+          <p>Bài học đã hoàn thành</p>
+        </article>
+
+        <article class="analytics-stat-card">
+          <span>TIẾN ĐỘ HỌC TẬP</span>
+          <strong id="analyticsPercent">0%</strong>
+          <p>Mức độ hoàn thành chương trình</p>
+        </article>
+
+        <article class="analytics-stat-card">
+          <span>SỐ BÀI CHƯA HOÀN THÀNH</span>
+          <strong id="analyticsRemaining">20</strong>
+          <p>Bài học cần tiếp tục</p>
+        </article>
+      </section>
+
+      <!-- TIẾN ĐỘ TỔNG THỂ -->
+      <section class="analytics-section">
+        <div class="analytics-section-heading">
+          <h2>Tiến độ học tập tổng thể</h2>
+          <span id="analyticsProgressLabel">0/20 bài học</span>
+        </div>
+
+        <div
+          class="analytics-progress-track"
+          role="progressbar"
+          aria-label="Tiến độ học tập tổng thể"
+          aria-valuemin="0"
+          aria-valuemax="20"
+          aria-valuenow="0"
+          id="analyticsProgressTrack"
+        >
+          <div id="analyticsProgressFill"></div>
+        </div>
+      </section>
+
+      <!-- TIẾN ĐỘ THEO CHƯƠNG -->
+      <section class="analytics-section">
+        <div class="analytics-section-heading">
+          <h2>Tiến độ theo chương</h2>
+          <span>5 chương</span>
+        </div>
+
+        <div id="analyticsChapterList">
+          <p>Đang chờ dữ liệu học tập...</p>
+        </div>
+      </section>
+
+      <!-- KẾT QUẢ KIỂM TRA -->
+<!-- LỊCH SỬ LÀM BÀI -->
+<section class="analytics-section">
+  <div class="analytics-section-heading">
+    <div>
+      <h2>Lịch sử làm bài</h2>
+      <span>Theo dõi các lượt kiểm tra của bạn</span>
+    </div>
+  </div>
+
+  <!-- Thống kê lịch sử -->
+  <div id="analyticsQuizSummary" class="analytics-quiz-summary">
+    <article class="analytics-quiz-stat">
+      <span>TỔNG LƯỢT LÀM BÀI</span>
+      <strong id="quizTotalAttempts">0</strong>
+    </article>
+
+    <article class="analytics-quiz-stat">
+      <span>ĐÃ HOÀN THÀNH</span>
+      <strong id="quizSubmittedCount">0</strong>
+    </article>
+
+    <article class="analytics-quiz-stat">
+      <span>CHƯA HOÀN THÀNH</span>
+      <strong id="quizInProgressCount">0</strong>
+    </article>
+  </div>
+
+  <!-- Bộ lọc lịch sử -->
+  <div class="analytics-quiz-toolbar">
+    <label for="analyticsQuizFilter">Lọc kết quả:</label>
+
+    <select id="analyticsQuizFilter">
+      <option value="all">Tất cả lượt làm bài</option>
+      <option value="submitted">Đã hoàn thành</option>
+      <option value="in_progress">Chưa hoàn thành</option>
+    </select>
+  </div>
+
+  <!-- Danh sách lịch sử -->
+  <div id="analyticsQuizResults" aria-live="polite">
+    <p>Đang tải lịch sử làm bài...</p>
+  </div>
+</section>
     </section>
+
 
   </div>
   </div></main>
@@ -195,6 +411,7 @@
 <!-- Các chức năng website -->
 <script src="../js/shared-layout.js"></script>
 <script src="../js/comprehensive-questions.js"></script>
+<script src="../js/quiz-engine.js?v=20261110-lal"></script>
 <script src="../js/LAL.js"></script>
 <script src="../js/chatbot.js"></script>
 </body>

@@ -1,10 +1,15 @@
 const fs = require("node:fs");
 const http = require("node:http");
 const path = require("node:path");
+const crypto = require("node:crypto");
 const callGemini = require("./gemini");
 const {
+  setTeacherAdminRole,
   initializeFirebaseAdmin,
   verifyIdToken,
+  verifyAdminToken,
+  verifyTeacherAdminToken,
+  verifyTeacherClassAccess,
   getFirestore,
 } = require("./firebase-admin");
 
@@ -34,39 +39,48 @@ const MIME_TYPES = {
 };
 
 // Đọc khóa Gemini từ biến môi trường hoặc tệp .env cục bộ.
-function loadApiKey() {
-  if (process.env.GEMINI_API_KEY) {
-    return;
-  }
-
+function loadEnvironment() {
   const envPath = path.join(PROJECT_ROOT, ".env");
 
   if (!fs.existsSync(envPath)) {
     return;
   }
 
-  const entry = fs
-    .readFileSync(envPath, "utf8")
-    .split(/\r?\n/)
-    .find((line) => /^\s*(?:export\s+)?GEMINI_API_KEY\s*=/.test(line));
+  const lines = fs.readFileSync(envPath, "utf8").split(/\r?\n/);
 
-  if (!entry) {
-    return;
-  }
+  for (const line of lines) {
+    const trimmedLine = line.trim();
 
-  let value = entry
-    .replace(/^\s*(?:export\s+)?GEMINI_API_KEY\s*=\s*/, "")
-    .trim();
+    if (!trimmedLine || trimmedLine.startsWith("#")) {
+      continue;
+    }
 
-  if (
-    (value.startsWith('"') && value.endsWith('"')) ||
-    (value.startsWith("'") && value.endsWith("'"))
-  ) {
-    value = value.slice(1, -1);
-  }
+    const separatorIndex = trimmedLine.indexOf("=");
 
-  if (value) {
-    process.env.GEMINI_API_KEY = value;
+    if (separatorIndex === -1) {
+      continue;
+    }
+
+    const key = trimmedLine.slice(0, separatorIndex).trim();
+    let value = trimmedLine.slice(separatorIndex + 1).trim();
+
+    if (!["GEMINI_API_KEY", "FIREBASE_SERVICE_ACCOUNT"].includes(key)) {
+      continue;
+    }
+
+    if (process.env[key]) {
+      continue;
+    }
+
+    if (
+      value.length >= 2 &&
+      ((value.startsWith('"') && value.endsWith('"')) ||
+        (value.startsWith("'") && value.endsWith("'")))
+    ) {
+      value = value.slice(1, -1);
+    }
+
+    process.env[key] = value;
   }
 }
 
@@ -79,6 +93,7 @@ function sendJson(response, statusCode, payload) {
   });
   response.end(JSON.stringify(payload));
 }
+
 // Xác thực người dùng bằng Firebase ID Token.
 async function authenticateUser(request) {
   const authorization = request.headers.authorization || "";
@@ -99,6 +114,34 @@ async function authenticateUser(request) {
 
   return await verifyIdToken(idToken);
 }
+
+// Xác thực quyền School Admin hoặc Teacher Admin đối với một lớp.
+async function authorizeClassManagement(request, classId) {
+  const user = await authenticateUser(request);
+
+  // School Admin được quản lý tất cả lớp.
+  if (user.roleId === 1) {
+    await verifyAdminToken(request.headers.authorization.slice(7).trim());
+
+    return user;
+  }
+
+  // Teacher Admin chỉ quản lý lớp được phân công.
+  if (user.roleId === 3) {
+    await verifyTeacherAdminToken(
+      request.headers.authorization.slice(7).trim(),
+    );
+
+    await verifyTeacherClassAccess(user.uid, classId);
+
+    return user;
+  }
+
+  const error = new Error("Bạn không có quyền quản lý lớp học.");
+  error.statusCode = 403;
+  throw error;
+}
+
 // API bắt đầu bài kiểm tra.
 async function handleQuizStart(request, response) {
   if (request.method !== "POST") {
@@ -115,7 +158,7 @@ async function handleQuizStart(request, response) {
     user = await authenticateUser(request);
     payload = await readJsonBody(request);
 
-    const quiz = startQuiz({
+    const quiz = await startQuiz({
       uid: user.uid,
       type: payload.type,
       id: payload.id,
@@ -130,6 +173,7 @@ async function handleQuizStart(request, response) {
     });
   }
 }
+
 // Xác định chương tương ứng với bài học.
 function getChapterIdFromLesson(lessonId) {
   const id = Number(lessonId);
@@ -142,8 +186,9 @@ function getChapterIdFromLesson(lessonId) {
 
   throw new Error("Mã bài học không hợp lệ.");
 }
+
 // API nhận bài, chấm điểm và lưu tiến độ học tập.
-// API nhận bài, chấm điểm và lưu tiến độ học tập.
+
 async function handleQuizSubmit(request, response) {
   if (request.method !== "POST") {
     sendJson(response, 405, {
@@ -157,8 +202,11 @@ async function handleQuizSubmit(request, response) {
   let submissionLocked = false;
 
   try {
-    // 1. Xác thực người dùng.
+    // 1. Xác thực người dùng bằng Firebase ID Token.
     const user = await authenticateUser(request);
+
+    // Nhận diện Guest từ token đã được Firebase xác minh.
+    const isGuest = user.firebase?.sign_in_provider === "anonymous";
 
     // 2. Nhận dữ liệu bài làm.
     const payload = await readJsonBody(request);
@@ -166,7 +214,9 @@ async function handleQuizSubmit(request, response) {
     if (
       !payload ||
       typeof payload.quizId !== "string" ||
-      !Array.isArray(payload.answers)
+      !Array.isArray(payload.answers) ||
+      (!isGuest &&
+        (typeof payload.examResultId !== "string" || !payload.examResultId))
     ) {
       sendJson(response, 400, {
         error: "Dữ liệu bài làm không hợp lệ.",
@@ -174,8 +224,33 @@ async function handleQuizSubmit(request, response) {
       return;
     }
 
-    // 3. Chấm điểm bằng Backend.
-    const result = gradeQuiz({
+    const db = getFirestore();
+    let examResultRef = null;
+
+    // 3. Chỉ xác minh lịch sử đối với tài khoản học sinh.
+    if (!isGuest) {
+      examResultRef = db
+        .collection("users")
+        .doc(user.uid)
+        .collection("examResults")
+        .doc(payload.examResultId);
+
+      const examSnapshot = await examResultRef.get();
+
+      if (
+        !examSnapshot.exists ||
+        examSnapshot.data().quizId !== payload.quizId ||
+        examSnapshot.data().status !== "in_progress"
+      ) {
+        sendJson(response, 403, {
+          error: "Không tìm thấy lượt kiểm tra hợp lệ.",
+        });
+        return;
+      }
+    }
+
+    // 4. Chấm điểm bằng Backend cho cả hai loại tài khoản.
+    const result = await gradeQuiz({
       uid: user.uid,
       quizId: payload.quizId,
       answers: payload.answers,
@@ -185,13 +260,11 @@ async function handleQuizSubmit(request, response) {
     submissionQuizId = payload.quizId;
     submissionLocked = true;
 
-    // 4. Lưu tiến độ nếu đạt yêu cầu bài học.
-    if (result.type === "lesson") {
+    // 5. Chỉ lưu tiến độ bài học cho tài khoản không phải Guest.
+    if (!isGuest && result.type === "lesson") {
       const requiredScore = Math.ceil(result.totalQuestions * 0.8);
 
       if (result.score >= requiredScore) {
-        const db = getFirestore();
-
         const lessonId = String(result.lessonId);
         const chapterId = getChapterIdFromLesson(lessonId);
 
@@ -214,25 +287,70 @@ async function handleQuizSubmit(request, response) {
       }
     }
 
-    // 5. Xác nhận đã nộp sau khi xử lý thành công.
-    markQuizSubmitted({
+    // 6. Xác nhận phiên kiểm tra đã nộp.
+    await markQuizSubmitted({
       uid: user.uid,
       quizId: payload.quizId,
     });
 
     submissionLocked = false;
 
+    // 7. Chỉ lưu lịch sử cho tài khoản học sinh.
+    const percentage = Math.round((result.score / result.totalQuestions) * 100);
+
+    if (!isGuest) {
+      await examResultRef.update({
+        score: result.score,
+        answered: payload.answers.length,
+        percentage,
+        status: "submitted",
+        submittedAt: FieldValue.serverTimestamp(),
+        endedAt: FieldValue.serverTimestamp(),
+      });
+    }
+
+    // 8. Guest chỉ nhận kết quả đúng/sai và đáp án đúng.
+    if (isGuest) {
+      const guestResults = result.results.map((item) => ({
+        questionId: item.questionId,
+        selectedAnswer: item.selectedAnswer,
+        correctAnswer: item.correctAnswer,
+        correctLabel: item.correctLabel,
+        isCorrect: item.isCorrect,
+      }));
+
+      sendJson(response, 200, {
+        success: true,
+        historySaved: false,
+        guestMode: true,
+        quizId: result.quizId,
+        type: result.type,
+        score: result.score,
+        totalQuestions: result.totalQuestions,
+        results: guestResults,
+      });
+
+      return;
+    }
+
+    // Tài khoản học sinh tiếp tục nhận đầy đủ lời giải.
     sendJson(response, 200, {
       success: true,
+      historySaved: true,
       ...result,
     });
   } catch (error) {
-    // Nếu xử lý thất bại, mở khóa để người dùng thử lại.
+    // Nếu thất bại trước khi xác nhận nộp,
+    // mở khóa phiên để người dùng có thể thử lại.
     if (submissionLocked) {
-      releaseQuizSubmission({
-        uid: submissionUid,
-        quizId: submissionQuizId,
-      });
+      try {
+        await releaseQuizSubmission({
+          uid: submissionUid,
+          quizId: submissionQuizId,
+        });
+      } catch (releaseError) {
+        console.error("Quiz unlock failed:", releaseError.message);
+      }
     }
 
     console.error("Quiz submit failed:", error.message);
@@ -307,12 +425,14 @@ function validateHistory(value) {
       return null;
     }
 
-    history.push({ role: message.role, text: message.text.trim() });
+    history.push({
+      role: message.role,
+      text: message.text.trim(),
+    });
   }
 
-  return history[history.length - 1].role === "user" ? history : null;
+  return history;
 }
-
 // Xác thực yêu cầu chat rồi chuyển tiếp nội dung tới Gemini.
 async function handleChat(request, response) {
   if (request.method !== "POST") {
@@ -473,6 +593,912 @@ function serveStatic(request, response, pathname) {
   });
 }
 
+// API xác minh phiên đăng nhập Admin.
+async function handleAdminSession(request, response) {
+  if (request.method !== "GET") {
+    sendJson(response, 405, {
+      error: "Phương thức gửi không được hỗ trợ.",
+    });
+    return;
+  }
+
+  try {
+    const authorization = request.headers.authorization || "";
+
+    if (!authorization.startsWith("Bearer ")) {
+      sendJson(response, 401, {
+        error: "Bạn cần đăng nhập Admin.",
+      });
+      return;
+    }
+
+    const idToken = authorization.slice(7).trim();
+    const adminUser = await verifyAdminToken(idToken);
+
+    sendJson(response, 200, {
+      success: true,
+      roleId: 1,
+      uid: adminUser.uid,
+    });
+  } catch (error) {
+    sendJson(response, error.statusCode || 500, {
+      error: error.message || "Không thể xác minh quyền Admin.",
+    });
+  }
+}
+
+// API xác minh phiên đăng nhập Teacher Admin.
+async function handleTeacherSession(request, response) {
+  if (request.method !== "GET") {
+    sendJson(response, 405, {
+      error: "Phương thức gửi không được hỗ trợ.",
+    });
+    return;
+  }
+
+  try {
+    const authorization = request.headers.authorization || "";
+
+    if (!authorization.startsWith("Bearer ")) {
+      sendJson(response, 401, {
+        error: "Bạn cần đăng nhập tài khoản giáo viên.",
+      });
+      return;
+    }
+
+    const idToken = authorization.slice(7).trim();
+
+    const teacherUser = await verifyTeacherAdminToken(idToken);
+
+    sendJson(response, 200, {
+      success: true,
+      roleId: 3,
+      uid: teacherUser.uid,
+    });
+  } catch (error) {
+    sendJson(response, error.statusCode || 500, {
+      error: error.message || "Không thể xác minh quyền giáo viên.",
+    });
+  }
+}
+
+// Thống kê tổng quan dành riêng cho School Admin.
+async function handleAdminStats(request, response) {
+  if (request.method !== "GET") {
+    sendJson(response, 405, {
+      error: "Phương thức gửi không được hỗ trợ.",
+    });
+    return;
+  }
+
+  try {
+    const authorization = request.headers.authorization || "";
+
+    if (!authorization.startsWith("Bearer ")) {
+      sendJson(response, 401, {
+        error: "Bạn cần đăng nhập Admin.",
+      });
+      return;
+    }
+
+    const idToken = authorization.slice(7).trim();
+    await verifyAdminToken(idToken);
+
+    const db = getFirestore();
+
+    const [
+      studentsSnapshot,
+      teachersSnapshot,
+      classesSnapshot,
+      submittedSnapshot,
+    ] = await Promise.all([
+      db.collection("users").where("roleId", "==", 2).get(),
+      db.collection("teachers").get(),
+      db.collection("classes").get(),
+      db.collection("quizSessions").where("submitted", "==", true).get(),
+    ]);
+
+    // Đếm số bài khác nhau mỗi học sinh đã hoàn thành.
+    const completedQuizKeys = new Set();
+
+    submittedSnapshot.forEach((doc) => {
+      const quiz = doc.data();
+
+      let quizKey;
+
+      if (quiz.type === "lesson" && quiz.lessonId) {
+        quizKey = `lesson:${quiz.lessonId}`;
+      } else if (quiz.type === "chapter" && quiz.chapterId) {
+        quizKey = `chapter:${quiz.chapterId}`;
+      } else if (quiz.type === "overall") {
+        quizKey = "overall";
+      } else {
+        return;
+      }
+
+      completedQuizKeys.add(`${quiz.uid}:${quizKey}`);
+    });
+
+    sendJson(response, 200, {
+      success: true,
+      stats: {
+        students: studentsSnapshot.size,
+        teachers: teachersSnapshot.size,
+        classes: classesSnapshot.size,
+        completedQuizzes: completedQuizKeys.size,
+        quizAttempts: submittedSnapshot.size,
+      },
+    });
+  } catch (error) {
+    sendJson(response, error.statusCode || 500, {
+      error: error.message || "Không thể tải thống kê.",
+    });
+  }
+}
+
+// School Admin lấy danh sách học sinh toàn trường.
+async function handleAdminStudents(request, response) {
+  if (request.method !== "GET") {
+    sendJson(response, 405, {
+      error: "Phương thức gửi không được hỗ trợ.",
+    });
+    return;
+  }
+
+  try {
+    const authorization = request.headers.authorization || "";
+
+    if (!authorization.startsWith("Bearer ")) {
+      sendJson(response, 401, {
+        error: "Bạn cần đăng nhập Admin.",
+      });
+      return;
+    }
+
+    const idToken = authorization.slice(7).trim();
+
+    // Chỉ School Admin được xem danh sách toàn trường.
+    await verifyAdminToken(idToken);
+
+    const db = getFirestore();
+
+    const snapshot = await db
+      .collection("users")
+      .where("roleId", "==", 2)
+      .get();
+
+    const students = snapshot.docs.map((doc) => {
+      const data = doc.data();
+
+      return {
+        uid: doc.id,
+        email: data.email || "",
+        classId: data.classId || "",
+        createdAt: data.createdAt?.toDate
+          ? data.createdAt.toDate().toISOString()
+          : null,
+      };
+    });
+
+    sendJson(response, 200, {
+      success: true,
+      total: students.length,
+      students,
+    });
+  } catch (error) {
+    console.error("Admin students failed:", error.message);
+
+    sendJson(response, error.statusCode || 500, {
+      error: error.message || "Không thể tải danh sách học sinh.",
+    });
+  }
+}
+
+// Lấy danh sách lớp theo quyền quản trị.
+async function handleAdminClasses(request, response) {
+  if (request.method !== "GET") {
+    sendJson(response, 405, {
+      error: "Phương thức gửi không được hỗ trợ.",
+    });
+    return;
+  }
+
+  try {
+    const authorization = request.headers.authorization || "";
+
+    if (!authorization.startsWith("Bearer ")) {
+      sendJson(response, 401, {
+        error: "Bạn cần đăng nhập.",
+      });
+      return;
+    }
+
+    const idToken = authorization.slice(7).trim();
+    const user = await verifyIdToken(idToken);
+    const db = getFirestore();
+
+    let classes = [];
+
+    // School Admin xem toàn bộ lớp.
+    if (user.roleId === 1) {
+      await verifyAdminToken(idToken);
+
+      const snapshot = await db.collection("classes").get();
+
+      classes = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+    }
+
+    // Teacher Admin chỉ xem lớp được phân công.
+    else if (user.roleId === 3) {
+      await verifyTeacherAdminToken(idToken);
+
+      const snapshot = await db
+        .collectionGroup("teachers")
+        .where("teacherUid", "==", user.uid)
+        .get();
+
+      const classIds = [
+        ...new Set(snapshot.docs.map((doc) => doc.ref.parent.parent.id)),
+      ];
+
+      const classDocs = await Promise.all(
+        classIds.map((id) => db.collection("classes").doc(id).get()),
+      );
+
+      classes = classDocs
+        .filter((doc) => doc.exists)
+        .map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+    } else {
+      sendJson(response, 403, {
+        error: "Bạn không có quyền xem danh sách lớp.",
+      });
+      return;
+    }
+
+    sendJson(response, 200, {
+      success: true,
+      classes,
+    });
+  } catch (error) {
+    console.error("Admin classes failed:", error.message);
+
+    sendJson(response, error.statusCode || 500, {
+      error: error.message || "Không thể tải danh sách lớp.",
+    });
+  }
+}
+// School Admin phân công Teacher Admin vào lớp.
+async function handleAdminAssignTeacher(request, response) {
+  if (request.method !== "POST") {
+    sendJson(response, 405, {
+      error: "Phương thức gửi không được hỗ trợ.",
+    });
+    return;
+  }
+
+  try {
+    const authorization = request.headers.authorization || "";
+
+    if (!authorization.startsWith("Bearer ")) {
+      sendJson(response, 401, {
+        error: "Bạn cần đăng nhập.",
+      });
+      return;
+    }
+
+    const idToken = authorization.slice(7).trim();
+
+    // Chỉ School Admin được phân công giáo viên.
+    await verifyAdminToken(idToken);
+
+    const payload = await readJsonBody(request);
+    const { classId, teacherUid } = payload || {};
+
+    if (
+      typeof classId !== "string" ||
+      !classId.trim() ||
+      typeof teacherUid !== "string" ||
+      !teacherUid.trim()
+    ) {
+      sendJson(response, 400, {
+        error: "Thiếu classId hoặc teacherUid.",
+      });
+      return;
+    }
+
+    const db = getFirestore();
+
+    // Kiểm tra lớp có tồn tại.
+    const classRef = db.collection("classes").doc(classId);
+    const classDoc = await classRef.get();
+
+    if (!classDoc.exists) {
+      sendJson(response, 404, {
+        error: "Không tìm thấy lớp học.",
+      });
+      return;
+    }
+
+    // Kiểm tra hồ sơ giáo viên có tồn tại.
+    const teacherDoc = await db.collection("teachers").doc(teacherUid).get();
+
+    if (!teacherDoc.exists) {
+      sendJson(response, 404, {
+        error: "Không tìm thấy hồ sơ giáo viên.",
+      });
+      return;
+    }
+
+    // Tạo quan hệ phân công giáo viên - lớp.
+    await classRef.collection("teachers").doc(teacherUid).set({
+      teacherUid,
+      assignedAt: FieldValue.serverTimestamp(),
+    });
+
+    sendJson(response, 200, {
+      success: true,
+      message: "Đã phân công giáo viên vào lớp.",
+      classId,
+      teacherUid,
+    });
+  } catch (error) {
+    console.error("Assign teacher failed:", error.message);
+
+    sendJson(response, error.statusCode || 500, {
+      error: error.message || "Không thể phân công giáo viên.",
+    });
+  }
+}
+
+// School Admin tạo hồ sơ và cấp quyền Teacher Admin.
+async function handleAdminCreateTeacher(request, response) {
+  if (request.method !== "POST") {
+    sendJson(response, 405, {
+      error: "Phương thức gửi không được hỗ trợ.",
+    });
+    return;
+  }
+
+  try {
+    const authorization = request.headers.authorization || "";
+
+    if (!authorization.startsWith("Bearer ")) {
+      sendJson(response, 401, {
+        error: "Bạn cần đăng nhập.",
+      });
+      return;
+    }
+
+    const idToken = authorization.slice(7).trim();
+
+    // Chỉ School Admin được tạo hồ sơ giáo viên.
+    await verifyAdminToken(idToken);
+
+    const payload = await readJsonBody(request);
+    const { teacherUid, name, subject } = payload || {};
+
+    if (
+      typeof teacherUid !== "string" ||
+      !teacherUid.trim() ||
+      typeof name !== "string" ||
+      !name.trim() ||
+      typeof subject !== "string" ||
+      !subject.trim()
+    ) {
+      sendJson(response, 400, {
+        error: "Vui lòng cung cấp UID, tên và môn học.",
+      });
+      return;
+    }
+
+    const db = getFirestore();
+
+    // Xác minh tài khoản Firebase Authentication và cấp roleId = 3.
+    await setTeacherAdminRole(teacherUid);
+
+    // Tạo hồ sơ giáo viên.
+    const batch = db.batch();
+
+    batch.set(db.collection("teachers").doc(teacherUid), {
+      teacherUid,
+      name: name.trim(),
+      subject: subject.trim(),
+      createdAt: FieldValue.serverTimestamp(),
+    });
+
+    // Lưu roleId trong hồ sơ người dùng.
+    batch.set(
+      db.collection("users").doc(teacherUid),
+      {
+        uid: teacherUid,
+        roleId: 3,
+      },
+      { merge: true },
+    );
+
+    await batch.commit();
+
+    sendJson(response, 201, {
+      success: true,
+      message: "Đã tạo hồ sơ và cấp quyền Teacher Admin.",
+      teacherUid,
+      roleId: 3,
+    });
+  } catch (error) {
+    console.error("Create teacher failed:", error.message);
+
+    sendJson(response, error.statusCode || 500, {
+      error: error.message || "Không thể tạo hồ sơ giáo viên.",
+    });
+  }
+}
+
+// School Admin tạo lời mời riêng cho từng giáo viên.
+async function handleCreateTeacherInvitation(request, response) {
+  if (request.method !== "POST") {
+    sendJson(response, 405, {
+      error: "Phương thức gửi không được hỗ trợ.",
+    });
+    return;
+  }
+
+  try {
+    const authorization = request.headers.authorization || "";
+
+    if (!authorization.startsWith("Bearer ")) {
+      sendJson(response, 401, {
+        error: "Bạn cần đăng nhập.",
+      });
+      return;
+    }
+
+    const idToken = authorization.slice(7).trim();
+
+    // Chỉ School Admin được tạo lời mời.
+    const adminUser = await verifyAdminToken(idToken);
+
+    const payload = await readJsonBody(request);
+    const { email, name, subject } = payload || {};
+
+    if (
+      typeof email !== "string" ||
+      typeof name !== "string" ||
+      typeof subject !== "string"
+    ) {
+      sendJson(response, 400, {
+        error: "Vui lòng cung cấp email, họ tên và môn dạy.",
+      });
+      return;
+    }
+
+    const normalizedEmail = email.trim().toLowerCase();
+    const normalizedName = name.trim();
+    const normalizedSubject = subject.trim();
+
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (
+      !emailPattern.test(normalizedEmail) ||
+      normalizedEmail.length > 254 ||
+      !normalizedName ||
+      normalizedName.length > 100 ||
+      !normalizedSubject ||
+      normalizedSubject.length > 100
+    ) {
+      sendJson(response, 400, {
+        error: "Thông tin giáo viên không hợp lệ.",
+      });
+      return;
+    }
+
+    // Tạo mã mời ngẫu nhiên và chỉ lưu bản băm.
+    const invitationCode = crypto.randomBytes(32).toString("hex");
+
+    const codeHash = crypto
+      .createHash("sha256")
+      .update(invitationCode)
+      .digest("hex");
+
+    const db = getFirestore();
+    const invitationRef = db.collection("teacherInvitations").doc(codeHash);
+
+    const now = Date.now();
+    const expiresAt = new Date(now + 72 * 60 * 60 * 1000);
+
+    await invitationRef.create({
+      email: normalizedEmail,
+      name: normalizedName,
+      subject: normalizedSubject,
+      status: "pending",
+      createdBy: adminUser.uid,
+      createdAt: FieldValue.serverTimestamp(),
+      expiresAt,
+      usedAt: null,
+      usedBy: null,
+    });
+
+    // Chỉ trả mã gốc một lần cho School Admin.
+    sendJson(response, 201, {
+      success: true,
+      message: "Đã tạo lời mời giáo viên.",
+      invitation: {
+        email: normalizedEmail,
+        name: normalizedName,
+        subject: normalizedSubject,
+        code: invitationCode,
+        expiresAt: expiresAt.toISOString(),
+      },
+    });
+  } catch (error) {
+    console.error("Create teacher invitation failed:", error.message);
+
+    sendJson(response, error.statusCode || 500, {
+      error: error.message || "Không thể tạo lời mời giáo viên.",
+    });
+  }
+}
+
+// Giáo viên dùng mã mời để nhận quyền Teacher Admin (không yêu cầu xác minh email).
+async function handleAcceptTeacherInvitation(request, response) {
+  if (request.method !== "POST") {
+    sendJson(response, 405, {
+      error: "Phương thức gửi không được hỗ trợ.",
+    });
+    return;
+  }
+
+  try {
+    const authorization = request.headers.authorization || "";
+
+    if (!authorization.startsWith("Bearer ")) {
+      sendJson(response, 401, {
+        error: "Bạn cần đăng nhập tài khoản giáo viên.",
+      });
+      return;
+    }
+
+    const idToken = authorization.slice(7).trim();
+
+    // Xác minh Firebase ID Token.
+    const teacherUser = await verifyIdToken(idToken);
+
+    if (!teacherUser.email) {
+      sendJson(response, 400, {
+        error: "Tài khoản Firebase không có địa chỉ email hợp lệ.",
+      });
+      return;
+    }
+
+    // Nhận mã lời mời.
+    const payload = await readJsonBody(request);
+    const invitationCode =
+      typeof payload?.code === "string" ? payload.code.trim() : "";
+
+    if (!/^[a-f0-9]{64}$/i.test(invitationCode)) {
+      sendJson(response, 400, {
+        error: "Mã lời mời không hợp lệ.",
+      });
+      return;
+    }
+
+    const codeHash = crypto
+      .createHash("sha256")
+      .update(invitationCode)
+      .digest("hex");
+
+    const db = getFirestore();
+    const invitationRef = db.collection("teacherInvitations").doc(codeHash);
+
+    const normalizedEmail = teacherUser.email.trim().toLowerCase();
+
+    // Khóa lời mời cho UID đầu tiên xác nhận.
+    // Nếu quá trình cấp quyền gặp lỗi, chính UID đó có thể thử lại.
+    const invitation = await db.runTransaction(async (transaction) => {
+      const snapshot = await transaction.get(invitationRef);
+
+      if (!snapshot.exists) {
+        const error = new Error("Lời mời không tồn tại.");
+        error.statusCode = 404;
+        throw error;
+      }
+
+      const data = snapshot.data();
+
+      if (data.email !== normalizedEmail) {
+        const error = new Error(
+          "Email đăng nhập không trùng với email được mời.",
+        );
+        error.statusCode = 403;
+        throw error;
+      }
+
+      const expiresAt = data.expiresAt?.toDate
+        ? data.expiresAt.toDate()
+        : new Date(data.expiresAt);
+
+      if (
+        !Number.isFinite(expiresAt.getTime()) ||
+        expiresAt.getTime() <= Date.now()
+      ) {
+        const error = new Error("Lời mời đã hết hạn.");
+        error.statusCode = 410;
+        throw error;
+      }
+
+      if (data.status === "accepted") {
+        const error = new Error("Lời mời này đã được sử dụng.");
+        error.statusCode = 409;
+        throw error;
+      }
+
+      if (
+        data.status === "processing" &&
+        data.processingUid !== teacherUser.uid
+      ) {
+        const error = new Error("Lời mời đang được tài khoản khác xử lý.");
+        error.statusCode = 409;
+        throw error;
+      }
+
+      if (data.status !== "pending" && data.status !== "processing") {
+        const error = new Error("Lời mời không còn hiệu lực.");
+        error.statusCode = 410;
+        throw error;
+      }
+
+      if (data.status === "pending") {
+        transaction.update(invitationRef, {
+          status: "processing",
+          processingUid: teacherUser.uid,
+          processingAt: FieldValue.serverTimestamp(),
+        });
+      }
+
+      return data;
+    });
+    // Chỉ Backend mới được cấp custom claims roleId = 3.
+    await setTeacherAdminRole(teacherUser.uid);
+
+    // Tạo hồ sơ và cập nhật trạng thái lời mời.
+    const batch = db.batch();
+
+    batch.set(
+      db.collection("users").doc(teacherUser.uid),
+      {
+        uid: teacherUser.uid,
+        email: normalizedEmail,
+        name: invitation.name,
+        roleId: 3,
+        createdAt: FieldValue.serverTimestamp(),
+      },
+      { merge: true },
+    );
+
+    batch.set(
+      db.collection("teachers").doc(teacherUser.uid),
+      {
+        teacherUid: teacherUser.uid,
+        email: normalizedEmail,
+        name: invitation.name,
+        subject: invitation.subject,
+        createdAt: FieldValue.serverTimestamp(),
+      },
+      { merge: true },
+    );
+
+    batch.update(invitationRef, {
+      status: "accepted",
+      usedBy: teacherUser.uid,
+      usedAt: FieldValue.serverTimestamp(),
+    });
+
+    await batch.commit();
+
+    sendJson(response, 200, {
+      success: true,
+      message: "Mã mời hợp lệ. Bạn đã được cấp quyền Teacher Admin.",
+      roleId: 3,
+      uid: teacherUser.uid,
+    });
+  } catch (error) {
+    console.error("Accept teacher invitation failed:", error.message);
+
+    sendJson(response, error.statusCode || 500, {
+      error: error.message || "Không thể xác nhận lời mời.",
+    });
+  }
+}
+
+// API quản lý lịch sử và vi phạm bài kiểm tra.
+async function handleQuizHistory(request, response) {
+  if (request.method !== "POST") {
+    sendJson(response, 405, {
+      error: "Phương thức gửi không được hỗ trợ.",
+    });
+    return;
+  }
+
+  try {
+    const user = await authenticateUser(request);
+    const payload = await readJsonBody(request);
+
+    // Guest không lưu lịch sử hoặc dữ liệu vi phạm bài kiểm tra.
+    if (user.firebase?.sign_in_provider === "anonymous") {
+      sendJson(response, 200, {
+        success: true,
+        guestMode: true,
+        historySaved: false,
+        examResultId: null,
+      });
+      return;
+    }
+
+    if (
+      !payload ||
+      !["start", "violation", "abandon"].includes(payload.action)
+    ) {
+      sendJson(response, 400, {
+        error: "Thao tác lịch sử kiểm tra không hợp lệ.",
+      });
+      return;
+    }
+
+    const db = getFirestore();
+    const userResultsRef = db
+      .collection("users")
+      .doc(user.uid)
+      .collection("examResults");
+
+    // 1. Tạo lịch sử khi bắt đầu làm bài.
+    if (payload.action === "start") {
+      if (
+        typeof payload.quizId !== "string" ||
+        typeof payload.examTitle !== "string" ||
+        !["I", "II", "III", "IV", "V", "TONG"].includes(payload.chapter)
+      ) {
+        sendJson(response, 400, {
+          error: "Thông tin bài kiểm tra không hợp lệ.",
+        });
+        return;
+      }
+
+      const sessionRef = db.collection("quizSessions").doc(payload.quizId);
+
+      const sessionSnapshot = await sessionRef.get();
+
+      if (
+        !sessionSnapshot.exists ||
+        sessionSnapshot.data().uid !== user.uid ||
+        sessionSnapshot.data().submitted ||
+        Date.now() > sessionSnapshot.data().expiresAt
+      ) {
+        sendJson(response, 403, {
+          error: "Phiên kiểm tra không hợp lệ hoặc đã hết hạn.",
+        });
+        return;
+      }
+
+      // Tránh tạo hai bản ghi cho cùng một phiên kiểm tra.
+      const existing = await userResultsRef
+        .where("quizId", "==", payload.quizId)
+        .limit(1)
+        .get();
+
+      if (!existing.empty) {
+        sendJson(response, 200, {
+          success: true,
+          examResultId: existing.docs[0].id,
+        });
+        return;
+      }
+
+      const session = sessionSnapshot.data();
+      const examResultRef = userResultsRef.doc();
+
+      await examResultRef.set({
+        uid: user.uid,
+        email: user.email || "",
+        quizId: payload.quizId,
+
+        examType: session.type,
+        chapter: payload.chapter,
+        examTitle: payload.examTitle.trim().slice(0, 200),
+
+        totalQuestions: session.questions.length,
+        score: null,
+        answered: 0,
+
+        violationCount: 0,
+        violations: [],
+
+        status: "in_progress",
+        startedAt: FieldValue.serverTimestamp(),
+        submittedAt: null,
+      });
+
+      sendJson(response, 201, {
+        success: true,
+        examResultId: examResultRef.id,
+      });
+      return;
+    }
+
+    // Các thao tác còn lại cần mã bản ghi thuộc tài khoản hiện tại.
+    if (
+      typeof payload.examResultId !== "string" ||
+      !/^[A-Za-z0-9_-]{1,128}$/.test(payload.examResultId)
+    ) {
+      sendJson(response, 400, {
+        error: "Mã lịch sử kiểm tra không hợp lệ.",
+      });
+      return;
+    }
+
+    const examResultRef = userResultsRef.doc(payload.examResultId);
+    const examSnapshot = await examResultRef.get();
+
+    if (!examSnapshot.exists) {
+      sendJson(response, 404, {
+        error: "Không tìm thấy lịch sử kiểm tra.",
+      });
+      return;
+    }
+
+    if (examSnapshot.data().status !== "in_progress") {
+      sendJson(response, 409, {
+        error: "Lượt kiểm tra này đã kết thúc.",
+      });
+      return;
+    }
+
+    // 2. Ghi nhận vi phạm.
+    if (payload.action === "violation") {
+      const allowedTypes = ["fullscreen_exit", "tab_hidden"];
+
+      if (!allowedTypes.includes(payload.type)) {
+        sendJson(response, 400, {
+          error: "Loại vi phạm không hợp lệ.",
+        });
+        return;
+      }
+
+      await examResultRef.update({
+        violationCount: FieldValue.increment(1),
+        violations: FieldValue.arrayUnion({
+          type: payload.type,
+          occurredAt: new Date().toISOString(),
+        }),
+        lastViolationAt: FieldValue.serverTimestamp(),
+      });
+
+      sendJson(response, 200, { success: true });
+      return;
+    }
+
+    // 3. Đánh dấu rời bài chưa nộp.
+    if (payload.action === "abandon") {
+      await examResultRef.update({
+        status: "abandoned",
+        endedAt: FieldValue.serverTimestamp(),
+      });
+
+      sendJson(response, 200, { success: true });
+    }
+  } catch (error) {
+    console.error("Quiz history failed:", error.message);
+
+    sendJson(response, error.statusCode || 500, {
+      error: error.message || "Không thể cập nhật lịch sử kiểm tra.",
+    });
+  }
+}
+
 // Bộ định tuyến HTTP: xử lý API chat, chuyển hướng và tệp tĩnh.
 const server = http.createServer((request, response) => {
   let pathname;
@@ -487,6 +1513,52 @@ const server = http.createServer((request, response) => {
     return;
   }
 
+  if (pathname === "/api/admin/session") {
+    handleAdminSession(request, response);
+    return;
+  }
+
+  if (pathname === "/api/teacher/session") {
+    handleTeacherSession(request, response);
+    return;
+  }
+
+  // API thống kê School Admin.
+  if (pathname === "/api/admin/stats") {
+    handleAdminStats(request, response);
+    return;
+  }
+
+  if (pathname === "/api/admin/students") {
+    handleAdminStudents(request, response);
+    return;
+  }
+
+  if (pathname === "/api/admin/classes") {
+    handleAdminClasses(request, response);
+    return;
+  }
+
+  if (pathname === "/api/admin/assign-teacher") {
+    handleAdminAssignTeacher(request, response);
+    return;
+  }
+
+  if (pathname === "/api/admin/teachers") {
+    handleAdminCreateTeacher(request, response);
+    return;
+  }
+
+  if (pathname === "/api/admin/teacher-invitations") {
+    handleCreateTeacherInvitation(request, response);
+    return;
+  }
+
+  if (pathname === "/api/teacher/accept-invitation") {
+    handleAcceptTeacherInvitation(request, response);
+    return;
+  }
+
   if (pathname === "/api/chat") {
     handleChat(request, response).catch((error) => {
       console.error("Chat request failed:", error.message);
@@ -496,139 +1568,25 @@ const server = http.createServer((request, response) => {
     });
     return;
   }
+
+  // API quản lý lịch sử và vi phạm bài kiểm tra.
+  if (pathname === "/api/quiz/history") {
+    handleQuizHistory(request, response);
+    return;
+  }
+
   // API bắt đầu bài kiểm tra.
-  async function handleQuizStart(request, response) {
-    if (request.method !== "POST") {
-      sendJson(response, 405, {
-        error: "Phương thức gửi không được hỗ trợ.",
-      });
-      return;
-    }
-
-    try {
-      const user = await authenticateUser(request);
-      const payload = await readJsonBody(request);
-
-      // Chờ Firestore lưu phiên kiểm tra.
-      const quiz = await startQuiz({
-        uid: user.uid,
-        type: payload.type,
-        id: payload.id,
-      });
-
-      sendJson(response, 200, quiz);
-    } catch (error) {
-      console.error("Quiz start failed:", error.message);
-
-      sendJson(response, error.statusCode || 400, {
-        error: error.message || "Không thể bắt đầu bài kiểm tra.",
-      });
-    }
+  if (pathname === "/api/quiz/start") {
+    handleQuizStart(request, response);
+    return;
   }
 
-  // API nhận bài, chấm điểm và lưu tiến độ học tập.
-  async function handleQuizSubmit(request, response) {
-    if (request.method !== "POST") {
-      sendJson(response, 405, {
-        error: "Phương thức gửi không được hỗ trợ.",
-      });
-      return;
-    }
-
-    let submissionUid = null;
-    let submissionQuizId = null;
-    let submissionLocked = false;
-
-    try {
-      // 1. Xác thực người dùng.
-      const user = await authenticateUser(request);
-
-      // 2. Nhận dữ liệu bài làm.
-      const payload = await readJsonBody(request);
-
-      if (
-        !payload ||
-        typeof payload.quizId !== "string" ||
-        !Array.isArray(payload.answers)
-      ) {
-        sendJson(response, 400, {
-          error: "Dữ liệu bài làm không hợp lệ.",
-        });
-        return;
-      }
-
-      // 3. Chấm điểm bằng Backend và khóa phiên trong Firestore.
-      const result = await gradeQuiz({
-        uid: user.uid,
-        quizId: payload.quizId,
-        answers: payload.answers,
-      });
-
-      submissionUid = user.uid;
-      submissionQuizId = payload.quizId;
-      submissionLocked = true;
-
-      // 4. Lưu tiến độ nếu đạt yêu cầu bài học.
-      if (result.type === "lesson") {
-        const requiredScore = Math.ceil(result.totalQuestions * 0.8);
-
-        if (result.score >= requiredScore) {
-          const db = getFirestore();
-
-          const lessonId = String(result.lessonId);
-          const chapterId = getChapterIdFromLesson(lessonId);
-
-          await db
-            .collection("users")
-            .doc(user.uid)
-            .collection("learningProgress")
-            .doc(lessonId)
-            .set(
-              {
-                lessonId,
-                chapterId,
-                status: "completed",
-                score: result.score,
-                totalQuestions: result.totalQuestions,
-                completedAt: FieldValue.serverTimestamp(),
-              },
-              { merge: true },
-            );
-        }
-      }
-
-      // 5. Xác nhận đã nộp sau khi xử lý thành công.
-      await markQuizSubmitted({
-        uid: user.uid,
-        quizId: payload.quizId,
-      });
-
-      submissionLocked = false;
-
-      sendJson(response, 200, {
-        success: true,
-        ...result,
-      });
-    } catch (error) {
-      // Nếu xử lý thất bại, thử mở khóa phiên trong Firestore.
-      if (submissionLocked) {
-        try {
-          await releaseQuizSubmission({
-            uid: submissionUid,
-            quizId: submissionQuizId,
-          });
-        } catch (releaseError) {
-          console.error("Quiz unlock failed:", releaseError.message);
-        }
-      }
-
-      console.error("Quiz submit failed:", error.message);
-
-      sendJson(response, error.statusCode || 400, {
-        error: error.message || "Không thể nộp bài kiểm tra.",
-      });
-    }
+  // API nộp bài kiểm tra.
+  if (pathname === "/api/quiz/submit") {
+    handleQuizSubmit(request, response);
+    return;
   }
+
   if (/^\/[^/]+\.html$/i.test(pathname)) {
     response.writeHead(302, { Location: `/html${pathname}` });
     response.end();
@@ -639,7 +1597,7 @@ const server = http.createServer((request, response) => {
 });
 
 // Nạp khóa trước khi máy chủ bắt đầu nhận kết nối.
-loadApiKey();
+loadEnvironment();
 
 // Khởi tạo Firebase Admin nếu môi trường đã được cấu hình.
 if (process.env.FIREBASE_SERVICE_ACCOUNT) {

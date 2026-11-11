@@ -147,3 +147,12 @@ vite.config.ts.timestamp-*
 
 # Turbo Repo
 .turbo
+
+# Firebase client configuration
+js/firebase-config.js
+# Firebase Admin credentials
+serviceAccountKey.json
+service-account.json
+*serviceAccount*.json
+# One-time admin privilege script
+grant-school-admin.once.js

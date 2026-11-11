@@ -89,7 +89,23 @@ window.COMPREHENSIVE_QUESTION_BANK = {
     ["Quạt điện chuyển đổi điện năng thành dạng năng lượng nào?", "Khi quạt hoạt động, điện năng chủ yếu được chuyển thành dạng năng lượng nào?", ["Cơ năng", "Hóa năng", "Thế năng"], 0, "Động cơ quạt chuyển điện năng thành cơ năng làm cánh quạt quay."],
     ["Vì sao cần chọn dây dẫn có tiết diện phù hợp?", "Dây dẫn quá nhỏ so với dòng điện sử dụng có thể gây ra vấn đề gì?", ["Nóng lên quá mức", "Tăng độ sáng vô hạn", "Không có dòng điện trong mọi trường hợp"], 0, "Dây dẫn cần có tiết diện phù hợp để tránh quá nhiệt và bảo đảm an toàn."],
     ["Khi lắp mạch điện cần tuân thủ điều gì?", "Trước khi kiểm tra mạch điện vừa lắp, cần thực hiện bước nào?", ["Kiểm tra mối nối và bảo đảm an toàn", "Chạm tay vào lõi dây", "Cấp điện ngay khi chưa kiểm tra"], 0, "Cần kiểm tra sơ đồ, mối nối, cách điện và an toàn trước khi cấp điện."],
-    ["Một nguyên nhân gây chập mạch là gì?", "Hai dây dẫn có điện thế khác nhau chạm trực tiếp do lớp cách điện hỏng; hiện tượng này có thể gây gì?", ["Ngắn mạch", "Tăng điện trở vô hạn", "Giảm nhiệt độ dây"], 0, "Ngắn mạch có thể làm dòng điện tăng rất lớn và gây nguy hiểm."]
+    ["Một nguyên nhân gây chập mạch là gì?", "Hai dây dẫn có điện thế khác nhau chạm trực tiếp do lớp cách điện hỏng; hiện tượng này có thể gây gì?", ["Ngắn mạch", "Tăng điện trở vô hạn", "Giảm nhiệt độ dây"], 0, "Ngắn mạch có thể làm dòng điện tăng rất lớn và gây nguy hiểm."],
+
+    [
+      "Mô đun cảm biến có chức năng gì trong mạch điện điều khiển?",
+      "Trong hệ thống tự động, bộ phận nào nhận biết sự thay đổi của môi trường và gửi tín hiệu điều khiển?",
+      ["Mô đun cảm biến", "Cầu chì", "Công tơ điện"],
+      0,
+      "Mô đun cảm biến nhận tín hiệu từ môi trường và cung cấp tín hiệu cho mạch điều khiển."
+    ],
+    [
+      "Cảm biến ánh sáng thường được sử dụng để nhận biết điều gì?",
+      "Một hệ thống cần tự bật đèn khi trời tối; loại cảm biến nào phù hợp để nhận biết điều kiện này?",
+      ["Cảm biến nhiệt độ", "Cảm biến ánh sáng", "Cảm biến độ ẩm đất"],
+      1,
+      "Cảm biến ánh sáng nhận biết cường độ ánh sáng của môi trường để cung cấp tín hiệu cho hệ thống điều khiển."
+    ]
+
   ],
 
   // Chương V: thiết kế kĩ thuật.
