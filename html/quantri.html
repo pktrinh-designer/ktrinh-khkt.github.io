@@ -584,17 +584,25 @@
           try {
             const token = await user.getIdToken(true);
 
-            const response = await fetch("/api/admin/students", {
-              headers: {
-                Authorization: `Bearer ${token}`,
+            const response = await fetch(
+              "https://ktrinh-khkt-github-io-1.onrender.com/api/admin/students",
+              {
+                method: "GET",
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                },
               },
-            });
+            );
 
             const result = await response.json();
 
             if (!response.ok || !result.success) {
-              throw new Error(result.error || "Không thể tải học sinh.");
+              throw new Error(
+                result.error || "Không thể tải danh sách học sinh.",
+              );
             }
+
+            // Giữ phần xử lý hiển thị danh sách học sinh cũ
 
             tableBody.replaceChildren();
 
@@ -681,16 +689,31 @@
 
           try {
             const user = auth.currentUser;
-
             const token = await user.getIdToken(true);
 
+            // Lấy thông tin giáo viên từ biểu mẫu
+            const name = document.getElementById("invitationName").value.trim();
+            const email = document
+              .getElementById("invitationEmail")
+              .value.trim();
+            const subject = document
+              .getElementById("invitationSubject")
+              .value.trim();
+
+            // Gửi yêu cầu tạo mã mời đến backend
             const response = await fetch(
-              "https://ktrinh-khkt-github-io-1.onrender.com/api/admin/students",
+              "https://ktrinh-khkt-github-io-1.onrender.com/api/admin/teacher-invitations",
               {
-                method: "GET",
+                method: "POST",
                 headers: {
+                  "Content-Type": "application/json",
                   Authorization: `Bearer ${token}`,
                 },
+                body: JSON.stringify({
+                  name,
+                  email,
+                  subject,
+                }),
               },
             );
 
@@ -700,6 +723,7 @@
               throw new Error(data.error || "Không thể tạo lời mời.");
             }
 
+            // Hiển thị mã mời
             currentInvitationCode = data.invitation.code;
             codeOutput.value = currentInvitationCode;
 
