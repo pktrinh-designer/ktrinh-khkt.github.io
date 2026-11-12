@@ -529,12 +529,15 @@
           try {
             const idToken = await user.getIdToken(true);
 
-            const response = await fetch("/api/admin/stats", {
-              method: "GET",
-              headers: {
-                Authorization: `Bearer ${idToken}`,
+            const response = await fetch(
+              "https://ktrinh-khkt-github-io-1.onrender.com/api/admin/stats",
+              {
+                method: "GET",
+                headers: {
+                  Authorization: `Bearer ${idToken}`,
+                },
               },
-            });
+            );
 
             const result = await response.json();
 
@@ -678,22 +681,18 @@
 
           try {
             const user = auth.currentUser;
+
             const token = await user.getIdToken(true);
 
-            const response = await fetch("/api/admin/teacher-invitations", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
+            const response = await fetch(
+              "https://ktrinh-khkt-github-io-1.onrender.com/api/admin/students",
+              {
+                method: "GET",
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                },
               },
-              body: JSON.stringify({
-                name: document.getElementById("invitationName").value.trim(),
-                email: document.getElementById("invitationEmail").value.trim(),
-                subject: document
-                  .getElementById("invitationSubject")
-                  .value.trim(),
-              }),
-            });
+            );
 
             const data = await response.json();
 
