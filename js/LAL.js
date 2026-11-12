@@ -540,6 +540,16 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       });
     });
+    // Tự động đồng bộ lịch sử khi có thay đổi trong bài kiểm tra.
+    ["exam:started", "quiz:submitted", "quiz:violation"].forEach(
+      (eventName) => {
+        document.addEventListener(eventName, () => {
+          if (currentUser) {
+            loadQuizHistory(currentUser);
+          }
+        });
+      },
+    );
   }
 
   // Lọc lịch sử khi người dùng thay đổi lựa chọn.

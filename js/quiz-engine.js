@@ -836,6 +836,16 @@
           type,
         });
 
+        // Thông báo cho Learning Analytics sau khi Backend ghi thành công.
+        document.dispatchEvent(
+          new CustomEvent("quiz:violation", {
+            detail: {
+              examResultId,
+              type,
+            },
+          }),
+        );
+
         console.log("Đã ghi nhận rời bài:", type);
       } catch (error) {
         console.error("Không thể lưu lượt rời bài:", error);
