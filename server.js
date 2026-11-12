@@ -31,6 +31,13 @@ const MAX_MESSAGE_LENGTH = 1200;
 const requestsByAddress = new Map();
 const RATE_LIMIT = 12;
 const RATE_WINDOW_MS = 60 * 1000;
+const ALLOWED_FRONTEND_ORIGINS = new Set([
+  "https://congnghe8.com",
+  "https://www.congnghe8.com",
+  "https://pktrinh-designer.github.io",
+  "https://ktrinh-khkt-github-io-1.onrender.com",
+  "http://localhost:3000",
+]);
 const MIME_TYPES = {
   ".css": "text/css; charset=utf-8",
   ".html": "text/html; charset=utf-8",
@@ -1314,21 +1321,149 @@ async function handleAcceptTeacherInvitation(request, response) {
     });
   }
 }
+// API đọc và lưu tiến độ học tập bằng Firebase Admin.
+async function handleLearningProgress(request, response) {
+  try {
+    const user = await authenticateUser(request);
 
-// API quản lý lịch sử và vi phạm bài kiểm tra.
-async function handleQuizHistory(request, response) {
-  if (request.method !== "POST") {
+    if (user.firebase?.sign_in_provider === "anonymous") {
+      sendJson(response, 200, {
+        success: true,
+        completedLessons: [],
+      });
+      return;
+    }
+
+    const db = getFirestore();
+
+    const progressRef = db
+      .collection("users")
+      .doc(user.uid)
+      .collection("learningProgress");
+
+    // Tải danh sách bài học đã hoàn thành.
+    if (request.method === "GET") {
+      const snapshot = await progressRef
+        .where("status", "==", "completed")
+        .get();
+
+      const completedLessons = snapshot.docs
+        .map((doc) => Number(doc.id))
+        .filter((id) => Number.isInteger(id) && id >= 1 && id <= 20);
+
+      sendJson(response, 200, {
+        success: true,
+        completedLessons,
+      });
+
+      return;
+    }
+
+    // Lưu tiến độ bài học.
+    if (request.method === "POST") {
+      const payload = await readJsonBody(request);
+
+      const lessonId = Number(payload?.lessonId);
+      const score = Number(payload?.score);
+      const totalQuestions = Number(payload?.totalQuestions);
+
+      if (
+        !Number.isInteger(lessonId) ||
+        lessonId < 1 ||
+        lessonId > 20 ||
+        payload?.status !== "completed" ||
+        !Number.isFinite(score) ||
+        score < 0 ||
+        score > 5 ||
+        totalQuestions !== 5
+      ) {
+        sendJson(response, 400, {
+          error: "Dữ liệu tiến độ học tập không hợp lệ.",
+        });
+        return;
+      }
+
+      const chapterId = getChapterIdFromLesson(lessonId);
+
+      await progressRef.doc(String(lessonId)).set(
+        {
+          lessonId: String(lessonId),
+          chapterId,
+          status: "completed",
+          score,
+          totalQuestions,
+          completedAt: FieldValue.serverTimestamp(),
+        },
+        { merge: true },
+      );
+
+      sendJson(response, 200, {
+        success: true,
+        lessonId,
+      });
+
+      return;
+    }
+
     sendJson(response, 405, {
       error: "Phương thức gửi không được hỗ trợ.",
     });
-    return;
-  }
+  } catch (error) {
+    console.error("Learning progress failed:", error.message);
 
+    sendJson(response, error.statusCode || 500, {
+      error: error.message || "Không thể xử lý tiến độ học tập.",
+    });
+  }
+}
+// API quản lý lịch sử và vi phạm bài kiểm tra.
+
+async function handleQuizHistory(request, response) {
   try {
     const user = await authenticateUser(request);
+
+    // GET: Tải lịch sử làm bài.
+    if (request.method === "GET") {
+      if (user.firebase?.sign_in_provider === "anonymous") {
+        sendJson(response, 200, {
+          success: true,
+          history: [],
+        });
+        return;
+      }
+
+      const db = getFirestore();
+
+      const snapshot = await db
+        .collection("users")
+        .doc(user.uid)
+        .collection("examResults")
+        .get();
+
+      const history = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+
+      sendJson(response, 200, {
+        success: true,
+        history,
+      });
+
+      return;
+    }
+
+    // Chỉ chấp nhận POST cho các thao tác ghi lịch sử.
+    if (request.method !== "POST") {
+      sendJson(response, 405, {
+        error: "Phương thức gửi không được hỗ trợ.",
+      });
+      return;
+    }
+
     const payload = await readJsonBody(request);
 
-    // Guest không lưu lịch sử hoặc dữ liệu vi phạm bài kiểm tra.
+    // Guest không lưu lịch sử hoặc dữ liệu vi phạm.
     if (user.firebase?.sign_in_provider === "anonymous") {
       sendJson(response, 200, {
         success: true,
@@ -1350,6 +1485,7 @@ async function handleQuizHistory(request, response) {
     }
 
     const db = getFirestore();
+
     const userResultsRef = db
       .collection("users")
       .doc(user.uid)
@@ -1384,7 +1520,6 @@ async function handleQuizHistory(request, response) {
         return;
       }
 
-      // Tránh tạo hai bản ghi cho cùng một phiên kiểm tra.
       const existing = await userResultsRef
         .where("quizId", "==", payload.quizId)
         .limit(1)
@@ -1405,18 +1540,14 @@ async function handleQuizHistory(request, response) {
         uid: user.uid,
         email: user.email || "",
         quizId: payload.quizId,
-
         examType: session.type,
         chapter: payload.chapter,
         examTitle: payload.examTitle.trim().slice(0, 200),
-
         totalQuestions: session.questions.length,
         score: null,
         answered: 0,
-
         violationCount: 0,
         violations: [],
-
         status: "in_progress",
         startedAt: FieldValue.serverTimestamp(),
         submittedAt: null,
@@ -1426,10 +1557,11 @@ async function handleQuizHistory(request, response) {
         success: true,
         examResultId: examResultRef.id,
       });
+
       return;
     }
 
-    // Các thao tác còn lại cần mã bản ghi thuộc tài khoản hiện tại.
+    // Các thao tác còn lại cần mã bản ghi hợp lệ.
     if (
       typeof payload.examResultId !== "string" ||
       !/^[A-Za-z0-9_-]{1,128}$/.test(payload.examResultId)
@@ -1489,6 +1621,7 @@ async function handleQuizHistory(request, response) {
       });
 
       sendJson(response, 200, { success: true });
+      return;
     }
   } catch (error) {
     console.error("Quiz history failed:", error.message);
@@ -1511,6 +1644,34 @@ const server = http.createServer((request, response) => {
     response.writeHead(400);
     response.end("Invalid request path");
     return;
+  }
+  // Cho phép frontend GitHub Pages gọi API trên Render.
+  if (pathname.startsWith("/api/")) {
+    const origin = request.headers.origin;
+
+    if (origin) {
+      if (!ALLOWED_FRONTEND_ORIGINS.has(origin)) {
+        sendJson(response, 403, {
+          error: "Nguồn gửi yêu cầu không được phép.",
+        });
+        return;
+      }
+
+      response.setHeader("Access-Control-Allow-Origin", origin);
+      response.setHeader("Vary", "Origin");
+      response.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+      response.setHeader(
+        "Access-Control-Allow-Headers",
+        "Content-Type, Authorization",
+      );
+      response.setHeader("Access-Control-Max-Age", "86400");
+    }
+
+    if (request.method === "OPTIONS") {
+      response.writeHead(204);
+      response.end();
+      return;
+    }
   }
 
   if (pathname === "/api/admin/session") {

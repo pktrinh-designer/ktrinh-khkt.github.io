@@ -1,5 +1,11 @@
 ﻿(function () {
-  // Gửi yêu cầu đến Quiz API của Backend.
+  // Backend API dùng chung cho GitHub Pages và Render.
+  const API_BASE_URL = (
+    window.CONGNGHE8_API_BASE_URL ||
+    "https://ktrinh-khkt-github-io.onrender.com"
+  ).replace(/\/$/, "");
+
+  // Gửi yêu cầu đến Quiz API của Backend Render.
   async function quizApi(endpoint, payload) {
     const auth = window.firebaseAuth;
     const user = auth?.currentUser;
@@ -10,7 +16,7 @@
 
     const idToken = await user.getIdToken();
 
-    const response = await fetch(endpoint, {
+    const response = await fetch(`${API_BASE_URL}${endpoint}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

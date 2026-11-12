@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Phòng thí nghiệm kỹ thuật 3D - Công nghệ 8"
+    />
+    <title>3D Engineering Lab | Công nghệ 8</title>
+
+    <link rel="stylesheet" href="../../css/shared-layout.css" />
+    <link rel="stylesheet" href="../../css/3d-engineering-lab.css" />
+
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+        }
+      }
+    </script>
+  </head>
+
+  <body data-root-prefix=".." data-nav-active="curriculum" data-chapter="II">
+    <div id="site-header"></div>
+
+    <main class="site-main engineering-page">
+      <div class="engineering-shell">
+        <section class="engineering-hero">
+          <div class="engineering-breadcrumb">
+            <a href="index.html">Công nghệ 8</a>
+            <span>/</span>
+            <a href="chuong-ii.html">Chương II</a>
+            <span>/</span>
+            <span>3D Engineering Lab</span>
+          </div>
+
+          <div class="engineering-hero-content">
+            <div>
+              <span class="engineering-eyebrow"
+                >VIRTUAL ENGINEERING LABORATORY</span
+              >
+              <h1>3D Engineering Lab</h1>
+              <p>
+                Khám phá nguyên lý truyền và biến đổi chuyển động thông qua các
+                mô hình kỹ thuật 3D có thể quan sát và điều chỉnh.
+              </p>
+            </div>
+
+            <div class="engineering-hero-icon" aria-hidden="true">
+              <span>⚙</span>
+            </div>
+          </div>
+
+          <div class="engineering-hero-tags">
+            <span>4 mô hình kỹ thuật</span>
+            <span>Quan sát 3D</span>
+            <span>Điều chỉnh thông số</span>
+          </div>
+        </section>
+
+        <section class="engineering-workspace">
+          <aside class="engineering-sidebar">
+            <div class="panel-heading">
+              <div>
+                <span class="panel-eyebrow">MODEL LIBRARY</span>
+                <h2>Thư viện mô hình</h2>
+              </div>
+              <span class="model-count">04</span>
+            </div>
+
+            <div
+              class="model-list"
+              role="group"
+              aria-label="Chọn mô hình kỹ thuật"
+            >
+              <button
+                class="model-option active"
+                type="button"
+                data-model="gear"
+                aria-pressed="true"
+              >
+                <span class="model-option-icon">⚙</span>
+                <span class="model-option-text">
+                  <strong>Truyền động bánh răng</strong>
+                  <small>Gear transmission</small>
+                </span>
+                <span class="model-option-arrow">›</span>
+              </button>
+
+              <button
+                class="model-option"
+                type="button"
+                data-model="belt"
+                aria-pressed="false"
+              >
+                <span class="model-option-icon">◉</span>
+                <span class="model-option-text">
+                  <strong>Truyền động đai</strong>
+                  <small>Belt transmission</small>
+                </span>
+                <span class="model-option-arrow">›</span>
+              </button>
+
+              <button
+                class="model-option"
+                type="button"
+                data-model="chain"
+                aria-pressed="false"
+              >
+                <span class="model-option-icon">⛓</span>
+                <span class="model-option-text">
+                  <strong>Truyền động xích</strong>
+                  <small>Chain transmission</small>
+                </span>
+                <span class="model-option-arrow">›</span>
+              </button>
+
+              <button
+                class="model-option"
+                type="button"
+                data-model="crank"
+                aria-pressed="false"
+              >
+                <span class="model-option-icon">↔</span>
+                <span class="model-option-text">
+                  <strong>Tay quay – con trượt</strong>
+                  <small>Crank-slider mechanism</small>
+                </span>
+                <span class="model-option-arrow">›</span>
+              </button>
+            </div>
+
+            <div class="sidebar-note">
+              <span class="note-icon">ⓘ</span>
+              <p>
+                Chọn một mô hình để quan sát cấu tạo, nguyên lý hoạt động và thử
+                thay đổi các thông số.
+              </p>
+            </div>
+          </aside>
+
+          <section class="engineering-main-panel">
+            <div class="viewer-heading">
+              <div>
+                <span class="panel-eyebrow">3D INTERACTIVE VIEWER</span>
+                <h2 id="viewer-title">Truyền động bánh răng</h2>
+              </div>
+
+              <span class="viewer-status">
+                <span class="status-dot"></span>
+                Mô phỏng trực quan
+              </span>
+            </div>
+
+            <div class="viewer-container">
+              <div id="engineering-canvas" aria-label="Không gian mô hình 3D">
+                <div class="viewer-loading" id="viewer-loading">
+                  <span class="loading-spinner"></span>
+                  <p>Đang tải mô hình 3D...</p>
+                </div>
+              </div>
+
+              <div class="viewer-overlay viewer-overlay-top">
+                <span class="overlay-chip">3D VIEW</span>
+                <span class="overlay-hint">Kéo để xoay · Cuộn để phóng to</span>
+              </div>
+
+              <div class="viewer-overlay viewer-overlay-bottom">
+                <span id="model-type-label">GEAR TRANSMISSION</span>
+                <span id="viewer-coordinate">X · Y · Z</span>
+              </div>
+
+              <div class="viewer-error" id="viewer-error" hidden>
+                <strong>Không thể tải mô hình 3D</strong>
+                <p>Vui lòng kiểm tra kết nối Internet hoặc tải lại trang.</p>
+                <button type="button" id="retry-viewer">Thử tải lại</button>
+              </div>
+            </div>
+
+            <div class="viewer-toolbar">
+              <div class="toolbar-group">
+                <button
+                  class="tool-button primary"
+                  type="button"
+                  id="toggle-motion"
+                  aria-pressed="false"
+                >
+                  <span id="motion-icon">Ⅱ</span>
+                  <span id="motion-text">Tạm dừng</span>
+                </button>
+
+                <button class="tool-button" type="button" id="reset-camera">
+                  <span>↻</span>
+                  <span>Đặt lại góc nhìn</span>
+                </button>
+              </div>
+
+              <button
+                class="tool-button"
+                type="button"
+                id="toggle-labels"
+                aria-pressed="false"
+              >
+                <span>⌗</span>
+                <span id="labels-text">Hiện chú thích</span>
+              </button>
+            </div>
+          </section>
+        </section>
+
+        <section class="engineering-lower-grid">
+          <section class="engineering-card control-card">
+            <div class="section-heading">
+              <div>
+                <span class="panel-eyebrow">INTERACTIVE CONTROL</span>
+                <h2>Điều chỉnh mô hình</h2>
+              </div>
+              <span class="section-icon">⚙</span>
+            </div>
+
+            <div class="control-content" id="model-controls">
+              <div class="control-row">
+                <div class="control-label">
+                  <label for="speed-control">Tốc độ mô phỏng</label>
+                  <output id="speed-value" for="speed-control">1.0×</output>
+                </div>
+                <input
+                  id="speed-control"
+                  type="range"
+                  min="0.2"
+                  max="2"
+                  step="0.1"
+                  value="1"
+                />
+                <div class="range-labels">
+                  <span>Chậm</span>
+                  <span>Nhanh</span>
+                </div>
+              </div>
+
+              <div class="control-divider"></div>
+
+              <div id="specific-controls">
+                <!-- Các thông số thay đổi theo mô hình được tạo bằng JavaScript. -->
+              </div>
+            </div>
+          </section>
+
+          <section class="engineering-card information-card">
+            <div class="section-heading">
+              <div>
+                <span class="panel-eyebrow">ENGINEERING KNOWLEDGE</span>
+                <h2>Kiến thức kỹ thuật</h2>
+              </div>
+              <span class="section-icon">▤</span>
+            </div>
+
+            <div class="knowledge-content">
+              <div class="knowledge-block">
+                <span class="knowledge-label">NGUYÊN LÝ HOẠT ĐỘNG</span>
+                <p id="model-principle">
+                  Hai bánh răng có các răng ăn khớp với nhau. Khi bánh dẫn quay,
+                  bánh bị dẫn quay theo chiều ngược lại.
+                </p>
+              </div>
+
+              <div class="knowledge-divider"></div>
+
+              <div class="knowledge-block">
+                <span class="knowledge-label">CẤU TẠO CHÍNH</span>
+                <ul id="model-components">
+                  <li>Bánh dẫn</li>
+                  <li>Bánh bị dẫn</li>
+                  <li>Trục quay</li>
+                </ul>
+              </div>
+
+              <div class="knowledge-divider"></div>
+
+              <div class="knowledge-block">
+                <span class="knowledge-label">ĐẶC ĐIỂM TRUYỀN ĐỘNG</span>
+                <p id="model-characteristic">
+                  Hai bánh răng ngoài quay ngược chiều nhau.
+                </p>
+              </div>
+            </div>
+          </section>
+        </section>
+
+        <section class="engineering-card observation-card">
+          <div class="section-heading">
+            <div>
+              <span class="panel-eyebrow">OBSERVATION & ANALYSIS</span>
+              <h2>Kết quả quan sát</h2>
+            </div>
+            <span class="section-icon">⌁</span>
+          </div>
+
+          <div class="observation-grid">
+            <div class="observation-item">
+              <span class="observation-label">Mô hình hiện tại</span>
+              <strong id="result-model">Truyền động bánh răng</strong>
+            </div>
+
+            <div class="observation-item">
+              <span class="observation-label"
+                >Chiều quay bánh dẫn / bộ phận dẫn</span
+              >
+              <strong id="result-driver">Theo chiều kim đồng hồ</strong>
+            </div>
+
+            <div class="observation-item">
+              <span class="observation-label">Chiều quay bộ phận bị dẫn</span>
+              <strong id="result-driven">Ngược chiều kim đồng hồ</strong>
+            </div>
+
+            <div class="observation-item">
+              <span class="observation-label">Tỉ số truyền mô phỏng</span>
+              <strong id="result-ratio">1.50</strong>
+            </div>
+          </div>
+
+          <p class="observation-disclaimer" id="result-note">
+            Kết quả là giá trị mô phỏng theo các thông số đang chọn, dùng để hỗ
+            trợ quan sát nguyên lý truyền động.
+          </p>
+        </section>
+
+        <section class="engineering-card learning-note">
+          <div class="learning-note-icon">✦</div>
+          <div>
+            <h2>Thử nghiệm và tự khám phá</h2>
+            <p>
+              Thay đổi thông số của mô hình, quan sát sự thay đổi chuyển động và
+              đối chiếu với nguyên lý kỹ thuật đã học trong sách giáo khoa.
+            </p>
+          </div>
+        </section>
+
+        <footer class="engineering-footer">
+          <p>3D Engineering Lab · Công nghệ 8</p>
+          <p>Mô phỏng phục vụ mục đích học tập và nghiên cứu.</p>
+        </footer>
+      </div>
+    </main>
+
+    <div id="site-footer"></div>
+
+    <script src="../../js/shared-layout.js"></script>
+    <script src="../../js/chatbot.js"></script>
+    <script type="module" src="../../js/3d-engineering-lab.js"></script>
+  </body>
+</html>
