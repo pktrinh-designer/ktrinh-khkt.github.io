@@ -1,4 +1,17 @@
-/* @import "../node_modules/@astryxdesign/core/src/reset.css"; */
-@import "../node_modules/@astryxdesign/core/dist/astryx.css";
-@import "../node_modules/@astryxdesign/theme-neutral/fonts.css";
-@import "../node_modules/@astryxdesign/theme-neutral/dist/theme.css";
+/* ============================================================
+   ASTRYX DESIGN SYSTEM — cầu nối CSS cho local dev & static hosting
+   Không còn import từ node_modules (server.js chỉ phục vụ html|css|js).
+
+   Nguồn (MIT, @astryxdesign v0.7.14):
+     - core/dist/astryx.css          → vendor/astryx/astryx-core.css
+     - theme-neutral/dist/theme.css  → vendor/astryx/astryx-theme.css
+     - theme-neutral/fonts.css       → vendor/astryx/astryx-fonts.css (import Google Fonts Figtree)
+
+   Cập nhật khi nâng cấp Astryx:
+     copy node_modules/@astryxdesign/core/dist/astryx.css        css/vendor/astryx/astryx-core.css
+     copy node_modules/@astryxdesign/theme-neutral/dist/theme.css css/vendor/astryx/astryx-theme.css
+     copy node_modules/@astryxdesign/theme-neutral/fonts.css      css/vendor/astryx/astryx-fonts.css
+   ============================================================ */
+@import "./vendor/astryx/astryx-core.css";
+@import "./vendor/astryx/astryx-theme.css";
+@import "./vendor/astryx/astryx-fonts.css";
