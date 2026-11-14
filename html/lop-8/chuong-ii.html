@@ -1,77 +1,139 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="vi">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Chương II: Cơ khí | Công nghệ 8</title>
-  <link rel="stylesheet" href="../../css/shared-layout.css" />
-</head>
-<!-- Trang này khai báo trạng thái điều hướng và mã chương qua thuộc tính data-* bên dưới. -->
-<body data-root-prefix=".." data-nav-active="curriculum" data-chapter="II">
-  <!-- shared-layout.js sẽ dựng thanh điều hướng dùng chung vào vị trí này. -->
-  <div id="site-header"></div>
-  <!-- Nội dung chính của trang, được trình bày bên trong vùng main. -->
-  <main class="site-main">
-    <div class="site-shell">
-      <!-- Phần giới thiệu: tiêu đề, mô tả và các liên kết thao tác chính. -->
-      <section class="site-hero">
-        <span class="site-eyebrow">Công nghệ 8 · Chương II</span>
-        <h1 class="site-title">Cơ khí</h1>
-        <p class="site-subtitle">Chương này tìm hiểu vật liệu, cơ cấu truyền và biến đổi chuyển động, thao tác gia công bằng tay và một số nghề cơ khí.</p>
-        <div class="site-action-row">
-          <a class="site-primary-link" href="../LAL.html?chuong=II">Làm bài kiểm tra Chương II</a>
-          <a class="site-secondary-link" href="index.html">Quay lại mục lục</a>
-        </div>
-      </section>
-      <!-- Lưới nội dung hoặc danh sách tương tác chính của trang. -->
-      <section class="site-grid">
-        <article class="site-card">
-          <span class="site-badge">Đặc điểm</span>
-          <h2>Từ vật liệu đến chuyển động và sản phẩm</h2>
-          <p>Kiến thức kết hợp nhận biết vật liệu cơ khí, giải thích cách bộ truyền làm việc, sử dụng dụng cụ gia công và hiểu yêu cầu của nghề cơ khí.</p>
-        </article>
-        <article class="site-card">
-          <span class="site-badge">Cách học</span>
-          <h2>So sánh, quan sát, rồi giải thích</h2>
-          <ol class="topic-list">
-            <li>So sánh tính chất và công dụng của từng nhóm vật liệu.</li>
-            <li>Quan sát bánh dẫn, bánh bị dẫn hoặc các khâu của cơ cấu.</li>
-            <li>Vẽ mũi tên để theo dõi chiều và sự thay đổi chuyển động.</li>
-            <li>Học trình tự gia công cùng công dụng và cách cầm dụng cụ.</li>
-            <li>Liên hệ kiến thức với máy móc, đồ dùng quen thuộc.</li>
-          </ol>
-        </article>
-        <article class="site-card full">
-          <span class="site-badge">Học liệu trực quan · Bài 7</span>
-          <h2>Mô phỏng truyền và biến đổi chuyển động</h2>
-          <p>Bài 7 gồm bộ truyền chuyển động và cơ cấu biến đổi chuyển động. Dùng các mô phỏng riêng dưới đây để quan sát từng loại:</p>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chương II: Cơ khí | Công nghệ 8</title>
+    <link rel="stylesheet" href="../../css/shared-layout.css" />
+
+  </head>
+  <!-- Trang này khai báo trạng thái điều hướng và mã chương qua thuộc tính data-* bên dưới. -->
+  <body data-root-prefix=".." data-nav-active="curriculum" data-chapter="II">
+    <!-- shared-layout.js sẽ dựng thanh điều hướng dùng chung vào vị trí này. -->
+    <div id="site-header"></div>
+    <!-- Nội dung chính của trang, được trình bày bên trong vùng main. -->
+    <main class="site-main">
+      <div class="site-shell">
+        <!-- Phần giới thiệu: tiêu đề, mô tả và các liên kết thao tác chính. -->
+        <section class="site-hero">
+          <span class="site-eyebrow">Công nghệ 8 · Chương II</span>
+          <h1 class="site-title">Cơ khí</h1>
+          <p class="site-subtitle">
+            Chương này tìm hiểu vật liệu, cơ cấu truyền và biến đổi chuyển động,
+            thao tác gia công bằng tay và một số nghề cơ khí.
+          </p>
           <div class="site-action-row">
-            <a class="site-primary-link" href="mo-phong-banh-rang.html" aria-label="Mở mô phỏng hai bánh răng quay ăn khớp cho Bài 7">Mô phỏng hai bánh răng quay</a>
-            <a class="site-primary-link" href="https://waston44.github.io/Slider-crank/" target="_blank" rel="noopener noreferrer" aria-label="Mở thẳng mô phỏng tương tác cơ cấu tay quay con trượt cho Bài 7">Mở thẳng mô phỏng tay quay–con trượt</a>
-            <a class="site-primary-link" href="https://glandais.github.io/bikegearing/" target="_blank" rel="noopener noreferrer" aria-label="Mở mô phỏng truyền động xích xe đạp để quan sát đĩa xích, líp và dây xích cho Bài 7">Mô phỏng bộ truyền xích</a>
-            <a class="site-primary-link" href="https://abc.tools/sim/linkage-simulator/" target="_blank" rel="noopener noreferrer" aria-label="Mở mô phỏng bốn khâu với cơ cấu tay quay thanh lắc cho Bài 7">Mô phỏng tay quay–thanh lắc</a>
+            <a class="site-primary-link" href="../LAL.html?chuong=II"
+              >Làm bài kiểm tra Chương II</a
+            >
+            <a class="site-secondary-link" href="index.html"
+              >Quay lại mục lục</a
+            >
           </div>
-          <ul class="topic-list">
-            <li><strong>Cặp bánh răng:</strong> mô phỏng có sẵn hai bánh răng ăn khớp đang quay ngược chiều nhau. Có thể tạm dừng hoặc chạy lại để quan sát.</li>
-            <li><strong>Bộ truyền xích:</strong> mô phỏng xe đạp cho chỉnh số răng đĩa trước, líp sau và tốc độ quay để quan sát dây xích truyền chuyển động giữa hai trục.</li>
-            <li><strong>Tay quay–con trượt:</strong> kéo chốt tay quay hoặc nhấn Run để xem con trượt chuyển động tịnh tiến qua lại.</li>
-            <li><strong>Tay quay–thanh lắc:</strong> mô phỏng bốn khâu mở sẵn ở dạng crank-rocker; nhấn Play để thấy tay quay quay tròn và thanh lắc dao động qua lại. Các nút chọn cơ cấu khác trên trang có thể đổi sang những dạng liên kết khác.</li>
-          </ul>
-        </article>
-        <article class="site-card full">
-          <span class="site-badge">Tự đánh giá</span>
-          <h2>Kiểm tra kiến thức Chương II</h2>
-          <p>Bài kiểm tra tập trung vào vật liệu cơ khí, cơ cấu truyền chuyển động, dụng cụ và an toàn gia công.</p>
-          <a class="site-primary-link" href="../LAL.html?chuong=II">Bắt đầu kiểm tra</a>
-        </article>
-      </section>
-    </div>
-  </main>
-  <!-- shared-layout.js sẽ dựng phần chân trang dùng chung vào vị trí này. -->
-  <div id="site-footer"></div>
-  <!-- Nạp các tệp JavaScript dùng chung và chức năng riêng của trang. -->
-  <script src="../../js/shared-layout.js"></script>
-  <!-- Nạp các tệp JavaScript dùng chung và chức năng riêng của trang. -->
-  <script src="../../js/chatbot.js"></script>
-</body>
+        </section>
+        <!-- Lưới nội dung hoặc danh sách tương tác chính của trang. -->
+        <section class="site-grid">
+          <article class="site-card">
+            <span class="site-badge">Đặc điểm</span>
+            <h2>Từ vật liệu đến chuyển động và sản phẩm</h2>
+            <p>
+              Kiến thức kết hợp nhận biết vật liệu cơ khí, giải thích cách bộ
+              truyền làm việc, sử dụng dụng cụ gia công và hiểu yêu cầu của nghề
+              cơ khí.
+            </p>
+          </article>
+          <article class="site-card">
+            <span class="site-badge">Cách học</span>
+            <h2>So sánh, quan sát, rồi giải thích</h2>
+            <ol class="topic-list">
+              <li>So sánh tính chất và công dụng của từng nhóm vật liệu.</li>
+              <li>Quan sát bánh dẫn, bánh bị dẫn hoặc các khâu của cơ cấu.</li>
+              <li>Vẽ mũi tên để theo dõi chiều và sự thay đổi chuyển động.</li>
+              <li>Học trình tự gia công cùng công dụng và cách cầm dụng cụ.</li>
+              <li>Liên hệ kiến thức với máy móc, đồ dùng quen thuộc.</li>
+            </ol>
+          </article>
+          <article class="site-card full">
+            <span class="site-badge">Học liệu trực quan · Bài 7</span>
+            <h2>Mô phỏng truyền và biến đổi chuyển động</h2>
+            <p>
+              Bài 7 gồm bộ truyền chuyển động và cơ cấu biến đổi chuyển động.
+              Dùng các mô phỏng riêng dưới đây để quan sát từng loại:
+            </p>
+            <div class="site-action-row">
+              <a
+                class="site-primary-link"
+                href="mo-phong-banh-rang.html"
+                aria-label="Mở mô phỏng hai bánh răng quay ăn khớp cho Bài 7"
+                >Mô phỏng hai bánh răng quay</a
+              >
+              <a
+                class="site-primary-link"
+                href="https://waston44.github.io/Slider-crank/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Mở thẳng mô phỏng tương tác cơ cấu tay quay con trượt cho Bài 7"
+                >Mở thẳng mô phỏng tay quay–con trượt</a
+              >
+              <a
+                class="site-primary-link"
+                href="https://glandais.github.io/bikegearing/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Mở mô phỏng truyền động xích xe đạp để quan sát đĩa xích, líp và dây xích cho Bài 7"
+                >Mô phỏng bộ truyền xích</a
+              >
+              <a
+                class="site-primary-link"
+                href="https://abc.tools/sim/linkage-simulator/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Mở mô phỏng bốn khâu với cơ cấu tay quay thanh lắc cho Bài 7"
+                >Mô phỏng tay quay–thanh lắc</a
+              >
+            </div>
+            <ul class="topic-list">
+              <li>
+                <strong>Cặp bánh răng:</strong> mô phỏng có sẵn hai bánh răng ăn
+                khớp đang quay ngược chiều nhau. Có thể tạm dừng hoặc chạy lại
+                để quan sát.
+              </li>
+              <li>
+                <strong>Bộ truyền xích:</strong> mô phỏng xe đạp cho chỉnh số
+                răng đĩa trước, líp sau và tốc độ quay để quan sát dây xích
+                truyền chuyển động giữa hai trục.
+              </li>
+              <li>
+                <strong>Tay quay–con trượt:</strong> kéo chốt tay quay hoặc nhấn
+                Run để xem con trượt chuyển động tịnh tiến qua lại.
+              </li>
+              <li>
+                <strong>Tay quay–thanh lắc:</strong> mô phỏng bốn khâu mở sẵn ở
+                dạng crank-rocker; nhấn Play để thấy tay quay quay tròn và thanh
+                lắc dao động qua lại. Các nút chọn cơ cấu khác trên trang có thể
+                đổi sang những dạng liên kết khác.
+              </li>
+            </ul>
+          </article>
+          <article class="site-card full">
+            <span class="site-badge">Tự đánh giá</span>
+            <h2>Kiểm tra kiến thức Chương II</h2>
+            <p>
+              Bài kiểm tra tập trung vào vật liệu cơ khí, cơ cấu truyền chuyển
+              động, dụng cụ và an toàn gia công.
+            </p>
+            <a class="site-primary-link" href="../LAL.html?chuong=II"
+              >Bắt đầu kiểm tra</a
+            >
+          </article>
+        </section>
+      </div>
+    </main>
+    <!-- shared-layout.js sẽ dựng phần chân trang dùng chung vào vị trí này. -->
+    <div id="site-footer"></div>
+    <!-- Nạp các tệp JavaScript dùng chung và chức năng riêng của trang. -->
+    <script src="../../js/shared-layout.js"></script>
+    <!-- Nạp các tệp JavaScript dùng chung và chức năng riêng của trang. -->
+    <script src="../../js/chatbot.js"></script>
+  </body>
 </html>

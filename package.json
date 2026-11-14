@@ -8,6 +8,10 @@
     "check": "node --check server.js && node --check quiz-bank.js && node --check quiz-service.js && node --check firebase-admin.js && node --check gemini.js && node --check js/auth.js && node --check js/chatbot.js && node --check js/comprehensive-questions.js && node --check js/LAL.js && node --check js/quiz-engine.js && node --check js/shared-layout.js"
   },
   "dependencies": {
+    "@astryxdesign/cli": "^0.7.14",
+    "@astryxdesign/core": "^0.7.14",
+    "@astryxdesign/theme-neutral": "^0.7.14",
+    "@stylexjs/stylex": "^0.19.2",
     "firebase-admin": "^13.5.0"
   }
 }

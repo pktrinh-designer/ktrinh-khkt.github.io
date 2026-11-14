@@ -1,302 +1,319 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="vi">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#0f172a">
-  <title>Phòng thí nghiệm điện ảo | Công nghệ 8</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0f172a" />
+    <title>Phòng thí nghiệm điện ảo | Công nghệ 8</title>
 
-  <link rel="stylesheet" href="../../css/shared-layout.css">
-  <link rel="stylesheet" href="../../css/virtual-electrical-lab.css">
-</head>
+    <link rel="stylesheet" href="../../css/shared-layout.css" />
+    <link rel="stylesheet" href="../../css/virtual-electrical-lab.css" />
 
-<body>
-  <main class="lab-page">
-    <header class="lab-header">
-      <div class="header-content">
-        <a class="back-link" href="chuong-iv.html">
-          <span aria-hidden="true">←</span> Quay lại Chương IV
-        </a>
+  </head>
 
-        <div class="header-label">CÔNG NGHỆ 8 · PHÒNG THỰC HÀNH ẢO</div>
-        <h1>Phòng thí nghiệm điện ảo</h1>
-        <p>
-          Lắp ráp mạch điện mô phỏng, quan sát trạng thái hoạt động
-          và tìm hiểu những lỗi thường gặp.
-        </p>
-      </div>
+  <body>
+    <main class="lab-page">
+      <header class="lab-header">
+        <div class="header-content">
+          <a class="back-link" href="chuong-iv.html">
+            <span aria-hidden="true">←</span> Quay lại Chương IV
+          </a>
 
-      <div class="header-icon" aria-hidden="true">⚡</div>
-    </header>
-
-    <section class="notice-banner" aria-label="Lưu ý an toàn">
-      <span class="notice-icon" aria-hidden="true">ⓘ</span>
-      <div>
-        <strong>Mô phỏng học tập – Không phải mạch điện thực tế</strong>
-        <p>
-          Đây là môi trường mô phỏng điện áp thấp phục vụ học tập.
-          Không sử dụng nội dung này để tự đấu nối điện lưới hoặc
-          thay thế hướng dẫn thực hành của giáo viên.
-        </p>
-      </div>
-    </section>
-
-    <section class="lab-layout">
-      <aside class="control-panel">
-        <div class="panel-heading">
-          <span class="section-number">01</span>
-          <div>
-            <h2>Thư viện linh kiện</h2>
-            <p>Chọn linh kiện để đưa vào mạch.</p>
-          </div>
+          <div class="header-label">CÔNG NGHỆ 8 · PHÒNG THỰC HÀNH ẢO</div>
+          <h1>Phòng thí nghiệm điện ảo</h1>
+          <p>
+            Lắp ráp mạch điện mô phỏng, quan sát trạng thái hoạt động và tìm
+            hiểu những lỗi thường gặp.
+          </p>
         </div>
 
-        <div class="component-list">
-          <button class="component-option" type="button" data-add="battery">
-            <span class="component-icon battery-icon">▰</span>
-            <span class="component-info">
-              <strong>Nguồn điện</strong>
-              <small>Pin mô phỏng 3V</small>
-            </span>
-            <span class="add-symbol">+</span>
-          </button>
+        <div class="header-icon" aria-hidden="true">⚡</div>
+      </header>
 
-          <button class="component-option" type="button" data-add="switch">
-            <span class="component-icon switch-icon">⌁</span>
-            <span class="component-info">
-              <strong>Công tắc</strong>
-              <small>Đóng hoặc ngắt mạch</small>
-            </span>
-            <span class="add-symbol">+</span>
-          </button>
-
-          <button class="component-option" type="button" data-add="lamp">
-            <span class="component-icon lamp-icon">☼</span>
-            <span class="component-info">
-              <strong>Bóng đèn</strong>
-              <small>Thiết bị tiêu thụ điện</small>
-            </span>
-            <span class="add-symbol">+</span>
-          </button>
-
-          <button class="component-option" type="button" data-add="resistor">
-            <span class="component-icon resistor-icon">⌁</span>
-            <span class="component-info">
-              <strong>Điện trở</strong>
-              <small>Linh kiện hạn chế dòng điện</small>
-            </span>
-            <span class="add-symbol">+</span>
-          </button>
+      <section class="notice-banner" aria-label="Lưu ý an toàn">
+        <span class="notice-icon" aria-hidden="true">ⓘ</span>
+        <div>
+          <strong>Mô phỏng học tập – Không phải mạch điện thực tế</strong>
+          <p>
+            Đây là môi trường mô phỏng điện áp thấp phục vụ học tập. Không sử
+            dụng nội dung này để tự đấu nối điện lưới hoặc thay thế hướng dẫn
+            thực hành của giáo viên.
+          </p>
         </div>
+      </section>
 
-        <div class="panel-divider"></div>
-
-        <div class="panel-heading compact-heading">
-          <span class="section-number">02</span>
-          <div>
-            <h2>Quản lý linh kiện</h2>
-            <p>Các linh kiện đang có trong mạch.</p>
-          </div>
-        </div>
-
-        <div id="component-inventory" class="component-inventory"></div>
-
-        <div class="panel-divider"></div>
-
-        <div class="panel-heading compact-heading">
-          <span class="section-number">03</span>
-          <div>
-            <h2>Nối dây dẫn</h2>
-            <p>Chọn hai đầu nối để tạo dây dẫn ảo.</p>
-          </div>
-        </div>
-
-        <div class="connection-form">
-          <label for="terminal-from">Đầu nối thứ nhất</label>
-          <select id="terminal-from">
-            <option value="">Chọn đầu nối</option>
-          </select>
-
-          <label for="terminal-to">Đầu nối thứ hai</label>
-          <select id="terminal-to">
-            <option value="">Chọn đầu nối</option>
-          </select>
-
-          <button id="connect-button" class="primary-button" type="button">
-            + Nối hai đầu
-          </button>
-        </div>
-
-        <div class="wire-list-wrapper">
-          <strong>Dây dẫn đã tạo</strong>
-          <div id="wire-list" class="wire-list">
-            <p class="empty-text">Chưa có dây dẫn nào.</p>
-          </div>
-        </div>
-      </aside>
-
-      <section class="workspace">
-        <div class="workspace-toolbar">
-          <div>
-            <span class="section-number">04</span>
-            <h2>Khu vực lắp ráp mạch</h2>
+      <section class="lab-layout">
+        <aside class="control-panel">
+          <div class="panel-heading">
+            <span class="section-number">01</span>
+            <div>
+              <h2>Thư viện linh kiện</h2>
+              <p>Chọn linh kiện để đưa vào mạch.</p>
+            </div>
           </div>
 
-          <button id="reset-button" class="secondary-button" type="button">
-            ↻ Làm mới
-          </button>
-        </div>
+          <div class="component-list">
+            <button class="component-option" type="button" data-add="battery">
+              <span class="component-icon battery-icon">▰</span>
+              <span class="component-info">
+                <strong>Nguồn điện</strong>
+                <small>Pin mô phỏng 3V</small>
+              </span>
+              <span class="add-symbol">+</span>
+            </button>
 
-        <div class="circuit-board">
-          <div class="board-topline">
-            <span>VÙNG MÔ PHỎNG</span>
-            <span class="board-status">
-              <span class="status-dot"></span>
-              Đang ở chế độ ảo
-            </span>
+            <button class="component-option" type="button" data-add="switch">
+              <span class="component-icon switch-icon">⌁</span>
+              <span class="component-info">
+                <strong>Công tắc</strong>
+                <small>Đóng hoặc ngắt mạch</small>
+              </span>
+              <span class="add-symbol">+</span>
+            </button>
+
+            <button class="component-option" type="button" data-add="lamp">
+              <span class="component-icon lamp-icon">☼</span>
+              <span class="component-info">
+                <strong>Bóng đèn</strong>
+                <small>Thiết bị tiêu thụ điện</small>
+              </span>
+              <span class="add-symbol">+</span>
+            </button>
+
+            <button class="component-option" type="button" data-add="resistor">
+              <span class="component-icon resistor-icon">⌁</span>
+              <span class="component-info">
+                <strong>Điện trở</strong>
+                <small>Linh kiện hạn chế dòng điện</small>
+              </span>
+              <span class="add-symbol">+</span>
+            </button>
           </div>
 
-          <div class="circuit-scroll">
-            <svg
-              id="circuit-diagram"
-              class="circuit-diagram"
-              viewBox="0 0 720 380"
-              role="img"
-              aria-label="Sơ đồ mạch điện mô phỏng"
+          <div class="panel-divider"></div>
+
+          <div class="panel-heading compact-heading">
+            <span class="section-number">02</span>
+            <div>
+              <h2>Quản lý linh kiện</h2>
+              <p>Các linh kiện đang có trong mạch.</p>
+            </div>
+          </div>
+
+          <div id="component-inventory" class="component-inventory"></div>
+
+          <div class="panel-divider"></div>
+
+          <div class="panel-heading compact-heading">
+            <span class="section-number">03</span>
+            <div>
+              <h2>Nối dây dẫn</h2>
+              <p>Chọn hai đầu nối để tạo dây dẫn ảo.</p>
+            </div>
+          </div>
+
+          <div class="connection-form">
+            <label for="terminal-from">Đầu nối thứ nhất</label>
+            <select id="terminal-from">
+              <option value="">Chọn đầu nối</option>
+            </select>
+
+            <label for="terminal-to">Đầu nối thứ hai</label>
+            <select id="terminal-to">
+              <option value="">Chọn đầu nối</option>
+            </select>
+
+            <button id="connect-button" class="primary-button" type="button">
+              + Nối hai đầu
+            </button>
+          </div>
+
+          <div class="wire-list-wrapper">
+            <strong>Dây dẫn đã tạo</strong>
+            <div id="wire-list" class="wire-list">
+              <p class="empty-text">Chưa có dây dẫn nào.</p>
+            </div>
+          </div>
+        </aside>
+
+        <section class="workspace">
+          <div class="workspace-toolbar">
+            <div>
+              <span class="section-number">04</span>
+              <h2>Khu vực lắp ráp mạch</h2>
+            </div>
+
+            <button id="reset-button" class="secondary-button" type="button">
+              ↻ Làm mới
+            </button>
+          </div>
+
+          <div class="circuit-board">
+            <div class="board-topline">
+              <span>VÙNG MÔ PHỎNG</span>
+              <span class="board-status">
+                <span class="status-dot"></span>
+                Đang ở chế độ ảo
+              </span>
+            </div>
+
+            <div class="circuit-scroll">
+              <svg
+                id="circuit-diagram"
+                class="circuit-diagram"
+                viewBox="0 0 720 380"
+                role="img"
+                aria-label="Sơ đồ mạch điện mô phỏng"
+              >
+                <text x="360" y="185" text-anchor="middle" class="svg-empty">
+                  Hãy thêm linh kiện để bắt đầu lắp ráp
+                </text>
+              </svg>
+            </div>
+
+            <div class="board-legend">
+              <span><i class="legend-dot wire-legend"></i> Dây dẫn</span>
+              <span><i class="legend-dot terminal-legend"></i> Đầu nối</span>
+              <span
+                ><i class="legend-dot active-legend"></i> Có dòng điện mô
+                phỏng</span
+              >
+            </div>
+          </div>
+
+          <section class="simulation-panel">
+            <div class="simulation-heading">
+              <div>
+                <span class="section-number">05</span>
+                <h2>Trạng thái mô phỏng</h2>
+              </div>
+              <span id="simulation-badge" class="simulation-badge neutral">
+                Chưa kiểm tra
+              </span>
+            </div>
+
+            <div class="simulation-grid">
+              <div class="simulation-card">
+                <span class="metric-icon">⚡</span>
+                <span class="metric-label">Nguồn điện</span>
+                <strong id="source-status">Chưa có</strong>
+              </div>
+
+              <div class="simulation-card">
+                <span class="metric-icon">◉</span>
+                <span class="metric-label">Công tắc</span>
+                <strong id="switch-status">Chưa có</strong>
+              </div>
+
+              <div class="simulation-card">
+                <span class="metric-icon">💡</span>
+                <span class="metric-label">Bóng đèn</span>
+                <strong id="lamp-status">Chưa có</strong>
+              </div>
+
+              <div class="simulation-card">
+                <span class="metric-icon">⌁</span>
+                <span class="metric-label">Mạch điện</span>
+                <strong id="circuit-status">Chưa hoàn chỉnh</strong>
+              </div>
+            </div>
+
+            <div class="switch-control">
+              <div>
+                <strong>Điều khiển công tắc</strong>
+                <p>Thay đổi trạng thái đóng hoặc mở trong mô phỏng.</p>
+              </div>
+
+              <button
+                id="switch-toggle"
+                class="switch-button"
+                type="button"
+                aria-pressed="false"
+                disabled
+              >
+                Công tắc đang mở
+              </button>
+            </div>
+          </section>
+
+          <section class="analysis-panel">
+            <div class="analysis-heading">
+              <span class="section-number">06</span>
+              <div>
+                <h2>Phân tích và cảnh báo</h2>
+                <p>
+                  Hệ thống kiểm tra cấu hình mạch theo các quy tắc mô phỏng.
+                </p>
+              </div>
+            </div>
+
+            <div
+              id="analysis-result"
+              class="analysis-result neutral"
+              aria-live="polite"
             >
-              <text x="360" y="185" text-anchor="middle" class="svg-empty">
-                Hãy thêm linh kiện để bắt đầu lắp ráp
-              </text>
-            </svg>
-          </div>
-
-          <div class="board-legend">
-            <span><i class="legend-dot wire-legend"></i> Dây dẫn</span>
-            <span><i class="legend-dot terminal-legend"></i> Đầu nối</span>
-            <span><i class="legend-dot active-legend"></i> Có dòng điện mô phỏng</span>
-          </div>
-        </div>
-
-        <section class="simulation-panel">
-          <div class="simulation-heading">
-            <div>
-              <span class="section-number">05</span>
-              <h2>Trạng thái mô phỏng</h2>
-            </div>
-            <span id="simulation-badge" class="simulation-badge neutral">
-              Chưa kiểm tra
-            </span>
-          </div>
-
-          <div class="simulation-grid">
-            <div class="simulation-card">
-              <span class="metric-icon">⚡</span>
-              <span class="metric-label">Nguồn điện</span>
-              <strong id="source-status">Chưa có</strong>
-            </div>
-
-            <div class="simulation-card">
-              <span class="metric-icon">◉</span>
-              <span class="metric-label">Công tắc</span>
-              <strong id="switch-status">Chưa có</strong>
-            </div>
-
-            <div class="simulation-card">
-              <span class="metric-icon">💡</span>
-              <span class="metric-label">Bóng đèn</span>
-              <strong id="lamp-status">Chưa có</strong>
-            </div>
-
-            <div class="simulation-card">
-              <span class="metric-icon">⌁</span>
-              <span class="metric-label">Mạch điện</span>
-              <strong id="circuit-status">Chưa hoàn chỉnh</strong>
-            </div>
-          </div>
-
-          <div class="switch-control">
-            <div>
-              <strong>Điều khiển công tắc</strong>
-              <p>Thay đổi trạng thái đóng hoặc mở trong mô phỏng.</p>
+              <span class="analysis-icon">ⓘ</span>
+              <div>
+                <strong>Chưa có kết quả kiểm tra</strong>
+                <p>Hãy thêm linh kiện, tạo dây dẫn và nhấn kiểm tra mạch.</p>
+              </div>
             </div>
 
             <button
-              id="switch-toggle"
-              class="switch-button"
+              id="check-button"
+              class="primary-button check-button"
               type="button"
-              aria-pressed="false"
-              disabled
             >
-              Công tắc đang mở
+              Kiểm tra mạch điện
             </button>
-          </div>
-        </section>
-
-        <section class="analysis-panel">
-          <div class="analysis-heading">
-            <span class="section-number">06</span>
-            <div>
-              <h2>Phân tích và cảnh báo</h2>
-              <p>Hệ thống kiểm tra cấu hình mạch theo các quy tắc mô phỏng.</p>
-            </div>
-          </div>
-
-          <div id="analysis-result" class="analysis-result neutral" aria-live="polite">
-            <span class="analysis-icon">ⓘ</span>
-            <div>
-              <strong>Chưa có kết quả kiểm tra</strong>
-              <p>Hãy thêm linh kiện, tạo dây dẫn và nhấn kiểm tra mạch.</p>
-            </div>
-          </div>
-
-          <button id="check-button" class="primary-button check-button" type="button">
-            Kiểm tra mạch điện
-          </button>
+          </section>
         </section>
       </section>
-    </section>
 
-    <section class="learning-footer">
-      <div>
-        <span class="section-number">07</span>
-        <h2>Kiến thức cần ghi nhớ</h2>
-      </div>
+      <section class="learning-footer">
+        <div>
+          <span class="section-number">07</span>
+          <h2>Kiến thức cần ghi nhớ</h2>
+        </div>
 
-      <div class="learning-grid">
-        <article class="learning-card">
-          <span>01</span>
-          <h3>Nguồn điện</h3>
-          <p>Cung cấp năng lượng cho mạch điện trong mô phỏng.</p>
-        </article>
+        <div class="learning-grid">
+          <article class="learning-card">
+            <span>01</span>
+            <h3>Nguồn điện</h3>
+            <p>Cung cấp năng lượng cho mạch điện trong mô phỏng.</p>
+          </article>
 
-        <article class="learning-card">
-          <span>02</span>
-          <h3>Công tắc</h3>
-          <p>Thay đổi trạng thái đóng hoặc ngắt của mạch.</p>
-        </article>
+          <article class="learning-card">
+            <span>02</span>
+            <h3>Công tắc</h3>
+            <p>Thay đổi trạng thái đóng hoặc ngắt của mạch.</p>
+          </article>
 
-        <article class="learning-card">
-          <span>03</span>
-          <h3>Phụ tải</h3>
-          <p>Thiết bị nhận năng lượng điện, ví dụ bóng đèn.</p>
-        </article>
+          <article class="learning-card">
+            <span>03</span>
+            <h3>Phụ tải</h3>
+            <p>Thiết bị nhận năng lượng điện, ví dụ bóng đèn.</p>
+          </article>
 
-        <article class="learning-card">
-          <span>04</span>
-          <h3>Mạch kín</h3>
-          <p>Đường dẫn điện phải tạo thành một vòng kín phù hợp để mô phỏng hoạt động.</p>
-        </article>
-      </div>
-    </section>
+          <article class="learning-card">
+            <span>04</span>
+            <h3>Mạch kín</h3>
+            <p>
+              Đường dẫn điện phải tạo thành một vòng kín phù hợp để mô phỏng
+              hoạt động.
+            </p>
+          </article>
+        </div>
+      </section>
 
-    <footer class="lab-footer">
-      <p>PHÒNG THÍ NGHIỆM ĐIỆN ẢO · CÔNG NGHỆ 8</p>
-      <p>Mô phỏng phục vụ mục đích học tập.</p>
-    </footer>
-  </main>
+      <footer class="lab-footer">
+        <p>PHÒNG THÍ NGHIỆM ĐIỆN ẢO · CÔNG NGHỆ 8</p>
+        <p>Mô phỏng phục vụ mục đích học tập.</p>
+      </footer>
+    </main>
 
-  <script src="../../js/shared-layout.js"></script>
-  <script src="../../js/chatbot.js"></script>
-  <script src="../../js/virtual-electrical-lab.js"></script>
-</body>
+    <script src="../../js/shared-layout.js"></script>
+    <script src="../../js/chatbot.js"></script>
+    <script src="../../js/virtual-electrical-lab.js"></script>
+  </body>
 </html>

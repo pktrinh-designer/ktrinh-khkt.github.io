@@ -274,7 +274,7 @@ function createShaft(parent, x, z, length = 0.7) {
     z,
   ]);
 
-  shaft.rotation.z = Math.PI / 2;
+  // Trục hình trụ mặc định đã nằm theo phương Y.
   return shaft;
 }
 
@@ -719,10 +719,6 @@ function loadModel(modelName) {
 
   currentModel = modelName;
   elapsedTime = 0;
-
-  currentGroup = new THREE.Group();
-  scene.add(currentGroup);
-  scene.remove(currentGroup);
 
   switch (modelName) {
     case "gear":

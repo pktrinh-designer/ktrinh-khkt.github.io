@@ -1,126 +1,264 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="vi">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Chương I: Vẽ kĩ thuật | Công nghệ 8</title>
-  <link rel="stylesheet" href="../../css/shared-layout.css" />
-</head>
-<!-- Trang này khai báo trạng thái điều hướng và mã chương qua thuộc tính data-* bên dưới. -->
-<body data-root-prefix=".." data-nav-active="curriculum" data-chapter="I">
-  <!-- shared-layout.js sẽ dựng thanh điều hướng dùng chung vào vị trí này. -->
-  <div id="site-header"></div>
-  <!-- Nội dung chính của trang, được trình bày bên trong vùng main. -->
-  <main class="site-main">
-    <div class="site-shell">
-      <!-- Phần giới thiệu: tiêu đề, mô tả và các liên kết thao tác chính. -->
-      <section class="site-hero">
-        <span class="site-eyebrow">Công nghệ 8 · Chương I</span>
-        <h1 class="site-title">Vẽ kĩ thuật</h1>
-        <p class="site-subtitle">Chương này rèn cách đọc và trình bày thông tin kĩ thuật bằng bản vẽ, hình chiếu và kí hiệu thống nhất.</p>
-        <div class="site-action-row">
-          <a class="site-primary-link" href="../LAL.html?chuong=I">Làm bài kiểm tra Chương I</a>
-          <a class="site-secondary-link" href="index.html">Quay lại mục lục</a>
-        </div>
-      </section>
-      <!-- Lưới nội dung hoặc danh sách tương tác chính của trang. -->
-      <section class="site-grid">
-        <article class="site-card">
-          <span class="site-badge">Trọng tâm</span>
-          <h2>Quan sát không gian qua bản vẽ</h2>
-          <p>Trọng tâm là tiêu chuẩn trình bày, hình chiếu vuông góc, bản vẽ chi tiết, bản vẽ lắp và bản vẽ nhà. Cần hiểu ý nghĩa đường nét, kích thước, kí hiệu và mối liên hệ giữa các hình chiếu.</p>
-        </article>
-        <article class="site-card">
-          <span class="site-badge">Cách học</span>
-          <h2>Đọc từ khung tên đến hình biểu diễn</h2>
-          <ol class="topic-list">
-            <li>Xem khung tên để biết tên gọi, tỉ lệ và vật liệu nếu có.</li>
-            <li>Nhận diện hình chiếu và liên hệ vị trí các hình.</li>
-            <li>Đọc đường nét, kích thước và kí hiệu trước khi kết luận hình dạng.</li>
-            <li>Với bản vẽ lắp hoặc bản vẽ nhà, đọc thêm bảng kê và chú thích.</li>
-            <li>Luyện phác hình đơn giản rồi đối chiếu lại với bản vẽ.</li>
-          </ol>
-        </article>
-        <article class="site-card full">
-          <span class="site-badge">Học liệu trực quan · Mô phỏng theo bài</span>
-          <h2>Quan sát hình khối, bản vẽ và mặt bằng</h2>
-          <p>Mỗi nút mở công cụ phù hợp với nội dung bài. Một số công cụ cho xem mô hình mẫu; các bản vẽ kĩ thuật và kích thước chuẩn vẫn cần đối chiếu với sách học.</p>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chương I: Vẽ kĩ thuật | Công nghệ 8</title>
+    <link rel="stylesheet" href="../../css/shared-layout.css" />
+
+  </head>
+  <!-- Trang này khai báo trạng thái điều hướng và mã chương qua thuộc tính data-* bên dưới. -->
+  <body data-root-prefix=".." data-nav-active="curriculum" data-chapter="I">
+    <!-- shared-layout.js sẽ dựng thanh điều hướng dùng chung vào vị trí này. -->
+    <div id="site-header"></div>
+    <!-- Nội dung chính của trang, được trình bày bên trong vùng main. -->
+    <main class="site-main">
+      <div class="site-shell">
+        <!-- Phần giới thiệu: tiêu đề, mô tả và các liên kết thao tác chính. -->
+        <section class="site-hero">
+          <span class="site-eyebrow">Công nghệ 8 · Chương I</span>
+          <h1 class="site-title">Vẽ kĩ thuật</h1>
+          <p class="site-subtitle">
+            Chương này rèn cách đọc và trình bày thông tin kĩ thuật bằng bản vẽ,
+            hình chiếu và kí hiệu thống nhất.
+          </p>
           <div class="site-action-row">
-            <a class="site-primary-link" href="https://geo-draft.vercel.app/" target="_blank" rel="noopener noreferrer" aria-label="Mở GeoDraft AI để tạo hình chiếu vuông góc cho Bài 2">Bài 2 · Tạo hình chiếu vuông góc với GeoDraft AI</a>
-            <a class="site-primary-link" href="https://3demac.aflip.in/Technical-Drawing-Workbook-Sample" target="_blank" rel="noopener noreferrer" aria-label="Mở tài liệu mẫu có hình vẽ kỹ thuật và mô hình 3D cho Bài 3: Bản vẽ chi tiết">Bài 3 · Xem hình mẫu bản vẽ chi tiết</a>
-            <a class="site-primary-link" href="https://domikids.ai/en/image-tools/deconstruct" target="_blank" rel="noopener noreferrer" aria-label="Mở DomiKids AI để tải ảnh và tạo hình bung các chi tiết cho Bài 4: Bản vẽ lắp">Bài 4 · Tải ảnh, tạo hình bung chi tiết</a>
-            <a class="site-primary-link" href="https://floorplanner.com/" target="_blank" rel="noopener noreferrer" aria-label="Mở Floorplanner để vẽ mặt bằng và xem mô hình 3D cho Bài 5: Bản vẽ nhà">Bài 5 · Vẽ mặt bằng và xem nhà 3D</a>
+            <a class="site-primary-link" href="../LAL.html?chuong=I"
+              >Làm bài kiểm tra Chương I</a
+            >
+            <a class="site-secondary-link" href="index.html"
+              >Quay lại mục lục</a
+            >
           </div>
-          <div class="site-card" style="margin-top: 1rem;">
-            <h3>Câu lệnh mẫu cho Bài 2</h3>
-            <p>Sao chép câu lệnh bên dưới, mở GeoDraft AI, rồi dán vào ô “Describe your engineering drawing problem”. Mẫu dùng một khối hộp chữ nhật đặt trên HP, một mặt song song với VP và yêu cầu ba hình chiếu vuông góc.</p>
-            <textarea id="bai2-geodraft-prompt" rows="4" readonly aria-label="Câu lệnh mẫu hình chiếu vuông góc cho GeoDraft AI" style="display:block; width:100%; box-sizing:border-box; margin:.75rem 0; padding:.75rem;">A rectangular block 60 mm wide, 40 mm high, and 30 mm deep rests on HP on its base, with its front face parallel to VP. Draw its first-angle orthographic projections: front view, top view, and right-side view.</textarea>
-            <button class="site-secondary-link" id="copy-bai2-prompt" type="button">Sao chép câu lệnh</button>
-            <span id="copy-bai2-prompt-status" role="status" aria-live="polite"></span>
-          </div>
-          <div class="site-card" style="margin-top: 1rem;">
-            <h3>Câu lệnh mẫu cho Bài 4</h3>
-            <p>Tải ảnh cụm chi tiết lên DomiKids AI, chọn “Mechanical parts” và “Detailed labels”, rồi dán câu lệnh này để tạo hình bung chi tiết.</p>
-            <textarea id="bai4-exploded-prompt" rows="4" readonly aria-label="English prompt for the exploded assembly view in DomiKids AI" style="display:block; width:100%; box-sizing:border-box; margin:.75rem 0; padding:.75rem;">Create an exploded assembly view from the uploaded image. Use English labels only; do not use Chinese characters. Label the parts: hexagonal nut, flat washer, workpiece, and threaded stud. Keep the original parts and arrangement.</textarea>
-            <button class="site-secondary-link" id="copy-bai4-prompt" type="button">Sao chép câu lệnh</button>
-            <span id="copy-bai4-prompt-status" role="status" aria-live="polite"></span>
-          </div>
-          <ul class="topic-list">
-            <li><strong>Bài 2:</strong> GeoDraft AI hỗ trợ dựng vật thể và xem các hình chiếu vuông góc từ mô tả bài toán.</li>
-            <li><strong>Bài 3:</strong> Tài liệu mẫu 3DEMAC trình bày bài tập hình chiếu theo dạng trang sách và có liên kết mô hình 3D tương tác; một số nội dung đầy đủ thuộc workbook trả phí.</li>
-            <li><strong>Bài 4:</strong> DomiKids AI có quota miễn phí sau khi đăng ký. Chọn “Mechanical parts” và “Detailed labels”, tải ảnh PNG/JPG/WEBP (tối đa 10 MB), rồi chọn “Deconstruction”; mỗi lượt dùng 3 Magic stars. Công cụ tạo ảnh minh họa bung chi tiết, không tạo mô hình CAD 3D hay bản vẽ có kích thước chuẩn; AI có thể suy đoán sai cấu tạo bên trong nên cần đối chiếu với sách.</li>
-            <li><strong>Bài 5:</strong> Floorplanner cho vẽ mặt bằng 2D rồi chuyển sang xem bố trí nhà ở dạng 3D.</li>
-          </ul>
-        </article>
-        <article class="site-card full">
-          <span class="site-badge">Tự đánh giá</span>
-          <h2>Kiểm tra kiến thức Chương I</h2>
-          <p>Bài kiểm tra gồm câu hỏi về hình chiếu, đường nét, kích thước và cách đọc các loại bản vẽ.</p>
-          <a class="site-primary-link" href="../LAL.html?chuong=I">Bắt đầu kiểm tra</a>
-        </article>
-      </section>
-    </div>
-  </main>
-  <!-- shared-layout.js sẽ dựng phần chân trang dùng chung vào vị trí này. -->
-  <div id="site-footer"></div>
-  <!-- Nạp các tệp JavaScript dùng chung và chức năng riêng của trang. -->
-  <script src="../../js/shared-layout.js"></script>
-  <!-- Nạp các tệp JavaScript dùng chung và chức năng riêng của trang. -->
-  <script src="../../js/chatbot.js"></script>
-  <script>
-    // Cho phép học sinh sao chép câu lệnh mẫu để dán vào ô Describe của GeoDraft AI.
-    const copyPromptButton = document.getElementById("copy-bai2-prompt");
-    const promptField = document.getElementById("bai2-geodraft-prompt");
-    const copyPromptStatus = document.getElementById("copy-bai2-prompt-status");
+        </section>
+        <!-- Lưới nội dung hoặc danh sách tương tác chính của trang. -->
+        <section class="site-grid">
+          <article class="site-card">
+            <span class="site-badge">Trọng tâm</span>
+            <h2>Quan sát không gian qua bản vẽ</h2>
+            <p>
+              Trọng tâm là tiêu chuẩn trình bày, hình chiếu vuông góc, bản vẽ
+              chi tiết, bản vẽ lắp và bản vẽ nhà. Cần hiểu ý nghĩa đường nét,
+              kích thước, kí hiệu và mối liên hệ giữa các hình chiếu.
+            </p>
+          </article>
+          <article class="site-card">
+            <span class="site-badge">Cách học</span>
+            <h2>Đọc từ khung tên đến hình biểu diễn</h2>
+            <ol class="topic-list">
+              <li>Xem khung tên để biết tên gọi, tỉ lệ và vật liệu nếu có.</li>
+              <li>Nhận diện hình chiếu và liên hệ vị trí các hình.</li>
+              <li>
+                Đọc đường nét, kích thước và kí hiệu trước khi kết luận hình
+                dạng.
+              </li>
+              <li>
+                Với bản vẽ lắp hoặc bản vẽ nhà, đọc thêm bảng kê và chú thích.
+              </li>
+              <li>Luyện phác hình đơn giản rồi đối chiếu lại với bản vẽ.</li>
+            </ol>
+          </article>
+          <article class="site-card full">
+            <span class="site-badge"
+              >Học liệu trực quan · Mô phỏng theo bài</span
+            >
+            <h2>Quan sát hình khối, bản vẽ và mặt bằng</h2>
+            <p>
+              Mỗi nút mở công cụ phù hợp với nội dung bài. Một số công cụ cho
+              xem mô hình mẫu; các bản vẽ kĩ thuật và kích thước chuẩn vẫn cần
+              đối chiếu với sách học.
+            </p>
+            <div class="site-action-row">
+              <a
+                class="site-primary-link"
+                href="https://geo-draft.vercel.app/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Mở GeoDraft AI để tạo hình chiếu vuông góc cho Bài 2"
+                >Bài 2 · Tạo hình chiếu vuông góc với GeoDraft AI</a
+              >
+              <a
+                class="site-primary-link"
+                href="https://3demac.aflip.in/Technical-Drawing-Workbook-Sample"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Mở tài liệu mẫu có hình vẽ kỹ thuật và mô hình 3D cho Bài 3: Bản vẽ chi tiết"
+                >Bài 3 · Xem hình mẫu bản vẽ chi tiết</a
+              >
+              <a
+                class="site-primary-link"
+                href="https://domikids.ai/en/image-tools/deconstruct"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Mở DomiKids AI để tải ảnh và tạo hình bung các chi tiết cho Bài 4: Bản vẽ lắp"
+                >Bài 4 · Tải ảnh, tạo hình bung chi tiết</a
+              >
+              <a
+                class="site-primary-link"
+                href="https://floorplanner.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Mở Floorplanner để vẽ mặt bằng và xem mô hình 3D cho Bài 5: Bản vẽ nhà"
+                >Bài 5 · Vẽ mặt bằng và xem nhà 3D</a
+              >
+            </div>
+            <div class="site-card" style="margin-top: 1rem">
+              <h3>Câu lệnh mẫu cho Bài 2</h3>
+              <p>
+                Sao chép câu lệnh bên dưới, mở GeoDraft AI, rồi dán vào ô
+                “Describe your engineering drawing problem”. Mẫu dùng một khối
+                hộp chữ nhật đặt trên HP, một mặt song song với VP và yêu cầu ba
+                hình chiếu vuông góc.
+              </p>
+              <textarea
+                id="bai2-geodraft-prompt"
+                rows="4"
+                readonly
+                aria-label="Câu lệnh mẫu hình chiếu vuông góc cho GeoDraft AI"
+                style="
+                  display: block;
+                  width: 100%;
+                  box-sizing: border-box;
+                  margin: 0.75rem 0;
+                  padding: 0.75rem;
+                "
+              >
+A rectangular block 60 mm wide, 40 mm high, and 30 mm deep rests on HP on its base, with its front face parallel to VP. Draw its first-angle orthographic projections: front view, top view, and right-side view.</textarea
+              >
+              <button
+                class="site-secondary-link"
+                id="copy-bai2-prompt"
+                type="button"
+              >
+                Sao chép câu lệnh
+              </button>
+              <span
+                id="copy-bai2-prompt-status"
+                role="status"
+                aria-live="polite"
+              ></span>
+            </div>
+            <div class="site-card" style="margin-top: 1rem">
+              <h3>Câu lệnh mẫu cho Bài 4</h3>
+              <p>
+                Tải ảnh cụm chi tiết lên DomiKids AI, chọn “Mechanical parts” và
+                “Detailed labels”, rồi dán câu lệnh này để tạo hình bung chi
+                tiết.
+              </p>
+              <textarea
+                id="bai4-exploded-prompt"
+                rows="4"
+                readonly
+                aria-label="English prompt for the exploded assembly view in DomiKids AI"
+                style="
+                  display: block;
+                  width: 100%;
+                  box-sizing: border-box;
+                  margin: 0.75rem 0;
+                  padding: 0.75rem;
+                "
+              >
+Create an exploded assembly view from the uploaded image. Use English labels only; do not use Chinese characters. Label the parts: hexagonal nut, flat washer, workpiece, and threaded stud. Keep the original parts and arrangement.</textarea
+              >
+              <button
+                class="site-secondary-link"
+                id="copy-bai4-prompt"
+                type="button"
+              >
+                Sao chép câu lệnh
+              </button>
+              <span
+                id="copy-bai4-prompt-status"
+                role="status"
+                aria-live="polite"
+              ></span>
+            </div>
+            <ul class="topic-list">
+              <li>
+                <strong>Bài 2:</strong> GeoDraft AI hỗ trợ dựng vật thể và xem
+                các hình chiếu vuông góc từ mô tả bài toán.
+              </li>
+              <li>
+                <strong>Bài 3:</strong> Tài liệu mẫu 3DEMAC trình bày bài tập
+                hình chiếu theo dạng trang sách và có liên kết mô hình 3D tương
+                tác; một số nội dung đầy đủ thuộc workbook trả phí.
+              </li>
+              <li>
+                <strong>Bài 4:</strong> DomiKids AI có quota miễn phí sau khi
+                đăng ký. Chọn “Mechanical parts” và “Detailed labels”, tải ảnh
+                PNG/JPG/WEBP (tối đa 10 MB), rồi chọn “Deconstruction”; mỗi lượt
+                dùng 3 Magic stars. Công cụ tạo ảnh minh họa bung chi tiết,
+                không tạo mô hình CAD 3D hay bản vẽ có kích thước chuẩn; AI có
+                thể suy đoán sai cấu tạo bên trong nên cần đối chiếu với sách.
+              </li>
+              <li>
+                <strong>Bài 5:</strong> Floorplanner cho vẽ mặt bằng 2D rồi
+                chuyển sang xem bố trí nhà ở dạng 3D.
+              </li>
+            </ul>
+          </article>
+          <article class="site-card full">
+            <span class="site-badge">Tự đánh giá</span>
+            <h2>Kiểm tra kiến thức Chương I</h2>
+            <p>
+              Bài kiểm tra gồm câu hỏi về hình chiếu, đường nét, kích thước và
+              cách đọc các loại bản vẽ.
+            </p>
+            <a class="site-primary-link" href="../LAL.html?chuong=I"
+              >Bắt đầu kiểm tra</a
+            >
+          </article>
+        </section>
+      </div>
+    </main>
+    <!-- shared-layout.js sẽ dựng phần chân trang dùng chung vào vị trí này. -->
+    <div id="site-footer"></div>
+    <!-- Nạp các tệp JavaScript dùng chung và chức năng riêng của trang. -->
+    <script src="../../js/shared-layout.js"></script>
+    <!-- Nạp các tệp JavaScript dùng chung và chức năng riêng của trang. -->
+    <script src="../../js/chatbot.js"></script>
+    <script>
+      // Cho phép học sinh sao chép câu lệnh mẫu để dán vào ô Describe của GeoDraft AI.
+      const copyPromptButton = document.getElementById("copy-bai2-prompt");
+      const promptField = document.getElementById("bai2-geodraft-prompt");
+      const copyPromptStatus = document.getElementById(
+        "copy-bai2-prompt-status",
+      );
 
-    copyPromptButton.addEventListener("click", async () => {
-      try {
-        await navigator.clipboard.writeText(promptField.value);
-        copyPromptStatus.textContent = " Đã sao chép. Hãy dán vào ô Describe của GeoDraft AI.";
-      } catch {
-        promptField.focus();
-        promptField.select();
-        document.execCommand("copy");
-        copyPromptStatus.textContent = " Đã chọn câu lệnh. Nhấn Ctrl+C nếu chưa tự sao chép.";
-      }
-    });
+      copyPromptButton.addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(promptField.value);
+          copyPromptStatus.textContent =
+            " Đã sao chép. Hãy dán vào ô Describe của GeoDraft AI.";
+        } catch {
+          promptField.focus();
+          promptField.select();
+          document.execCommand("copy");
+          copyPromptStatus.textContent =
+            " Đã chọn câu lệnh. Nhấn Ctrl+C nếu chưa tự sao chép.";
+        }
+      });
 
-    // Cho phép học sinh sao chép câu lệnh tạo hình bung chi tiết cho DomiKids AI.
-    const copyBai4PromptButton = document.getElementById("copy-bai4-prompt");
-    const bai4PromptField = document.getElementById("bai4-exploded-prompt");
-    const copyBai4PromptStatus = document.getElementById("copy-bai4-prompt-status");
+      // Cho phép học sinh sao chép câu lệnh tạo hình bung chi tiết cho DomiKids AI.
+      const copyBai4PromptButton = document.getElementById("copy-bai4-prompt");
+      const bai4PromptField = document.getElementById("bai4-exploded-prompt");
+      const copyBai4PromptStatus = document.getElementById(
+        "copy-bai4-prompt-status",
+      );
 
-    copyBai4PromptButton.addEventListener("click", async () => {
-      try {
-        await navigator.clipboard.writeText(bai4PromptField.value);
-        copyBai4PromptStatus.textContent = " Đã sao chép. Hãy dán câu lệnh vào DomiKids AI.";
-      } catch {
-        bai4PromptField.focus();
-        bai4PromptField.select();
-        document.execCommand("copy");
-        copyBai4PromptStatus.textContent = " Đã chọn câu lệnh. Nhấn Ctrl+C nếu chưa tự sao chép.";
-      }
-    });
-  </script>
-</body>
+      copyBai4PromptButton.addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(bai4PromptField.value);
+          copyBai4PromptStatus.textContent =
+            " Đã sao chép. Hãy dán câu lệnh vào DomiKids AI.";
+        } catch {
+          bai4PromptField.focus();
+          bai4PromptField.select();
+          document.execCommand("copy");
+          copyBai4PromptStatus.textContent =
+            " Đã chọn câu lệnh. Nhấn Ctrl+C nếu chưa tự sao chép.";
+        }
+      });
+    </script>
+  </body>
 </html>

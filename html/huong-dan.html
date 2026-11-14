@@ -1,73 +1,107 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="vi">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hướng dẫn học và an toàn | Công nghệ 8</title>
-  <link rel="stylesheet" href="../css/shared-layout.css" />
-</head>
-<!-- Trang này khai báo trạng thái điều hướng và mã chương qua thuộc tính data-* bên dưới. -->
-<body data-nav-active="guide">
-  <!-- shared-layout.js sẽ dựng thanh điều hướng dùng chung vào vị trí này. -->
-  <div id="site-header"></div>
-  <!-- Nội dung chính của trang, được trình bày bên trong vùng main. -->
-  <main class="site-main">
-    <div class="site-shell">
-      <!-- Phần giới thiệu: tiêu đề, mô tả và các liên kết thao tác chính. -->
-      <section class="site-hero">
-        <span class="site-eyebrow">Hướng dẫn học</span>
-        <h1 class="site-title">Học theo đặc điểm của từng chương</h1>
-        <p class="site-subtitle">Mỗi mạch kiến thức cần một cách ôn khác nhau. Chọn chương trong mục lục để xem hướng dẫn cụ thể và làm bài kiểm tra tương ứng.</p>
-        <div class="site-action-row">
-          <a class="site-primary-link" href="lop-8/index.html">Chọn chương muốn học</a>
-          <a class="site-secondary-link" href="gioithieu.html">Cách website hoạt động</a>
-        </div>
-      </section>
-      <!-- Lưới nội dung hoặc danh sách tương tác chính của trang. -->
-      <section class="site-grid">
-        <article class="site-card">
-          <span class="site-badge">Chương I · Vẽ kĩ thuật</span>
-          <h2>Quan sát hình chiếu và kí hiệu</h2>
-          <p>Đọc khung tên, xác định hình biểu diễn, đường nét, kích thước và liên hệ các hình chiếu với vật thể.</p>
-        </article>
-        <article class="site-card">
-          <span class="site-badge">Chương II · Cơ khí</span>
-          <h2>So sánh vật liệu, theo dõi chuyển động</h2>
-          <p>Liên hệ vật liệu với công dụng; dùng sơ đồ và mũi tên để giải thích cơ cấu truyền, biến đổi chuyển động.</p>
-        </article>
-        <article class="site-card">
-          <span class="site-badge">Chương III · An toàn điện</span>
-          <h2>Phân tích nguy cơ trước khi chọn cách xử lí</h2>
-          <p>Nêu rõ nguyên nhân và nguy cơ của tình huống, sau đó chọn biện pháp phòng tránh hoặc dụng cụ bảo vệ phù hợp.</p>
-        </article>
-        <article class="site-card">
-          <span class="site-badge">Chương IV · Kĩ thuật điện</span>
-          <h2>Nhận diện phần tử và đọc sơ đồ mạch</h2>
-          <p>Phân biệt nguồn, dây dẫn, thiết bị điều khiển và phụ tải; dự đoán trạng thái mạch trước khi lắp ráp.</p>
-        </article>
-        <article class="site-card">
-          <span class="site-badge">Chương V · Thiết kế kĩ thuật</span>
-          <h2>Xuất phát từ vấn đề, kiểm tra giải pháp</h2>
-          <p>Xác định nhu cầu và tiêu chí, đề xuất ý tưởng, chọn phương án rồi đánh giá để điều chỉnh thiết kế.</p>
-        </article>
-        <article class="site-card full">
-          <span class="site-badge">An toàn điện</span>
-          <h2>Không thao tác với điện lưới gia đình</h2>
-          <ul class="topic-list">
-            <li>Chỉ dùng bộ nguồn điện áp thấp phù hợp cho học tập, theo hướng dẫn của giáo viên.</li>
-            <li>Ngắt nguồn trước khi lắp, tháo, kiểm tra hoặc điều chỉnh mạch.</li>
-            <li>Không chạm vào dây dẫn trần; không thao tác khi tay ướt hoặc ở nơi ẩm ướt.</li>
-            <li>Nếu thấy dây hỏng hoặc thiết bị bất thường, dừng lại và báo người hướng dẫn.</li>
-          </ul>
-        </article>
-      </section>
-    </div>
-  </main>
-  <!-- shared-layout.js sẽ dựng phần chân trang dùng chung vào vị trí này. -->
-  <div id="site-footer"></div>
-  <!-- Nạp các tệp JavaScript dùng chung và chức năng riêng của trang. -->
-  <script src="../js/shared-layout.js"></script>
-  <!-- Nạp các tệp JavaScript dùng chung và chức năng riêng của trang. -->
-  <script src="../js/chatbot.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hướng dẫn học và an toàn | Công nghệ 8</title>
+    <link rel="stylesheet" href="../css/shared-layout.css" />
+
+  </head>
+  <!-- Trang này khai báo trạng thái điều hướng và mã chương qua thuộc tính data-* bên dưới. -->
+  <body data-nav-active="guide">
+    <!-- shared-layout.js sẽ dựng thanh điều hướng dùng chung vào vị trí này. -->
+    <div id="site-header"></div>
+    <!-- Nội dung chính của trang, được trình bày bên trong vùng main. -->
+    <main class="site-main">
+      <div class="site-shell">
+        <!-- Phần giới thiệu: tiêu đề, mô tả và các liên kết thao tác chính. -->
+        <section class="site-hero">
+          <span class="site-eyebrow">Hướng dẫn học</span>
+          <h1 class="site-title">Học theo đặc điểm của từng chương</h1>
+          <p class="site-subtitle">
+            Mỗi mạch kiến thức cần một cách ôn khác nhau. Chọn chương trong mục
+            lục để xem hướng dẫn cụ thể và làm bài kiểm tra tương ứng.
+          </p>
+          <div class="site-action-row">
+            <a class="site-primary-link" href="lop-8/index.html"
+              >Chọn chương muốn học</a
+            >
+            <a class="site-secondary-link" href="gioithieu.html"
+              >Cách website hoạt động</a
+            >
+          </div>
+        </section>
+        <!-- Lưới nội dung hoặc danh sách tương tác chính của trang. -->
+        <section class="site-grid">
+          <article class="site-card">
+            <span class="site-badge">Chương I · Vẽ kĩ thuật</span>
+            <h2>Quan sát hình chiếu và kí hiệu</h2>
+            <p>
+              Đọc khung tên, xác định hình biểu diễn, đường nét, kích thước và
+              liên hệ các hình chiếu với vật thể.
+            </p>
+          </article>
+          <article class="site-card">
+            <span class="site-badge">Chương II · Cơ khí</span>
+            <h2>So sánh vật liệu, theo dõi chuyển động</h2>
+            <p>
+              Liên hệ vật liệu với công dụng; dùng sơ đồ và mũi tên để giải
+              thích cơ cấu truyền, biến đổi chuyển động.
+            </p>
+          </article>
+          <article class="site-card">
+            <span class="site-badge">Chương III · An toàn điện</span>
+            <h2>Phân tích nguy cơ trước khi chọn cách xử lí</h2>
+            <p>
+              Nêu rõ nguyên nhân và nguy cơ của tình huống, sau đó chọn biện
+              pháp phòng tránh hoặc dụng cụ bảo vệ phù hợp.
+            </p>
+          </article>
+          <article class="site-card">
+            <span class="site-badge">Chương IV · Kĩ thuật điện</span>
+            <h2>Nhận diện phần tử và đọc sơ đồ mạch</h2>
+            <p>
+              Phân biệt nguồn, dây dẫn, thiết bị điều khiển và phụ tải; dự đoán
+              trạng thái mạch trước khi lắp ráp.
+            </p>
+          </article>
+          <article class="site-card">
+            <span class="site-badge">Chương V · Thiết kế kĩ thuật</span>
+            <h2>Xuất phát từ vấn đề, kiểm tra giải pháp</h2>
+            <p>
+              Xác định nhu cầu và tiêu chí, đề xuất ý tưởng, chọn phương án rồi
+              đánh giá để điều chỉnh thiết kế.
+            </p>
+          </article>
+          <article class="site-card full">
+            <span class="site-badge">An toàn điện</span>
+            <h2>Không thao tác với điện lưới gia đình</h2>
+            <ul class="topic-list">
+              <li>
+                Chỉ dùng bộ nguồn điện áp thấp phù hợp cho học tập, theo hướng
+                dẫn của giáo viên.
+              </li>
+              <li>
+                Ngắt nguồn trước khi lắp, tháo, kiểm tra hoặc điều chỉnh mạch.
+              </li>
+              <li>
+                Không chạm vào dây dẫn trần; không thao tác khi tay ướt hoặc ở
+                nơi ẩm ướt.
+              </li>
+              <li>
+                Nếu thấy dây hỏng hoặc thiết bị bất thường, dừng lại và báo
+                người hướng dẫn.
+              </li>
+            </ul>
+          </article>
+        </section>
+      </div>
+    </main>
+    <!-- shared-layout.js sẽ dựng phần chân trang dùng chung vào vị trí này. -->
+    <div id="site-footer"></div>
+    <!-- Nạp các tệp JavaScript dùng chung và chức năng riêng của trang. -->
+    <script src="../js/shared-layout.js"></script>
+    <!-- Nạp các tệp JavaScript dùng chung và chức năng riêng của trang. -->
+    <script src="../js/chatbot.js"></script>
+  </body>
 </html>
