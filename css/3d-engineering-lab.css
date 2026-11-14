@@ -1,6 +1,7 @@
 /* =========================================================
    3D ENGINEERING LAB
-   Giao diện riêng cho module mô phỏng kỹ thuật 3D
+   Giao diện riêng cho module mô phỏng kỹ thuật 3D.
+   Trang sáng — nền #f5f7fb, thẻ trắng, thanh kéo kỹ thuật.
    ========================================================= */
 
 .engineering-page {
@@ -14,20 +15,40 @@
     margin: 0 auto;
 }
 
+:focus-visible {
+    outline: 2px solid var(--site-blue, #2563eb);
+    outline-offset: 2px;
+}
+
 /* HERO */
 
 .engineering-hero {
     position: relative;
     overflow: hidden;
     margin: 28px 0 24px;
-    padding: 30px 34px;
+    padding: clamp(1.5rem, 3vw + 0.5rem, 2.1rem) clamp(1.25rem, 3vw + 0.75rem, 2.15rem);
     border: 1px solid #263e65;
-    border-radius: 20px;
+    border-radius: var(--radius-lg, 20px);
     color: #fff;
     background:
-        radial-gradient(circle at 85% 20%, rgba(83, 139, 224, .3), transparent 32%),
-        linear-gradient(125deg, #101e35, #1c3558 65%, #203e68);
-    box-shadow: 0 12px 30px rgba(25, 49, 84, .12);
+        radial-gradient(60% 75% at 88% 12%, rgba(56, 189, 248, 0.22) 0%, transparent 55%),
+        radial-gradient(52% 60% at 4% 92%, rgba(37, 99, 235, 0.22) 0%, transparent 55%),
+        linear-gradient(125deg, #0b1428 0%, #16244e 60%, #1e3a68 100%);
+    box-shadow: 0 18px 38px -12px rgba(10, 25, 58, 0.4);
+    isolation: isolate;
+}
+
+.engineering-hero::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    width: 300px;
+    height: 300px;
+    right: -90px;
+    top: -120px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 50%;
+    pointer-events: none;
 }
 
 .engineering-breadcrumb {
@@ -35,19 +56,22 @@
     flex-wrap: wrap;
     align-items: center;
     gap: 10px;
-    margin-bottom: 28px;
+    margin-bottom: 24px;
     color: #aebed5;
-    font-size: .82rem;
+    font-size: 0.8rem;
 }
 
 .engineering-breadcrumb a {
     color: #c7d8f1;
     text-decoration: none;
+    border-radius: 2px;
+    transition: color 0.18s ease;
 }
 
 .engineering-breadcrumb a:hover {
     color: #fff;
     text-decoration: underline;
+    text-underline-offset: 4px;
 }
 
 .engineering-hero-content {
@@ -62,9 +86,9 @@
     display: block;
     margin-bottom: 9px;
     color: #779bd1;
-    font-size: .7rem;
+    font-size: 0.7rem;
     font-weight: 800;
-    letter-spacing: .13em;
+    letter-spacing: 0.13em;
 }
 
 .engineering-eyebrow {
@@ -74,17 +98,19 @@
 .engineering-hero h1 {
     margin: 0;
     font-size: clamp(2rem, 4vw, 3rem);
-    line-height: 1.15;
+    line-height: 1.12;
     font-weight: 800;
-    letter-spacing: -.04em;
+    letter-spacing: -0.035em;
+    text-wrap: balance;
 }
 
 .engineering-hero-content p {
     max-width: 690px;
     margin: 14px 0 0;
     color: #d0dced;
-    font-size: .98rem;
-    line-height: 1.7;
+    font-size: 0.97rem;
+    line-height: 1.68;
+    text-wrap: pretty;
 }
 
 .engineering-hero-icon {
@@ -93,14 +119,14 @@
     width: 110px;
     height: 110px;
     place-items: center;
-    border: 1px solid rgba(255, 255, 255, .16);
+    border: 1px solid rgba(255, 255, 255, 0.16);
     border-radius: 28px;
-    background: rgba(255, 255, 255, .08);
+    background: rgba(255, 255, 255, 0.08);
 }
 
 .engineering-hero-icon span {
     color: #c8dcfb;
-    font-size: 4.5rem;
+    font-size: 4.2rem;
     line-height: 1;
 }
 
@@ -108,16 +134,18 @@
     display: flex;
     flex-wrap: wrap;
     gap: 9px;
-    margin-top: 25px;
+    margin-top: 22px;
 }
 
 .engineering-hero-tags span {
-    padding: 7px 12px;
-    border: 1px solid rgba(255, 255, 255, .17);
-    border-radius: 30px;
+    padding: 6px 12px;
+    border: 1px solid rgba(255, 255, 255, 0.17);
+    border-radius: 999px;
     color: #e2ecfa;
-    background: rgba(255, 255, 255, .07);
-    font-size: .78rem;
+    background: rgba(255, 255, 255, 0.07);
+    font-size: 0.77rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
 }
 
 /* MAIN WORKSPACE */
@@ -134,9 +162,9 @@
 .engineering-card {
     min-width: 0;
     border: 1px solid #e1e7f0;
-    border-radius: 17px;
+    border-radius: var(--radius-lg, 17px);
     background: #fff;
-    box-shadow: 0 5px 18px rgba(24, 44, 76, .045);
+    box-shadow: var(--site-shadow-sm, 0 5px 18px rgba(24, 44, 76, 0.045));
 }
 
 .engineering-sidebar {
@@ -157,8 +185,9 @@
 .section-heading h2 {
     margin: 0;
     color: #18263d;
-    font-size: 1.08rem;
+    font-size: 1.06rem;
     font-weight: 800;
+    letter-spacing: -0.015em;
 }
 
 .model-count {
@@ -169,8 +198,9 @@
     border-radius: 10px;
     color: #315f9f;
     background: #edf4ff;
-    font-size: .78rem;
+    font-size: 0.78rem;
     font-weight: 800;
+    font-variant-numeric: tabular-nums;
 }
 
 .model-list {
@@ -192,18 +222,23 @@
     background: #f7f9fc;
     text-align: left;
     cursor: pointer;
-    transition:
-        transform .18s ease,
-        border-color .18s ease,
-        background .18s ease,
-        box-shadow .18s ease;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    transition: transform 160ms var(--ease-out, cubic-bezier(0.23, 1, 0.32, 1)),
+        border-color 0.18s ease, background-color 0.18s ease, box-shadow 0.18s ease;
 }
 
-.model-option:hover {
-    transform: translateY(-2px);
-    border-color: #c9d9ef;
-    background: #f1f6fd;
-    box-shadow: 0 5px 12px rgba(37, 74, 126, .07);
+.model-option:active {
+    transform: scale(0.98);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .model-option:hover {
+        transform: translateY(-2px);
+        border-color: #c9d9ef;
+        background: #f1f6fd;
+        box-shadow: 0 6px 14px rgba(37, 74, 126, 0.08);
+    }
 }
 
 .model-option.active {
@@ -219,7 +254,7 @@
     height: 39px;
     place-items: center;
     border-radius: 10px;
-    color: #356baE;
+    color: #356bae;
     background: #e4efff;
     font-size: 1.25rem;
 }
@@ -231,19 +266,27 @@
 }
 
 .model-option-text strong {
-    font-size: .82rem;
+    font-size: 0.82rem;
     line-height: 1.35;
+    letter-spacing: -0.005em;
 }
 
 .model-option-text small {
     color: #8996a9;
-    font-size: .68rem;
+    font-size: 0.68rem;
 }
 
 .model-option-arrow {
     margin-left: auto;
     color: #8da1bb;
     font-size: 1.3rem;
+    transition: transform 160ms var(--ease-out, cubic-bezier(0.23, 1, 0.32, 1));
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .model-option:hover .model-option-arrow {
+        transform: translateX(3px);
+    }
 }
 
 .sidebar-note {
@@ -264,7 +307,7 @@
 .sidebar-note p {
     margin: 0;
     color: #697991;
-    font-size: .75rem;
+    font-size: 0.75rem;
     line-height: 1.6;
 }
 
@@ -283,11 +326,11 @@
     display: inline-flex;
     align-items: center;
     gap: 7px;
-    padding: 7px 10px;
-    border-radius: 30px;
+    padding: 6px 11px;
+    border-radius: 999px;
     color: #28724e;
     background: #eaf8f0;
-    font-size: .72rem;
+    font-size: 0.72rem;
     font-weight: 700;
     white-space: nowrap;
 }
@@ -304,9 +347,9 @@
     overflow: hidden;
     min-height: 430px;
     border: 1px solid #dce5f0;
-    border-radius: 14px;
+    border-radius: var(--radius-md, 14px);
     background:
-        radial-gradient(ellipse at 50% 40%, #f9fbff, #e9eff8 75%);
+        radial-gradient(ellipse at 50% 42%, #f9fbff, #e9eff8 75%);
 }
 
 #engineering-canvas {
@@ -333,7 +376,7 @@
     gap: 12px;
     color: #63748c;
     background: #eef3fa;
-    font-size: .85rem;
+    font-size: 0.85rem;
 }
 
 .viewer-loading p {
@@ -346,7 +389,7 @@
     border: 3px solid #d4e0ef;
     border-top-color: #3976bd;
     border-radius: 50%;
-    animation: engineering-spin .8s linear infinite;
+    animation: engineering-spin 0.8s linear infinite;
 }
 
 @keyframes engineering-spin {
@@ -379,18 +422,19 @@
 .overlay-hint,
 .viewer-overlay-bottom span {
     padding: 6px 9px;
-    border: 1px solid rgba(211, 222, 237, .9);
-    border-radius: 7px;
+    border: 1px solid rgba(211, 222, 237, 0.9);
+    border-radius: 8px;
     color: #52647d;
-    background: rgba(255, 255, 255, .83);
-    font-size: .67rem;
+    background: rgba(255, 255, 255, 0.85);
+    font-size: 0.67rem;
     font-weight: 700;
     backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
 }
 
 .overlay-chip {
     color: #315f9f;
-    letter-spacing: .08em;
+    letter-spacing: 0.08em;
 }
 
 .overlay-hint {
@@ -419,22 +463,32 @@
     max-width: 390px;
     margin: 0;
     color: #718096;
-    font-size: .85rem;
-    line-height: 1.5;
+    font-size: 0.85rem;
+    line-height: 1.55;
 }
 
 .viewer-error button {
     margin-top: 8px;
-    padding: 9px 15px;
+    padding: 10px 16px;
+    min-height: 42px;
     border: 0;
-    border-radius: 8px;
+    border-radius: 9px;
     color: #fff;
     background: #326eb8;
     cursor: pointer;
+    touch-action: manipulation;
+    transition: transform 140ms var(--ease-out, cubic-bezier(0.23, 1, 0.32, 1)),
+        background-color 0.18s ease;
 }
 
-.viewer-error button:hover {
-    background: #245b9c;
+.viewer-error button:active {
+    transform: scale(0.97);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .viewer-error button:hover {
+        background: #245b9c;
+    }
 }
 
 /* TOOLBAR */
@@ -455,28 +509,34 @@
 
 .tool-button {
     display: inline-flex;
-    min-height: 39px;
+    min-height: 40px;
     align-items: center;
     justify-content: center;
     gap: 8px;
     padding: 8px 12px;
     border: 1px solid #dce4ef;
-    border-radius: 9px;
+    border-radius: 10px;
     color: #43536a;
     background: #fff;
-    font-size: .78rem;
+    font-size: 0.78rem;
     font-weight: 700;
     cursor: pointer;
-    transition:
-        transform .18s ease,
-        border-color .18s ease,
-        background .18s ease;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    transition: transform 140ms var(--ease-out, cubic-bezier(0.23, 1, 0.32, 1)),
+        border-color 0.18s ease, background-color 0.18s ease, color 0.18s ease;
 }
 
-.tool-button:hover {
-    transform: translateY(-2px);
-    border-color: #aac3e5;
-    background: #f6f9fe;
+.tool-button:active {
+    transform: scale(0.97);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .tool-button:hover {
+        transform: translateY(-1px);
+        border-color: #aac3e5;
+        background: #f6f9fe;
+    }
 }
 
 .tool-button.primary {
@@ -485,9 +545,12 @@
     background: #326eb8;
 }
 
-.tool-button.primary:hover {
-    border-color: #245b9c;
-    background: #245b9c;
+@media (hover: hover) and (pointer: fine) {
+    .tool-button.primary:hover {
+        border-color: #245b9c;
+        background: #245b9c;
+        filter: brightness(1.05);
+    }
 }
 
 /* LOWER CARDS */
@@ -537,14 +600,15 @@
 
 .control-label label {
     color: #40516a;
-    font-size: .84rem;
+    font-size: 0.84rem;
     font-weight: 700;
 }
 
 .control-label output {
     color: #326eb8;
-    font-size: .84rem;
+    font-size: 0.84rem;
     font-weight: 800;
+    font-variant-numeric: tabular-nums;
 }
 
 .control-row input[type="range"] {
@@ -553,11 +617,15 @@
     cursor: pointer;
 }
 
+.control-row input[type="range"]:focus-visible {
+    outline-offset: 4px;
+}
+
 .range-labels {
     display: flex;
     justify-content: space-between;
     color: #9aa6b6;
-    font-size: .7rem;
+    font-size: 0.7rem;
 }
 
 .control-divider,
@@ -571,13 +639,13 @@
     gap: 9px;
 }
 
-.dynamic-control+.dynamic-control {
+.dynamic-control + .dynamic-control {
     margin-top: 15px;
 }
 
 .dynamic-control label {
     color: #40516a;
-    font-size: .82rem;
+    font-size: 0.82rem;
     font-weight: 700;
 }
 
@@ -588,8 +656,9 @@
 
 .dynamic-control output {
     color: #326eb8;
-    font-size: .82rem;
+    font-size: 0.82rem;
     font-weight: 800;
+    font-variant-numeric: tabular-nums;
 }
 
 .dynamic-control input[type="range"] {
@@ -599,12 +668,19 @@
 
 .dynamic-control select {
     width: 100%;
-    min-height: 39px;
+    min-height: 40px;
     padding: 8px 10px;
     border: 1px solid #dce4ef;
-    border-radius: 8px;
+    border-radius: var(--radius-sm, 10px);
     color: #34445b;
     background: #fff;
+    transition: border-color 0.16s ease, box-shadow 0.16s ease;
+}
+
+.dynamic-control select:focus-visible {
+    border-color: var(--site-blue, #2563eb);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.14);
+    outline: none;
 }
 
 .knowledge-content {
@@ -616,15 +692,15 @@
     display: block;
     margin-bottom: 8px;
     color: #8492a6;
-    font-size: .68rem;
+    font-size: 0.68rem;
     font-weight: 800;
-    letter-spacing: .08em;
+    letter-spacing: 0.08em;
 }
 
 .knowledge-block p,
 .knowledge-block li {
     color: #4f5f75;
-    font-size: .84rem;
+    font-size: 0.84rem;
     line-height: 1.7;
 }
 
@@ -658,26 +734,27 @@
     gap: 9px;
     padding: 14px;
     border: 1px solid #e6edf6;
-    border-radius: 11px;
+    border-radius: var(--radius-sm, 11px);
     background: #f8faff;
 }
 
 .observation-label {
     color: #7c8ba0;
-    font-size: .72rem;
+    font-size: 0.72rem;
     line-height: 1.4;
 }
 
 .observation-item strong {
     color: #2c4e7a;
-    font-size: .91rem;
+    font-size: 0.91rem;
     line-height: 1.4;
+    font-variant-numeric: tabular-nums;
 }
 
 .observation-disclaimer {
     margin: 15px 0 0;
     color: #8491a3;
-    font-size: .75rem;
+    font-size: 0.75rem;
     line-height: 1.6;
 }
 
@@ -707,13 +784,13 @@
 .learning-note h2 {
     margin: 0 0 7px;
     color: #294c78;
-    font-size: .95rem;
+    font-size: 0.95rem;
 }
 
 .learning-note p {
     margin: 0;
     color: #64758d;
-    font-size: .83rem;
+    font-size: 0.83rem;
     line-height: 1.65;
 }
 
@@ -724,7 +801,7 @@
     gap: 8px 20px;
     margin-top: 24px;
     color: #8995a6;
-    font-size: .73rem;
+    font-size: 0.73rem;
 }
 
 .engineering-footer p {
@@ -750,7 +827,7 @@
 
     .engineering-hero {
         margin-top: 16px;
-        padding: 23px 20px;
+        padding: 26px 20px;
     }
 
     .engineering-hero-icon {
@@ -793,7 +870,7 @@
     }
 
     .viewer-status {
-        font-size: .64rem;
+        font-size: 0.64rem;
     }
 
     .engineering-card {
@@ -807,7 +884,7 @@
     }
 
     .engineering-hero-content p {
-        font-size: .88rem;
+        font-size: 0.88rem;
     }
 
     .model-list {
@@ -824,7 +901,7 @@
     }
 
     .overlay-hint {
-        font-size: .59rem;
+        font-size: 0.59rem;
     }
 
     .viewer-toolbar,
@@ -835,7 +912,7 @@
     .tool-button {
         flex: 1;
         padding-inline: 8px;
-        font-size: .7rem;
+        font-size: 0.7rem;
     }
 
     .observation-grid {
@@ -847,7 +924,7 @@
     }
 
     .observation-item strong {
-        font-size: .8rem;
+        font-size: 0.8rem;
     }
 
     .engineering-footer {
@@ -856,12 +933,24 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-
     .engineering-page *,
     .engineering-page *::before,
     .engineering-page *::after {
         scroll-behavior: auto !important;
-        animation-duration: .01ms !important;
-        transition-duration: .01ms !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    .loading-spinner {
+        animation: none;
+    }
+
+    .model-option:hover,
+    .model-option:hover .model-option-arrow,
+    .tool-button:hover,
+    .tool-button.primary:hover,
+    .viewer-error button {
+        transform: none;
     }
 }

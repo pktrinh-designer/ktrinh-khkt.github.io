@@ -1,8 +1,15 @@
+/* =========================================================
+   VIRTUAL ELECTRICAL LAB
+   Mô phỏng mạch điện tương tác — trang sáng,
+   typography + token dùng chung với shared-layout.css
+   (trang này tải shared-layout.css trước).
+   ========================================================= */
+
 :root {
     --lab-bg: #f4f7fb;
     --lab-surface: #ffffff;
     --lab-text: #172033;
-    --lab-muted: #718096;
+    --lab-muted: #64748b;
     --lab-border: #e2e8f0;
     --lab-primary: #2563eb;
     --lab-primary-dark: #1d4ed8;
@@ -10,6 +17,8 @@
     --lab-red: #dc4c4c;
     --lab-orange: #d88a20;
     --lab-radius: 16px;
+    --lab-card-radius: 11px;
+    --lab-ease: cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 * {
@@ -20,7 +29,20 @@ body {
     margin: 0;
     background: var(--lab-bg);
     color: var(--lab-text);
-    font-family: Inter, "Segoe UI", Arial, sans-serif;
+    font-family: "Be Vietnam Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+::selection {
+    background: #bfdbfe;
+    color: #0f172a;
+}
+
+:focus-visible {
+    outline: 2px solid var(--site-blue, #2563eb);
+    outline-offset: 2px;
 }
 
 button,
@@ -30,6 +52,8 @@ select {
 
 button {
     cursor: pointer;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
 }
 
 button:disabled {
@@ -50,13 +74,19 @@ button:disabled {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    min-height: 220px;
+    min-height: 215px;
     overflow: hidden;
-    padding: 34px 42px;
+    padding: 32px 40px;
     color: #fff;
-    background: linear-gradient(120deg, #10264a, #1e4e85);
+    background:
+        radial-gradient(58% 70% at 88% 12%, rgba(34, 211, 238, 0.28) 0%, transparent 55%),
+        linear-gradient(120deg, #0b1428 0%, #16244e 55%, #1d4ed8 100%);
+    border: 1px solid rgba(255, 255, 255, 0.14);
     border-radius: 22px;
-    box-shadow: 0 12px 30px rgba(15, 40, 75, 0.12);
+    box-shadow:
+        0 22px 44px -14px rgba(10, 25, 58, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.18);
+    isolation: isolate;
 }
 
 .header-content {
@@ -69,10 +99,12 @@ button:disabled {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    margin-bottom: 25px;
-    color: #dbeafe;
+    margin-bottom: 22px;
+    color: #bfdbfe;
     font-size: 14px;
     text-decoration: none;
+    border-radius: 4px;
+    transition: color 0.18s ease;
 }
 
 .back-link:hover {
@@ -81,16 +113,18 @@ button:disabled {
 
 .header-label {
     margin-bottom: 10px;
-    color: #a9c9f5;
+    color: #9cc3e8;
     font-size: 11px;
     font-weight: 800;
-    letter-spacing: 1.8px;
+    letter-spacing: 1.7px;
 }
 
 .lab-header h1 {
     margin: 0 0 12px;
     font-size: clamp(28px, 4vw, 42px);
-    line-height: 1.15;
+    line-height: 1.14;
+    letter-spacing: -0.03em;
+    text-wrap: balance;
 }
 
 .lab-header p {
@@ -98,16 +132,18 @@ button:disabled {
     margin: 0;
     color: #d7e5f7;
     font-size: 15px;
-    line-height: 1.7;
+    line-height: 1.65;
+    text-wrap: pretty;
 }
 
 .header-icon {
     position: absolute;
     top: 15px;
     right: 50px;
-    color: rgba(255, 255, 255, 0.13);
-    font-size: 175px;
+    color: rgba(255, 255, 255, 0.12);
+    font-size: 170px;
     pointer-events: none;
+    user-select: none;
 }
 
 /* NOTICE */
@@ -117,15 +153,15 @@ button:disabled {
     gap: 14px;
     align-items: flex-start;
     margin: 22px 0;
-    padding: 17px 20px;
-    background: #fff8e9;
-    border: 1px solid #f4dfb1;
-    border-radius: 13px;
+    padding: 16px 19px;
+    background: #fffaf0;
+    border: 1px solid #f0dfae;
+    border-radius: var(--lab-card-radius);
 }
 
 .notice-icon {
     color: #b87912;
-    font-size: 22px;
+    font-size: 21px;
 }
 
 .notice-banner strong {
@@ -158,7 +194,7 @@ button:disabled {
     background: var(--lab-surface);
     border: 1px solid var(--lab-border);
     border-radius: var(--lab-radius);
-    box-shadow: 0 5px 18px rgba(20, 40, 70, 0.035);
+    box-shadow: var(--site-shadow-sm, 0 5px 18px rgba(20, 40, 70, 0.035));
 }
 
 .control-panel {
@@ -184,6 +220,7 @@ button:disabled {
     border-radius: 9px;
     font-size: 12px;
     font-weight: 800;
+    font-variant-numeric: tabular-nums;
 }
 
 .panel-heading h2,
@@ -193,6 +230,7 @@ button:disabled {
 .learning-footer h2 {
     margin: 2px 0 6px;
     font-size: 17px;
+    letter-spacing: -0.015em;
 }
 
 .panel-heading p,
@@ -230,15 +268,20 @@ button:disabled {
     text-align: left;
     background: #fff;
     border: 1px solid var(--lab-border);
-    border-radius: 11px;
-    transition: transform 0.18s ease, box-shadow 0.18s ease,
-        border-color 0.18s ease;
+    border-radius: var(--lab-card-radius);
+    transition: transform 160ms var(--lab-ease), box-shadow 0.18s ease, border-color 0.18s ease;
 }
 
-.component-option:hover {
-    transform: translateY(-2px);
-    border-color: #b8cef8;
-    box-shadow: 0 5px 12px rgba(30, 70, 130, 0.08);
+.component-option:active {
+    transform: scale(0.98);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .component-option:hover {
+        transform: translateY(-2px);
+        border-color: #b8cef8;
+        box-shadow: 0 6px 14px rgba(30, 70, 130, 0.09);
+    }
 }
 
 .component-icon {
@@ -269,8 +312,8 @@ button:disabled {
 }
 
 .resistor-icon {
-    color: #7c58ba;
-    background: #f2eaff;
+    color: #0f766e;
+    background: #e6f7f3;
 }
 
 .component-info {
@@ -292,6 +335,13 @@ button:disabled {
     color: var(--lab-primary);
     font-size: 21px;
     font-weight: 700;
+    transition: transform 160ms var(--lab-ease);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .component-option:hover .add-symbol {
+        transform: scale(1.15);
+    }
 }
 
 /* INVENTORY */
@@ -316,11 +366,24 @@ button:disabled {
 }
 
 .remove-component {
-    padding: 0;
+    padding: 2px;
+    min-width: 24px;
+    min-height: 24px;
     color: #c24141;
     background: none;
     border: 0;
-    font-size: 16px;
+    border-radius: 6px;
+    font-size: 15px;
+    line-height: 1;
+    transition: background 0.16s ease, transform 140ms var(--lab-ease);
+}
+
+.remove-component:hover {
+    background: #fee2e2;
+}
+
+.remove-component:active {
+    transform: scale(0.85);
 }
 
 /* CONNECTION FORM */
@@ -339,18 +402,19 @@ button:disabled {
 
 .connection-form select {
     width: 100%;
-    min-height: 40px;
+    min-height: 42px;
     padding: 8px 10px;
     color: var(--lab-text);
     background: #fff;
     border: 1px solid var(--lab-border);
-    border-radius: 8px;
+    border-radius: 9px;
     outline: none;
+    transition: border-color 0.16s ease, box-shadow 0.16s ease;
 }
 
-.connection-form select:focus {
+.connection-form select:focus-visible {
     border-color: var(--lab-primary);
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.14);
 }
 
 .primary-button,
@@ -363,8 +427,8 @@ button:disabled {
     border-radius: 9px;
     font-size: 13px;
     font-weight: 700;
-    transition: transform 0.18s ease, box-shadow 0.18s ease,
-        background 0.18s ease;
+    transition: transform 140ms var(--lab-ease), box-shadow 0.2s ease,
+        background-color 0.18s ease, border-color 0.18s ease;
 }
 
 .primary-button {
@@ -373,10 +437,16 @@ button:disabled {
     border: 1px solid var(--lab-primary);
 }
 
-.primary-button:hover:not(:disabled) {
-    transform: translateY(-1px);
-    background: var(--lab-primary-dark);
-    box-shadow: 0 5px 12px rgba(37, 99, 235, 0.18);
+.primary-button:active:not(:disabled) {
+    transform: scale(0.97);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .primary-button:hover:not(:disabled) {
+        transform: translateY(-1px);
+        background: var(--lab-primary-dark);
+        box-shadow: 0 6px 14px rgba(37, 99, 235, 0.22);
+    }
 }
 
 .secondary-button {
@@ -385,16 +455,23 @@ button:disabled {
     border: 1px solid var(--lab-border);
 }
 
-.secondary-button:hover:not(:disabled) {
-    transform: translateY(-1px);
-    background: #f8fafc;
+.secondary-button:active:not(:disabled) {
+    transform: scale(0.97);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .secondary-button:hover:not(:disabled) {
+        transform: translateY(-1px);
+        background: #f8fafc;
+        border-color: #cbd5e1;
+    }
 }
 
 .wire-list-wrapper {
     margin-top: 20px;
 }
 
-.wire-list-wrapper>strong {
+.wire-list-wrapper > strong {
     font-size: 12px;
 }
 
@@ -417,10 +494,24 @@ button:disabled {
 }
 
 .remove-wire {
+    padding: 2px;
+    min-width: 24px;
+    min-height: 24px;
     color: var(--lab-red);
     background: none;
     border: 0;
+    border-radius: 6px;
     font-size: 15px;
+    line-height: 1;
+    transition: background 0.16s ease, transform 140ms var(--lab-ease);
+}
+
+.remove-wire:hover {
+    background: #fee2e2;
+}
+
+.remove-wire:active {
+    transform: scale(0.85);
 }
 
 .empty-text {
@@ -443,8 +534,8 @@ button:disabled {
     gap: 15px;
 }
 
-.workspace-toolbar>div,
-.simulation-heading>div {
+.workspace-toolbar > div,
+.simulation-heading > div {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -460,7 +551,7 @@ button:disabled {
     overflow: hidden;
     background: #fbfdff;
     border: 1px solid var(--lab-border);
-    border-radius: 13px;
+    border-radius: var(--lab-card-radius);
 }
 
 .board-topline {
@@ -513,6 +604,7 @@ button:disabled {
     stroke: #64748b;
     stroke-width: 4;
     stroke-linecap: round;
+    transition: stroke 0.2s ease;
 }
 
 .svg-wire.active {
@@ -540,6 +632,7 @@ button:disabled {
     fill: #fff;
     stroke: #2563eb;
     stroke-width: 2.5;
+    transition: fill 0.2s ease, stroke 0.2s ease;
 }
 
 .svg-terminal.connected {
@@ -550,6 +643,7 @@ button:disabled {
 .svg-lamp-glow {
     fill: #fde68a;
     opacity: 0.18;
+    transition: opacity 0.3s ease;
 }
 
 .svg-lamp-glow.on {
@@ -602,10 +696,11 @@ button:disabled {
 }
 
 .simulation-badge {
-    padding: 6px 10px;
-    border-radius: 20px;
-    font-size: 10px;
+    padding: 6px 11px;
+    border-radius: 999px;
+    font-size: 10.5px;
     font-weight: 800;
+    letter-spacing: 0.03em;
 }
 
 .simulation-badge.neutral {
@@ -657,6 +752,7 @@ button:disabled {
 .simulation-card strong {
     overflow-wrap: anywhere;
     font-size: 12px;
+    font-variant-numeric: tabular-nums;
 }
 
 .switch-control {
@@ -682,19 +778,41 @@ button:disabled {
 
 .switch-button {
     flex-shrink: 0;
-    padding: 10px 13px;
+    min-height: 42px;
+    padding: 10px 14px;
     color: #92400e;
     background: #fff4db;
     border: 1px solid #f4d89b;
-    border-radius: 8px;
+    border-radius: 9px;
     font-size: 11px;
     font-weight: 800;
+    letter-spacing: 0.01em;
+    transition: transform 140ms var(--lab-ease), background-color 0.2s ease, border-color 0.2s ease,
+        color 0.2s ease;
+}
+
+.switch-button:active {
+    transform: scale(0.96);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .switch-button:hover {
+        background: #ffedbe;
+        border-color: #ecc06a;
+    }
 }
 
 .switch-button.is-closed {
     color: #15803d;
     background: #dcfce7;
     border-color: #a7f3d0;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .switch-button.is-closed:hover {
+        background: #bbf7d0;
+        border-color: #6ee7b7;
+    }
 }
 
 /* ANALYSIS */
@@ -710,6 +828,14 @@ button:disabled {
     padding: 14px;
     border: 1px solid;
     border-radius: 10px;
+    animation: analysis-in 0.3s var(--lab-ease);
+}
+
+@keyframes analysis-in {
+    from {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
 }
 
 .analysis-result.neutral {
@@ -749,7 +875,7 @@ button:disabled {
 .analysis-result p {
     margin: 0;
     font-size: 12px;
-    line-height: 1.65;
+    line-height: 1.62;
 }
 
 .check-button {
@@ -764,7 +890,7 @@ button:disabled {
     padding: 23px;
 }
 
-.learning-footer>div:first-child {
+.learning-footer > div:first-child {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -785,18 +911,20 @@ button:disabled {
     padding: 16px;
     background: #f8fafc;
     border: 1px solid #edf1f6;
-    border-radius: 11px;
+    border-radius: var(--lab-card-radius);
 }
 
-.learning-card>span {
+.learning-card > span {
     color: var(--lab-primary);
     font-size: 11px;
     font-weight: 800;
+    letter-spacing: 0.03em;
 }
 
 .learning-card h3 {
     margin: 10px 0 7px;
     font-size: 13px;
+    letter-spacing: -0.005em;
 }
 
 .learning-card p {
@@ -840,13 +968,13 @@ button:disabled {
     }
 
     .lab-header {
-        min-height: 210px;
-        padding: 25px 22px;
+        min-height: 205px;
+        padding: 24px 22px;
     }
 
     .header-icon {
         right: 5px;
-        font-size: 115px;
+        font-size: 110px;
     }
 
     .lab-layout {
@@ -895,5 +1023,24 @@ button:disabled {
     .simulation-panel,
     .analysis-panel {
         padding: 13px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    .component-option:hover,
+    .primary-button:hover:not(:disabled),
+    .secondary-button:hover:not(:disabled),
+    .switch-button:hover,
+    .switch-button.is-closed:hover {
+        transform: none;
     }
 }

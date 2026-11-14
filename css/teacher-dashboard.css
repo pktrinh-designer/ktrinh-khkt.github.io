@@ -1,11 +1,12 @@
 /* =========================================
    CONGNGHE8 - TEACHER DASHBOARD
-   Kế thừa giao diện từ admin-dashboard.css
-========================================= */
+   Kế thừa giao diện từ admin-dashboard.css.
+   Tông: xanh #315cf5 (indigo-blue) + cyan #06b6d4; teal thay tím.
+   ========================================= */
 
 .teacher-page {
     --teacher-accent: #315cf5;
-    --teacher-purple: #653de8;
+    --teacher-teal: #0e7490;
 }
 
 /* SIDEBAR */
@@ -22,17 +23,18 @@
 
 .teacher-page .teacher-avatar {
     background: linear-gradient(135deg, #315cf5, #06b6d4);
-    box-shadow: 0 4px 12px rgba(49, 92, 245, 0.25);
+    box-shadow: 0 4px 12px rgba(49, 92, 245, 0.3);
 }
 
 .teacher-role-note {
     display: flex;
     align-items: center;
     gap: 8px;
-    padding: 10px 5px 0;
+    padding: 12px 5px 0;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     color: #94a3b8;
-    font-size: 9px;
+    font-size: 10px;
+    line-height: 1.5;
 }
 
 .role-dot {
@@ -47,10 +49,10 @@
 
 .teacher-page .header-eyebrow {
     margin: 0 0 6px;
-    color: #5269df;
-    font-size: 9px;
+    color: #315cf5;
+    font-size: 10px;
     font-weight: 800;
-    letter-spacing: 1.5px;
+    letter-spacing: 1.6px;
 }
 
 .teacher-page .header-account {
@@ -60,9 +62,9 @@
 }
 
 .teacher-page .account-status {
-    border-color: #c7d2fe;
-    background: #eef2ff;
-    color: #5145cd;
+    border-color: #bae6fd;
+    background: #e0f2fe;
+    color: #0e7490;
 }
 
 .teacher-page .teacher-header-avatar {
@@ -72,10 +74,10 @@
     place-items: center;
     border-radius: 50%;
     background: linear-gradient(135deg, #315cf5, #06b6d4);
-    color: white;
+    color: #ffffff;
     font-size: 11px;
     font-weight: 800;
-    box-shadow: 0 4px 12px rgba(49, 92, 245, 0.18);
+    box-shadow: 0 4px 12px rgba(49, 92, 245, 0.2);
 }
 
 /* WELCOME BANNER */
@@ -84,10 +86,10 @@
     min-height: 185px;
     margin-bottom: 30px;
     background:
-        radial-gradient(circle at 88% 15%,
-            rgba(255, 255, 255, 0.14),
-            transparent 24%),
-        linear-gradient(110deg, #123c91 0%, #315cf5 58%, #0891b2 100%);
+        radial-gradient(circle at 88% 15%, rgba(255, 255, 255, 0.14), transparent 26%),
+        linear-gradient(112deg, #0b2545 0%, #1d4ed8 52%, #0284c7 100%);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    box-shadow: 0 16px 34px -12px rgba(10, 25, 58, 0.45);
 }
 
 .teacher-page .welcome-content {
@@ -100,17 +102,21 @@
     border-color: rgba(255, 255, 255, 0.28);
     background: rgba(255, 255, 255, 0.13);
     backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
 }
 
 .teacher-page .welcome-section h2 {
     font-size: 25px;
+    font-weight: 800;
     letter-spacing: -0.5px;
+    text-wrap: balance;
 }
 
 .teacher-page .welcome-section p {
     max-width: 550px;
-    font-size: 12px;
-    line-height: 1.8;
+    font-size: 12.5px;
+    line-height: 1.75;
+    text-wrap: pretty;
 }
 
 .teacher-page .welcome-decoration {
@@ -118,6 +124,7 @@
     font-size: 96px;
     opacity: 0.9;
     user-select: none;
+    pointer-events: none;
 }
 
 /* OVERVIEW */
@@ -128,8 +135,8 @@
 
 .teacher-page .data-label {
     border-color: #dbeafe;
-    background: linear-gradient(135deg, #eff6ff, #eef2ff);
-    color: #425ce0;
+    background: linear-gradient(135deg, #eff6ff, #ecfeff);
+    color: #1e40af;
     white-space: nowrap;
 }
 
@@ -152,7 +159,7 @@
     width: 75px;
     height: 75px;
     border-radius: 50%;
-    background: rgba(49, 92, 245, 0.035);
+    background: rgba(49, 92, 245, 0.04);
     pointer-events: none;
 }
 
@@ -160,6 +167,8 @@
     color: #253451;
     font-size: 25px;
     font-weight: 800;
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
 }
 
 /* OVERVIEW CONTENT GRID */
@@ -177,15 +186,15 @@
 }
 
 .teacher-page .content-card {
-    transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease,
-        border-color 0.2s ease;
+    transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.2s ease;
 }
 
-.teacher-page .content-card:hover {
-    border-color: #dce4f5;
-    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.055);
+@media (hover: hover) and (pointer: fine) {
+    .teacher-page .content-card:hover {
+        transform: translateY(-2px);
+        border-color: #dce4f5;
+        box-shadow: 0 14px 32px rgba(15, 23, 42, 0.07);
+    }
 }
 
 .teacher-page .card-heading h3 {
@@ -234,8 +243,8 @@
 }
 
 .module-mini-icon.purple {
-    background: #f0eaff;
-    color: #7c3aed;
+    background: #e3f5ef;
+    color: #0f766e;
 }
 
 .module-mini-icon.green {
@@ -252,12 +261,12 @@
 
 .teacher-module-info strong {
     color: #263552;
-    font-size: 11px;
+    font-size: 11.5px;
 }
 
 .teacher-module-info span {
     color: #8491a8;
-    font-size: 10px;
+    font-size: 10.5px;
 }
 
 .module-indicator {
@@ -295,7 +304,7 @@
     max-width: 300px;
     margin: 0;
     color: #8190aa;
-    font-size: 11px;
+    font-size: 11.5px;
     line-height: 1.7;
 }
 
@@ -310,6 +319,14 @@
     color: #94a3b8;
     font-size: 17px;
     font-weight: 500;
+    transition: transform 140ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .teacher-page .quick-actions button:hover b {
+        transform: translateX(3px);
+        color: #315cf5;
+    }
 }
 
 /* MODULE PLACEHOLDER */
@@ -334,8 +351,8 @@
 }
 
 .teacher-page .module-symbol.purple {
-    background: #f0eaff;
-    color: #7c3aed;
+    background: #e3f5ef;
+    color: #0f766e;
 }
 
 .teacher-page .module-symbol.green {
@@ -344,9 +361,11 @@
 }
 
 .teacher-page .module-status {
-    border: 1px solid #dbeafe;
-    background: #eff6ff;
-    color: #425ce0;
+    border: 1px solid #bae6fd;
+    background: #e0f2fe;
+    color: #0e7490;
+    border-radius: 999px;
+    font-weight: 700;
 }
 
 .teacher-page .module-action {
@@ -354,21 +373,30 @@
     align-items: center;
     gap: 8px;
     margin-top: 20px;
-    padding: 10px 15px;
-    border-radius: 9px;
-    background: linear-gradient(100deg, #315cf5, #653de8);
-    color: white;
-    font-size: 11px;
+    padding: 10px 16px;
+    min-height: 42px;
+    border-radius: 11px;
+    background: linear-gradient(100deg, #315cf5, #0e7490);
+    color: #ffffff;
+    font-size: 12px;
     font-weight: 700;
-    box-shadow: 0 4px 12px rgba(49, 92, 245, 0.16);
-    transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease;
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    box-shadow: 0 6px 16px -4px rgba(49, 92, 245, 0.3);
+    transition: transform 140ms cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.2s ease, filter 0.2s ease;
 }
 
-.teacher-page .module-action:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 7px 17px rgba(49, 92, 245, 0.22);
+.teacher-page .module-action:active {
+    transform: scale(0.97);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .teacher-page .module-action:hover {
+        transform: translateY(-2px);
+        filter: brightness(1.07);
+        box-shadow: 0 9px 20px -4px rgba(49, 92, 245, 0.4);
+    }
 }
 
 /* RESPONSIVE */
@@ -435,5 +463,11 @@
         scroll-behavior: auto !important;
         animation-duration: 0.01ms !important;
         transition-duration: 0.01ms !important;
+    }
+
+    .teacher-page .content-card:hover,
+    .teacher-page .module-action:hover,
+    .teacher-page .quick-actions button:hover b {
+        transform: none;
     }
 }
