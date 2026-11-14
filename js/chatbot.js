@@ -1,7 +1,8 @@
 (function () {
   // Cấu hình API và chế độ offline.
-  const apiUrl = window.CHATBOT_API_URL || "/api/chat";
-  const isGitHubPages = window.location.hostname.endsWith("github.io");
+  const apiUrl =
+    window.CHATBOT_API_URL ||
+    "https://ktrinh-khkt-github-io-1.onrender.com/api/chat";
 
   // Trả lời cơ bản khi không có backend.
   function offlineReply(question) {
@@ -214,13 +215,6 @@
       }
 
       try {
-        // GitHub Pages không có backend Node.js.
-        if (isGitHubPages) {
-          const reply = offlineReply(text);
-          history.push({ role: "model", text: reply });
-          addMessage("assistant", reply);
-          return;
-        }
 
         // Gửi lịch sử hội thoại đến backend.
         const response = await fetch(apiUrl, {

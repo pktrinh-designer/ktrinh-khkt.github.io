@@ -2,7 +2,7 @@
   // Backend API dùng chung cho GitHub Pages và Render.
   const API_BASE_URL = (
     window.CONGNGHE8_API_BASE_URL ||
-    "https://ktrinh-khkt-github-io.onrender.com"
+    "https://ktrinh-khkt-github-io-1.onrender.com"
   ).replace(/\/$/, "");
 
   // Gửi yêu cầu đến Quiz API của Backend Render.

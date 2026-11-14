@@ -447,36 +447,6 @@ async function handleChat(request, response) {
     return;
   }
 
-  const origin = request.headers.origin;
-
-  if (origin) {
-    try {
-      const originUrl = new URL(origin);
-      const forwardedProto = (request.headers["x-forwarded-proto"] || "http")
-        .split(",")[0]
-        .trim();
-
-      const validProtocol =
-        forwardedProto === "https" || forwardedProto === "http";
-
-      if (
-        !validProtocol ||
-        originUrl.host !== request.headers.host ||
-        originUrl.protocol !== `${forwardedProto}:`
-      ) {
-        sendJson(response, 403, {
-          error: "Nguồn gửi yêu cầu không được phép.",
-        });
-        return;
-      }
-    } catch (error) {
-      sendJson(response, 403, {
-        error: "Nguồn gửi yêu cầu không hợp lệ.",
-      });
-      return;
-    }
-  }
-
   if (!allowRequest(request.socket.remoteAddress || "local")) {
     sendJson(response, 429, {
       error: "Bạn gửi câu hỏi quá nhanh. Hãy chờ một phút rồi thử lại.",
